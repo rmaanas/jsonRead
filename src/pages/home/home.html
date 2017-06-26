@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Login Screen
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+		<ion-item>
+		  <ion-label floating>Username</ion-label>
+		  <ion-input type="text" [(ngModel)]="data.username"></ion-input>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label floating>Password</ion-label>
+		  <ion-input type="password" [(ngModel)]="data.password"></ion-input>
+		</ion-item>
+
+        <button ion-button block round (click)="submit()">Login</button>
+    </ion-list>
+
+    <ion-card>
+        <ion-card-header>
+            Authenticated
+        </ion-card-header>
+        
+        <ion-card-content>
+            <b>{{authenticated}}</b>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
