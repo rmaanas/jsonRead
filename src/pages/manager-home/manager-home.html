@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar color="primary">
+	 <button ion-button menuToggle>
+      <ion-icon name='menu'></ion-icon>
+    </button>
     <ion-title>
       Manager Screen
     </ion-title>
@@ -8,21 +11,25 @@
 
 <ion-content padding>
 
-<button ion-button color="secondary">Secondary</button>
-
-<ion-menu [content]="mycontent">
+<ion-menu [content]="mycontent" persistent=true>
 
     <ion-content>
         <ion-list>
-             <button ion-item menuClose (click)="openPage(homePage)">
+             <button ion-item menuClose>
                 Home
             </button>
-            <button ion-item menuClose (click)="openPage(catsPage)">
-                Cats
+            <button ion-item menuClose >
+                Add Visit
             </button>
-            <button ion-item menuClose (click)="openPage(dogsPage)">
-                Dogs
+            <button ion-item menuClose >
+                Update/Delete Visit
             </button>
+			<button ion-item menuClose >
+                Track Progress
+            </button>
+			<button ion-item menuClose >
+                View History
+            </button>			
         </ion-list>
     </ion-content>
 

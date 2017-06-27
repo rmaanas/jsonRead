@@ -19,7 +19,12 @@ export class ManagerHomePage {
   	menu.enable(true);
 
   }
-
+  
+  openpage(page: any)
+  {
+	  
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad ManagerHomePage');
   }
