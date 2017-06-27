@@ -3,7 +3,11 @@ import {Http, Headers} from '@angular/http';
 import { NavController } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import 'rxjs/add/operator/map';
+<<<<<<< HEAD
 import ''
+=======
+import {ManagerHomePage} from '../manager-home/manager-home';
+>>>>>>> 1e89f095fbecae4ae9dd746b9b6ea9de120cc2c8
 
 @Component({
   selector: 'page-home',
@@ -34,7 +38,10 @@ export class HomePage {
     this.jsonObj = JSON.parse(data["_body"]);
     this.authenticated = this.jsonObj.authenticated;
     this.loader.dismiss();
-	}, error => {
+	if(this.authenticated == "yes")
+	{
+		this.navCtrl.setRoot(ManagerHomePage);
+	}}, error => {
 		console.log("Oooops!");
 	});
   }
