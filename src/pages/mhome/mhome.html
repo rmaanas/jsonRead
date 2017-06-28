@@ -1,9 +1,18 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <ion-title>My Projects</ion-title>
-    </ion-navbar>
+  <ion-navbar color="primary">
+  <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+    <ion-title>
+      Manager Home
+    </ion-title>
+  </ion-navbar>
 </ion-header>
+
 <ion-content padding>
+
+<ion-content padding>
+  
     <ion-label><b>Project name: </b></ion-label>   
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
@@ -24,4 +33,5 @@
         </button>
       </ion-list>
     </div>
+
 </ion-content>

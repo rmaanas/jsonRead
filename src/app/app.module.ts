@@ -7,6 +7,7 @@ import {HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {ManagerHomePage} from '../pages/manager-home/manager-home';
+import {MhomePage} from '../pages/mhome/mhome';
 import {AddVisitPage} from '../pages/add-visit/add-visit';
 import {UpdateVisitPage} from '../pages/update-visit/update-visit';
 import { ViewHistoryPage } from '../pages/view-history/view-history';
@@ -19,6 +20,7 @@ import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-m
     MyApp,
     HomePage,
 	  ManagerHomePage,
+    MhomePage,
     AddVisitPage,
     EmployeeHomePage,
     EmployeeAllProjectsPage,
@@ -36,6 +38,7 @@ import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-m
     MyApp,
     HomePage,
 	  ManagerHomePage,
+    MhomePage,
     EmployeeHomePage,
     EmployeeAllProjectsPage,
     EmployeeMyProjectsPage,

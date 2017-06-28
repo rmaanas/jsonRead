@@ -1,11 +1,16 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>View History</ion-title>
-    </ion-navbar>
+  <ion-navbar color="primary">
+  <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+    <ion-title>
+      View History
+    </ion-title>
+  </ion-navbar>
 </ion-header>
+
+
+
 
 <ion-content padding>
 
@@ -25,17 +30,17 @@
 
   <ion-item>
     <ion-label stacked>From Date</ion-label>
-    <ion-input type="fromdate"></ion-input>
+    <ion-input type="date"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>To Date</ion-label>
-    <ion-input type="todate"></ion-input>
+    <ion-input type="date"></ion-input>
   </ion-item>
 
 </ion-list>
 
-	<button ion-button round>Search</button>
+	<button (click)="SearchHist()" ion-button round>Search</button>
 
 
 	<ion-list>
@@ -50,12 +55,13 @@
 </ion-list>
 
 
-    <ion-title>Records</ion-title>
+    <ion-title>Records:</ion-title>
 <div class="row" *ngIf="collectings && collectings.length > 0">
   <ion-list>
- <ion-item *ngFor="let collecting of collectings">
-   {{collecting.hint}} - {{ collecting.amount }}
- </ion-item>  </ion-list>
+ <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)" text-center>
+   <h2> <b>Project:</b>{{"     " + collecting.ProjectName + " ----------- "}} <b>Date:</b>{{"     " + collecting.Date}}</h2>
+ </button>
+ </ion-list>
 </div>
 
 </ion-content>

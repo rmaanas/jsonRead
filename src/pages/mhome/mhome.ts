@@ -3,10 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-employee-my-projects',
-  templateUrl: 'employee-my-projects.html',
+  selector: 'page-mhome',
+  templateUrl: 'mhome.html',
 })
-export class EmployeeMyProjectsPage {
+export class MhomePage {
+
   collectings=null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -19,6 +20,11 @@ export class EmployeeMyProjectsPage {
   getCollectings() {
   return [
     {
+      "CustomerName": "Customer 1",
+      "ProjectName": "Project 1",
+      "Date": "12/07/2017"
+    },
+    {
       "CustomerName": "Customer 2",
       "ProjectName": "Customer Visit Management",
       "Date": "14/07/2017"
@@ -27,6 +33,11 @@ export class EmployeeMyProjectsPage {
       "CustomerName": "Customer 3",
       "ProjectName": "App Devlopment",
       "Date": "18/07/2017"
+    },
+    {
+      "CustomerName": "Customer 4",
+      "ProjectName": "Project 4",
+      "Date": "21/07/2017"
     }
   ];
   }
@@ -49,6 +60,6 @@ export class EmployeeMyProjectsPage {
         return (item.ProjectName.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
+  }
 
-}
 }

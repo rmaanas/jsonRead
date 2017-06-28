@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+//import { HistoryDetailsPage } from '../history-details/history-details';
 
-/**
- * Generated class for the ViewHistoryPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-view-history',
@@ -24,20 +20,24 @@ export class ViewHistoryPage {
   getCollectings() {
   return [
     {
-      "hint": "OPEN",
-      "amount": 24
+      "CustomerName": "Customer 1",
+      "ProjectName": "Project 1",
+      "Date": "12/07/2014"
     },
     {
-      "hint": "CREDIT CARD",
-      "amount": 347
+      "CustomerName": "Customer 2",
+      "ProjectName": "Project 2",
+      "Date": "14/07/2014"
     },
     {
-      "hint": "CASH",
-      "amount": 256.5
+      "CustomerName": "Customer 3",
+      "ProjectName": "Project 3",
+      "Date": "18/07/2014"
     },
     {
-      "hint": "REGE",
-      "amount": 123
+      "CustomerName": "Customer 4",
+      "ProjectName": "Project 4",
+      "Date": "21/07/2014"
     }
   ];
   }
@@ -51,8 +51,13 @@ onChange(CValue) {
      console.log(CValue);
 }
 
-  itemSelected(item: string) {
-    console.log("Selected Item", item);
+  itemSelected(item) {
+    //this.navCtrl.push(HistoryDetailsPage);
+  }
+
+  SearchHist()
+  {
+  	console.log("No Data");
   }
 
 }

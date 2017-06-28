@@ -4,10 +4,24 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      {{ item }}
-    </ion-item>
-  </ion-list>
+    <ion-label><b>Project name: </b></ion-label>   
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let item of items">
+        {{ item }}
+      </ion-item>
+    </ion-list>
+
+    <br>
+    <ion-title>Current Visits:</ion-title>
+    <div class="row" *ngIf="collectings && collectings.length > 0">
+      <ion-list>
+        <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
+
+          <h2>{{collecting.ProjectName}}</h2>
+          <h3>{{collecting.Date}}</h3>
+
+        </button>
+      </ion-list>
+    </div>
 </ion-content>

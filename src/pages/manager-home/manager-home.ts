@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 import { App, MenuController } from 'ionic-angular';
 import {AddVisitPage} from '../add-visit/add-visit';
 import {UpdateVisitPage} from '../update-visit/update-visit';
+import {MhomePage} from '../mhome/mhome';
 import {ViewHistoryPage} from '../view-history/view-history';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -15,11 +16,12 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 })
 export class ManagerHomePage {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = AddVisitPage;
+  rootPage: any = MhomePage;
   pages: Array<{title: string, component: any}>;
   constructor(public navCtrl: NavController, public navParams: NavParams,app: App,public menu: MenuController) {
   	menu.enable(true);
       this.pages = [
+      { title: 'Manager Home', component: MhomePage },
       { title: 'Add Visit', component: AddVisitPage },
       { title: 'Update Visit', component: UpdateVisitPage },
       { title: 'View History', component: ViewHistoryPage }
