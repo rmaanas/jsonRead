@@ -3,8 +3,11 @@ import {Http, Headers} from '@angular/http';
 import { NavController } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import 'rxjs/add/operator/map';
+<<<<<<< HEAD
 
 import ''
+=======
+>>>>>>> b1d65907e4cb90f76da5077bde23e8cc6906741e
 import {ManagerHomePage} from '../manager-home/manager-home';
 
 @Component({
@@ -38,7 +41,11 @@ export class HomePage {
     this.loader.dismiss();
 	if(this.authenticated == "yes")
 	{
-		this.navCtrl.setRoot(ManagerHomePage);
+    this.navCtrl.setRoot(ManagerHomePage).then(
+    ()=>{
+      this.navCtrl.popToRoot();
+    }
+    );
 	}}, error => {
 		console.log("Oooops!");
 	});
