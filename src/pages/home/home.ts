@@ -36,7 +36,11 @@ export class HomePage {
     this.loader.dismiss();
 	if(this.authenticated == "yes")
 	{
-		this.navCtrl.setRoot(ManagerHomePage);
+    this.navCtrl.setRoot(ManagerHomePage).then(
+    ()=>{
+      this.navCtrl.popToRoot();
+    }
+    );
 	}}, error => {
 		console.log("Oooops!");
 	});

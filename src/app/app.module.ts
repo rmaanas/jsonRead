@@ -7,12 +7,16 @@ import {HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {ManagerHomePage} from '../pages/manager-home/manager-home';
+import {AddVisitPage} from '../pages/add-visit/add-visit';
+import {UpdateVisitPage} from '../pages/update-visit/update-visit';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-	ManagerHomePage
+	ManagerHomePage,
+  AddVisitPage,
+  UpdateVisitPage
   ],
   imports: [
     HttpModule,
@@ -23,7 +27,9 @@ import {ManagerHomePage} from '../pages/manager-home/manager-home';
   entryComponents: [
     MyApp,
     HomePage,
-	ManagerHomePage
+	ManagerHomePage,
+  AddVisitPage,
+  UpdateVisitPage
   ],
   providers: [
     StatusBar,

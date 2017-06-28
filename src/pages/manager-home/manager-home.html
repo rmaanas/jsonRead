@@ -1,40 +1,42 @@
-<ion-header>
-  <ion-navbar color="primary">
-	 <button ion-button menuToggle>
-      <ion-icon name='menu'></ion-icon>
-    </button>
-    <ion-title>
-      Manager Screen
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
+    <ion-menu [content]="mycontent" [persistent] = "true">
+        <ion-header>
+            <ion-navbar color="primary">
+                <ion-title>Menu</ion-title>
+            </ion-navbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                    {{p.title}}
+                </button>
+            </ion-list>
+        </ion-content>
 
-<ion-menu [content]="mycontent" persistent=true>
 
-    <ion-content>
-        <ion-list>
-             <button ion-item menuClose>
-                Home
-            </button>
-            <button ion-item menuClose >
-                Add Visit
-            </button>
-            <button ion-item menuClose >
-                Update/Delete Visit
-            </button>
-			<button ion-item menuClose >
-                Track Progress
-            </button>
-			<button ion-item menuClose >
-                View History
-            </button>			
-        </ion-list>
-    </ion-content>
+        <!--
+        <ion-content>
+            <ion-list>
 
-</ion-menu>
-
-<ion-nav #mycontent [root]="rootPage"></ion-nav>
-
-</ion-content>
+                <button ion-item menuClose (click)="openPage(ManagerPage)">
+                    Home
+                </button>
+                <button ion-item menuClose (click)="openPage(AddVisitPage)">
+                    Add Visit
+                </button>
+                
+                <button ion-item menuClose (click)="openPage(homePage)">
+                    Update/Delete Visit
+                </button>
+                <button ion-item menuClose (click)="openPage(homePage)">
+                    Track Progress
+                </button>
+                <button ion-item menuClose (click)="openPage(homePage)">
+                    View History
+                </button>
+                    
+            </ion-list>
+        </ion-content>
+        -->
+    </ion-menu>
+<ion-nav  [root]="rootPage" #mycontent></ion-nav>
