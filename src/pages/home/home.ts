@@ -25,8 +25,7 @@ export class HomePage {
   }
  
   submit() {
-<<<<<<< HEAD
-  var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/login';
+  var link = 'http://localhost:9000/TestRest/testrest/login';
   var data = JSON.stringify({username: this.data.username, password: this.data.password});
   var headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -44,22 +43,6 @@ export class HomePage {
   }, error => {
     console.log("Oooops!");
   });
-=======
-  	var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/login';
-  	var data = JSON.stringify({username: this.data.username, password: this.data.password});
-  	var headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    this.presentLoading();
-  	this.http.post(link, data, {headers: headers})
-  	.subscribe(data => {
-  		this.data.response = data["_body"];
-      this.jsonObj = JSON.parse(data["_body"]);
-      this.authenticated = this.jsonObj.authenticated;
-      this.loader.dismiss();
-  	}, error => {
-  		console.log("Oooops!");
-  	});
->>>>>>> c86a565490d6d35e06fc377794ddb21fdb6f3a5f
   }
 
   presentLoading() {
