@@ -10,15 +10,21 @@ import {ManagerHomePage} from '../pages/manager-home/manager-home';
 import {AddVisitPage} from '../pages/add-visit/add-visit';
 import {UpdateVisitPage} from '../pages/update-visit/update-visit';
 import { ViewHistoryPage } from '../pages/view-history/view-history';
+import { EmployeeHomePage } from '../pages/employee-home/employee-home';
+import { EmployeeAllProjectsPage } from '../pages/employee-all-projects/employee-all-projects';
+import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-my-projects';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-	ManagerHomePage,
-  AddVisitPage,
-  UpdateVisitPage,
-  ViewHistoryPage
+	  ManagerHomePage,
+    AddVisitPage,
+    EmployeeHomePage,
+    EmployeeAllProjectsPage,
+    EmployeeMyProjectsPage,
+    UpdateVisitPage,
+    ViewHistoryPage
   ],
   imports: [
     HttpModule,
@@ -29,10 +35,13 @@ import { ViewHistoryPage } from '../pages/view-history/view-history';
   entryComponents: [
     MyApp,
     HomePage,
-	ManagerHomePage,
-  AddVisitPage,
-  UpdateVisitPage,
-  ViewHistoryPage
+	  ManagerHomePage,
+    EmployeeHomePage,
+    EmployeeAllProjectsPage,
+    EmployeeMyProjectsPage,
+    AddVisitPage,
+    UpdateVisitPage,
+    ViewHistoryPage
   ],
   providers: [
     StatusBar,

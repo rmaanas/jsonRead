@@ -5,13 +5,7 @@ import {AddVisitPage} from '../add-visit/add-visit';
 import {UpdateVisitPage} from '../update-visit/update-visit';
 import {ViewHistoryPage} from '../view-history/view-history';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-/**
- * Generated class for the ManagerHomePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
- 
+
 @Component({
   selector: 'page-manager-home',
   templateUrl: 'manager-home.html',

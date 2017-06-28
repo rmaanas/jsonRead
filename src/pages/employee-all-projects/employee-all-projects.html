@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>All Projects</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item }}
+    </ion-item>
+  </ion-list>
+</ion-content>
