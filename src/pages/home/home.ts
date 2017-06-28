@@ -3,7 +3,11 @@ import {Http, Headers} from '@angular/http';
 import { NavController } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import 'rxjs/add/operator/map';
+<<<<<<< HEAD
+import ''
+=======
 import {ManagerHomePage} from '../manager-home/manager-home';
+>>>>>>> 1e89f095fbecae4ae9dd746b9b6ea9de120cc2c8
 
 @Component({
   selector: 'page-home',
