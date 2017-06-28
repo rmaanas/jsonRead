@@ -31,6 +31,7 @@ export class HomePage {
 	var link = 'http://localhost:9000/TestRest/testrest/login';
 	var data = JSON.stringify({username: this.data.username, password: this.data.password});
 	var headers = new Headers();
+    headers.append("Content-Type", "application/json");
     this.http.post(link, data, {headers: headers})
 	
     .subscribe(data => {
