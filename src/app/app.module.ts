@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { ManagerHomePage } from '../pages/manager-home/manager-home';
 import { ViewHistoryPage } from '../pages/view-history/view-history';
 import { AddCustomerPage } from '../pages/add-customer/add-customer';
+import { HistoryDetailsPage } from '../pages/history-details/history-details';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AddCustomerPage } from '../pages/add-customer/add-customer';
     HomePage,
     ManagerHomePage,
     ViewHistoryPage,
-    AddCustomerPage
+    AddCustomerPage,
+    HistoryDetailsPage
   ],
   imports: [
     HttpModule,
@@ -30,7 +32,8 @@ import { AddCustomerPage } from '../pages/add-customer/add-customer';
     HomePage,
     ManagerHomePage,
     ViewHistoryPage,
-    AddCustomerPage
+    AddCustomerPage,
+    HistoryDetailsPage
   ],
   providers: [
     StatusBar,
