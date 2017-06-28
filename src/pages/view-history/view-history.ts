@@ -58,7 +58,7 @@ onChange(CValue) {
 }
 
   itemSelected(item) {
-    console.log("Project Name", item.ProjectName);
+    this.navCtrl.push(HistoryDetailsPage);
   }
 
   SearchHist()
