@@ -27,25 +27,24 @@ export class HomePage {
         this.http = http;
   }
  
-  submit() {
+  private submit() {
 	var link = 'http://localhost:9000/TestRest/testrest/login';
 	var data = JSON.stringify({username: this.data.username, password: this.data.password});
 	var headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  this.presentLoading();
-	this.http.post(link, data, {headers: headers})
-	.subscribe(data => {
+    this.http.post(link, data, {headers: headers})
+	
+    .subscribe(data => {
 		this.data.response = data["_body"];
-    this.jsonObj = JSON.parse(data["_body"]);
-    this.authenticated = this.jsonObj.authenticated;
-    this.loader.dismiss();
-	if(this.authenticated == "yes")
-	{
-    this.navCtrl.setRoot(ManagerHomePage).then(
-    ()=>{
-      this.navCtrl.popToRoot();
-    }
-    );
+        this.jsonObj = JSON.parse(data["_body"]);
+        this.authenticated = this.jsonObj.authenticated;
+        this.loader.dismiss();
+    	if(this.authenticated == "yes")
+    	{
+            this.navCtrl.setRoot(ManagerHomePage).then(
+            ()=>{
+              this.navCtrl.popToRoot();
+            }
+        );
 	}}, error => {
 		console.log("Oooops!");
 	});
