@@ -37,7 +37,7 @@ collectings=null;
       "Date": "14/07/2014"
     },
     {
-      "CustomerName": "GFdsksdbj",
+      "CustomerName": "KJHNB",
       "ProjectName": "plm",
       "Date": "18/07/2014"
     },
@@ -62,21 +62,6 @@ onChange(CValue) {
   SearchHist()
   {
   	console.log("No Data");
-  }
-
-  getItems(ev) {
-    // Reset items back to all of the items
-    this.collectings=this.getCollectings();
-
-    // set val to the value of the ev target
-    var val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.collectings = this.collectings.filter((item) => {
-        return (item.CustomerName.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
   }
 
 }
