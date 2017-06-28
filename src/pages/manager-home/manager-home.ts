@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 import { App, MenuController } from 'ionic-angular';
 import {AddVisitPage} from '../add-visit/add-visit';
 import {UpdateVisitPage} from '../update-visit/update-visit';
+import {ViewHistoryPage} from '../view-history/view-history';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 /**
  * Generated class for the ManagerHomePage page.
@@ -26,7 +27,8 @@ export class ManagerHomePage {
   	menu.enable(true);
       this.pages = [
       { title: 'Add Visit', component: AddVisitPage },
-      { title: 'Update Visit', component: UpdateVisitPage }
+      { title: 'Update Visit', component: UpdateVisitPage },
+      { title: 'View History', component: ViewHistoryPage }
     ];
 
   }

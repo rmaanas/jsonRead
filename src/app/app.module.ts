@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import {ManagerHomePage} from '../pages/manager-home/manager-home';
 import {AddVisitPage} from '../pages/add-visit/add-visit';
 import {UpdateVisitPage} from '../pages/update-visit/update-visit';
+import { ViewHistoryPage } from '../pages/view-history/view-history';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {UpdateVisitPage} from '../pages/update-visit/update-visit';
     HomePage,
 	ManagerHomePage,
   AddVisitPage,
-  UpdateVisitPage
+  UpdateVisitPage,
+  ViewHistoryPage
   ],
   imports: [
     HttpModule,
@@ -29,7 +31,8 @@ import {UpdateVisitPage} from '../pages/update-visit/update-visit';
     HomePage,
 	ManagerHomePage,
   AddVisitPage,
-  UpdateVisitPage
+  UpdateVisitPage,
+  ViewHistoryPage
   ],
   providers: [
     StatusBar,
