@@ -24,20 +24,24 @@ export class ViewHistoryPage {
   getCollectings() {
   return [
     {
-      "hint": "OPEN",
-      "amount": 24
+      "CustomerName": "OPEN",
+      "ProjectName": "abc",
+      "Date": "12/07/2014"
     },
     {
-      "hint": "CREDIT CARD",
-      "amount": 347
+      "CustomerName": "sdb",
+      "ProjectName": "zxy",
+      "Date": "14/07/2014"
     },
     {
-      "hint": "CASH",
-      "amount": 256.5
+      "CustomerName": "kjugj",
+      "ProjectName": "plm",
+      "Date": "18/07/2014"
     },
     {
-      "hint": "REGE",
-      "amount": 123
+      "CustomerName": "werwr",
+      "ProjectName": "trg",
+      "Date": "21/07/2014"
     }
   ];
   }
@@ -51,8 +55,13 @@ onChange(CValue) {
      console.log(CValue);
 }
 
-  itemSelected(item: string) {
-    console.log("Selected Item", item);
+  itemSelected(item) {
+    console.log("Project Name", item.ProjectName);
+  }
+
+  SearchHist()
+  {
+  	console.log("No Data");
   }
 
 }

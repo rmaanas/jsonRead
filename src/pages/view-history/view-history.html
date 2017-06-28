@@ -41,7 +41,7 @@
 
 </ion-list>
 
-	<button ion-button round>Search</button>
+	<button (click)="SearchHist()" ion-button round>Search</button>
 
 
 	<ion-list>
@@ -56,12 +56,13 @@
 </ion-list>
 
 
-    <ion-title>Records</ion-title>
+    <ion-title>Records:</ion-title>
 <div class="row" *ngIf="collectings && collectings.length > 0">
   <ion-list>
- <ion-item *ngFor="let collecting of collectings">
-   {{collecting.hint}} - {{ collecting.amount }}
- </ion-item>  </ion-list>
+ <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
+   {{collecting.CustomerName}}--------------------{{collecting.Date}}
+ </button>
+ </ion-list>
 </div>
 
 </ion-content>
