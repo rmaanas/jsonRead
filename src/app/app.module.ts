@@ -10,7 +10,7 @@ import { ManagerHomePage } from '../pages/manager-home/manager-home';
 import { ViewHistoryPage } from '../pages/view-history/view-history';
 import { AddCustomerPage } from '../pages/add-customer/add-customer';
 import { HistoryDetailsPage } from '../pages/history-details/history-details';
-
+import { MhomePage } from '../pages/mhome/mhome';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { HistoryDetailsPage } from '../pages/history-details/history-details';
     ManagerHomePage,
     ViewHistoryPage,
     AddCustomerPage,
-    HistoryDetailsPage
+    HistoryDetailsPage,
+    MhomePage
   ],
   imports: [
     HttpModule,
@@ -33,7 +34,8 @@ import { HistoryDetailsPage } from '../pages/history-details/history-details';
     ManagerHomePage,
     ViewHistoryPage,
     AddCustomerPage,
-    HistoryDetailsPage
+    HistoryDetailsPage,
+    MhomePage
   ],
   providers: [
     StatusBar,
