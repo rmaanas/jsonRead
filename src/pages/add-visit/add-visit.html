@@ -3,9 +3,43 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Add Visit</ion-title>
+        <ion-title>Add Visit </ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <h1>Welcome, here you can add visit with details</h1>
+ 	<ion-list>
+		<ion-item>
+		  <ion-label floating>Project Name</ion-label>
+		  <ion-input type="text" [(ngModel)]="visit.projectname" name="projectname"></ion-input>
+		</ion-item>
+		<ion-item>
+		  <ion-label floating>Client Head</ion-label>
+		  <ion-input type="text" [(ngModel)]="visit.clienthead" name="clienthead"></ion-input>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label floating>Oraganisation</ion-label>
+		  <ion-input type="text" [(ngModel)]="visit.organisation" name="organisation"></ion-input>
+		</ion-item>
+
+		<ion-item>
+		  <ion-label floating>Customer email</ion-label>
+		  <ion-input type="text" [(ngModel)]="visit.customeremail" name="customeremail"></ion-input>
+		</ion-item>
+
+		<!--<ion-item>
+			<p>Members List:</p>
+			<ul>
+				<li *ngFor="let member of members">
+					{{ member }} &nbsp;&nbsp;&nbsp;&nbsp;<ion-icon name="build" (click)="editmember()"></ion-icon>&nbsp;&nbsp;<ion-icon class="icon-red" name="close" (click)="removemember()"></ion-icon>
+				</li>
+				<ion-icon id="add-icon" name="add" (click)="addmembers()"></ion-icon>
+			</ul>
+		</ion-item>
+	-->
+    </ion-list>
+    <div class="buttons">
+		<button ion-button class="leftbutton" (click)="createvisit()">CREATE VISIT</button>
+		<button ion-button class="cancelbutton" (click)="goToHome()">CANCEL</button>
+  	</div>
 </ion-content>

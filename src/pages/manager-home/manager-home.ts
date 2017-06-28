@@ -23,7 +23,6 @@ export class ManagerHomePage {
       this.pages = [
       { title: 'Manager Home', component: MhomePage },
       { title: 'Add Visit', component: AddVisitPage },
-      { title: 'Update Visit', component: UpdateVisitPage },
       { title: 'View History', component: ViewHistoryPage }
     ];
 

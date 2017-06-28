@@ -14,6 +14,8 @@ import { ViewHistoryPage } from '../pages/view-history/view-history';
 import { EmployeeHomePage } from '../pages/employee-home/employee-home';
 import { EmployeeAllProjectsPage } from '../pages/employee-all-projects/employee-all-projects';
 import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-my-projects';
+import { AddEditPage } from '../pages/add-edit/add-edit';
+import { ProjectpagePage } from '../pages/projectpage/projectpage';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-m
     EmployeeAllProjectsPage,
     EmployeeMyProjectsPage,
     UpdateVisitPage,
-    ViewHistoryPage
+    ViewHistoryPage,
+    AddEditPage,
+    ProjectpagePage
   ],
   imports: [
     HttpModule,
@@ -44,7 +48,9 @@ import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-m
     EmployeeMyProjectsPage,
     AddVisitPage,
     UpdateVisitPage,
-    ViewHistoryPage
+    ViewHistoryPage,
+    AddEditPage,
+    ProjectpagePage
   ],
   providers: [
     StatusBar,

@@ -10,7 +10,7 @@ import {ManagerHomePage} from '../manager-home/manager-home';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  public imglink = "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Atos.svg/800px-Atos.svg.png";
   data: any;
   loader: any;
   jsonObj: any;
