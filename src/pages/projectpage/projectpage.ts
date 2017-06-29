@@ -13,6 +13,8 @@ collectings=null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.collectings=this.getCollectings();
+
+   
   }
 
   ionViewDidLoad() {
@@ -24,7 +26,7 @@ collectings=null;
       "Event"     : "Pickup the visitor",
       "Start"     : "8:00",
       "End"       : "9:00",
-      "Date"      : "29/06/2017",
+      "Date"      : "Jun 21, 2012",
       "Owner"     : "Anil",
       "Venue"     : "Airport"
     },
@@ -32,7 +34,7 @@ collectings=null;
       "Event"    : "Travel to Hotel",
       "Start"     : "9:00",
       "End"       : "9:15",
-      "Date"      : "29/06/2017",
+      "Date"      : "Dec 21, 2012",
       "Owner"     : "Sunil",
       "Venue"     : "Cab"
     },
@@ -64,21 +66,41 @@ collectings=null;
   }
 
 
-  itemSelected(item,item1) {
+  itemSelected(item) {
+    var dob: Date = item.Date;
+    var newDate=new Date(dob);
+    var day=newDate.getDate();
+    var month=newDate.getMonth();
+    month=month+1;
+    var year = newDate.getFullYear();
+    
+    if(month<10)
+    {
+      var mo = "0"+month;
+      month=parseInt(mo);
+      var da = year + "-" + mo + "-" + day;
+    }
+    else
+    {
+      var da = year + "-" + month + "-" + day;
+    }
+    console.log(mo);
+    item.Date=da;
+
     this.navCtrl.push(AddEditPage,{
     item : 'Edit',
-    item1 : item1
+    item1 : item
     });
     console.log(item.Event + " is selected");
   }
 
-  fab(item)
+  fab()
   {
     this.navCtrl.push(AddEditPage,{
     item:'Add',
     item1:null
     });
-    console.log(item+"has reached");
+    console.log("Add has reached");
   }
   
 

@@ -42,21 +42,15 @@
 
  <ion-list>
 
- <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0"> 
+ <ion-list class="row" *ngIf="collectings && collectings.length > 0"> 
  <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)" text-center>
 <ion-item>
 <h1><b>Event:</b>{{"    "+collecting.Event}}</h1> <br>
     <h3><b>Date:</b>{{"  "+collecting.Date+"     "}}<b>Owner:</b>{{"  "+collecting.Owner+"      "}}<b>Venue:</b>{{"  "+collecting.Venue}}</h3><br>  
   <h3><b>Start time:</b>{{"  "+collecting.Start+"    "}}<b>End time:</b>{{"  "+collecting.End+"  "}}</h3> <br>
-    </ion-item>
-    <ion-item-options side="left">
-      <button ion-button color="primary">
-        <ion-icon name="text"></ion-icon>
-        Edit
-      </button>
-    </ion-item-options>
+</ion-item>
  </button>
-    </ion-item-sliding>
+    </ion-list>
  </ion-list>
  
 
