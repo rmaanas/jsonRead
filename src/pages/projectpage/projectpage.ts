@@ -24,33 +24,33 @@ collectings=null;
   return [
     {
       "Event"     : "Pickup the visitor",
-      "Start"     : "8:00",
-      "End"       : "9:00",
-      "Date"      : "Jun 21, 2012",
+      "Start"     : "08:00",
+      "End"       : "09:00",
+      "Date"      : "2017-06-26",
       "Owner"     : "Anil",
       "Venue"     : "Airport"
     },
     {
       "Event"    : "Travel to Hotel",
-      "Start"     : "9:00",
-      "End"       : "9:15",
-      "Date"      : "Dec 21, 2012",
+      "Start"     : "09:00",
+      "End"       : "09:15",
+      "Date"      : "2017-06-26",
       "Owner"     : "Sunil",
       "Venue"     : "Cab"
     },
     {
       "Event"    : "Meet at Hotel",
-      "Start"     : "9:15",
-      "End"       : "9:30",
-      "Date"      : "29/06/2017",
+      "Start"     : "09:15",
+      "End"       : "09:30",
+      "Date"      : "2017-06-26",
       "Owner"     : "Ram",
       "Venue"     : "Hotel Taj"
     },
     {
       "Event"     : "Travel to  Atos",
-      "Start "    :  "9:30",
-      "End"       :  "9:45",
-      "Date"      :  "29/06/2017",
+      "Start"    :  "09:31",
+      "End"       :  "09:45",
+      "Date"      :  "2017-06-26",
       "Owner"     :  "Sunil",
       "Venue"     :  "Cab"
     },
@@ -58,7 +58,7 @@ collectings=null;
       "Event"     : "Meeting",
       "Start"     :  "10:00",
       "End"       : "12:00",
-      "Date"      : "29/06/2017",
+      "Date"      : "2017-06-26",
       "Owner"     : "Rajesh",
       "Venue"     : "Atos, Pune"
     }
@@ -67,13 +67,14 @@ collectings=null;
 
 
   itemSelected(item) {
+  /*
     var dob: Date = item.Date;
+    console.log(dob);
     var newDate=new Date(dob);
     var day=newDate.getDate();
     var month=newDate.getMonth();
     month=month+1;
     var year = newDate.getFullYear();
-    
     if(month<10)
     {
       var mo = "0"+month;
@@ -86,9 +87,9 @@ collectings=null;
     }
     console.log(mo);
     item.Date=da;
-
+*/
     this.navCtrl.push(AddEditPage,{
-    item : 'Edit',
+    item : 'Edit Event',
     item1 : item
     });
     console.log(item.Event + " is selected");
@@ -96,9 +97,19 @@ collectings=null;
 
   fab()
   {
+
+    var item:any ;
+    item = {
+      "Event"     : "",
+      "Start"     :  "00:00",
+      "End"       : "00:00",
+      "Date"      : "2017-07-28",
+      "Owner"     : "",
+      "Venue"     : ""
+    }
     this.navCtrl.push(AddEditPage,{
-    item:'Add',
-    item1:null
+    item:'Add An Event',
+    item1:item
     });
     console.log("Add has reached");
   }
