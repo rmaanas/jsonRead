@@ -17,9 +17,12 @@ export class AddEditPage {
   
  
  item:any ;
+ data : any ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.item = navParams.get('item');
+      this.data = navParams.get('item1');
+
 
   }
 
