@@ -16,6 +16,7 @@ import { EmployeeAllProjectsPage } from '../pages/employee-all-projects/employee
 import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-my-projects';
 import { AddEditPage } from '../pages/add-edit/add-edit';
 import { ProjectpagePage } from '../pages/projectpage/projectpage';
+import { AddRolePage } from '../pages/add-role/add-role';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProjectpagePage } from '../pages/projectpage/projectpage';
     UpdateVisitPage,
     ViewHistoryPage,
     AddEditPage,
-    ProjectpagePage
+    ProjectpagePage,
+    AddRolePage
   ],
   imports: [
     HttpModule,
@@ -50,7 +52,8 @@ import { ProjectpagePage } from '../pages/projectpage/projectpage';
     UpdateVisitPage,
     ViewHistoryPage,
     AddEditPage,
-    ProjectpagePage
+    ProjectpagePage,
+    AddRolePage
   ],
   providers: [
     StatusBar,

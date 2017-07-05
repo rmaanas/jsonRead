@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import {ManagerHomePage} from '../pages/manager-home/manager-home';
 import { EmployeeHomePage } from '../pages/employee-home/employee-home';
+import { AddRolePage } from '../pages/add-role/add-role';
 @Component({
   templateUrl: 'app.html'
 })
