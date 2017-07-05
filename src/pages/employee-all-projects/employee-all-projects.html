@@ -4,6 +4,13 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding>
+    
+    <ion-card>
+        <ion-card-header>
+            Hello {{username}}
+        </ion-card-header>
+    </ion-card>
+
     <ion-label><b>Project name: </b></ion-label>   
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>

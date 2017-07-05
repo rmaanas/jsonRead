@@ -4,18 +4,20 @@ import { NavController } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import {ManagerHomePage} from '../manager-home/manager-home';
+import {EmployeeHomePage} from '../employee-home/employee-home';
+import {ShareService} from '../services/ShareService';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public imglink = "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Atos.svg/800px-Atos.svg.png";
+  //public imglink = "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Atos.svg/800px-Atos.svg.png";
   data: any;
   loader: any;
   jsonObj: any;
   authenticated: any;
-  constructor(public loadingCtrl : LoadingController,public navCtrl: NavController, public http: Http) {
+  constructor(public loadingCtrl : LoadingController,public navCtrl: NavController, public http: Http,public shareService: ShareService) {
         this.data = {};
         this.data.username = '';
         this.data.response = '';
@@ -36,11 +38,24 @@ export class HomePage {
     this.loader.dismiss();
 	if(this.authenticated == "yes")
 	{
-    this.navCtrl.setRoot(ManagerHomePage).then(
-    ()=>{
-      this.navCtrl.popToRoot();
-    }
-    );
+      this.shareService.setUserName(this.jsonObj.username);
+	  if(this.jsonObj.role == "manager")
+      {
+          console.log(this.jsonObj.username);
+          this.navCtrl.setRoot(ManagerHomePage).then(
+          ()=>{
+            this.navCtrl.popToRoot();
+          }
+          );
+      }
+      else
+      {
+          this.navCtrl.setRoot(EmployeeHomePage).then(
+          ()=>{
+            this.navCtrl.popToRoot();
+          }
+          );
+      }
 	}}, error => {
 		console.log("Oooops!");
 	});

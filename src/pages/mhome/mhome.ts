@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProjectpagePage } from '../projectpage/projectpage';
+import {ShareService} from '../services/ShareService';
 
 @IonicPage()
 @Component({
@@ -10,9 +11,10 @@ import { ProjectpagePage } from '../projectpage/projectpage';
 export class MhomePage {
 
   collectings=null;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  username: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private shareService: ShareService) {
     this.collectings=this.getCollectings();
+    this.username = this.shareService.getUserName();
   }
 
   ionViewDidLoad() {

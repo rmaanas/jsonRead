@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import {ShareService} from '../pages/services/ShareService';
 import { HomePage } from '../pages/home/home';
 import {ManagerHomePage} from '../pages/manager-home/manager-home';
 import { EmployeeHomePage } from '../pages/employee-home/employee-home';
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [ShareService] 
 })
 export class MyApp {
   rootPage:any = HomePage;

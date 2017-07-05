@@ -17,6 +17,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 export class ManagerHomePage {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = MhomePage;
+  username: any;
   pages: Array<{title: string, component: any}>;
   constructor(public navCtrl: NavController, public navParams: NavParams,app: App,public menu: MenuController) {
   	menu.enable(true);
