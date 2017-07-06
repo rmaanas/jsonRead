@@ -20,21 +20,27 @@ export class MhomePage {
   f: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,private shareService: ShareService, public storage: Storage) {
     this.collectings=this.getCollectings();
-    this.myjsonObj = this.storage.get("jsonObj");
-    this.username = this.myjsonObj.username;
-    this.loadcf();
+    this.storage.get("jsonObj").then(value=>{
+      this.myjsonObj = value;
+      this.username = this.myjsonObj.username;
+      console.log('printing from ' + this.username);
+      this.loadcf();
+    });
   }
 
 	loadcf()
   {
 
-      var link = 'http://localhost:9000/TestRest/testrest/ftoc';
+      var link = 'http://localhost:9000/TestRest/testrest/ftoc/-40';
       var headers = new Headers();
       //headers.append("Content-Type", "application/json");
       //headers.append("authorization", "admin eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlzcyI6IkFUT1NfQ1ZNIn0.3j0w8o0ig-ngpF8OK1ls87yCbfoMJvML_rEQsOsE79Y");
-      headers.append("username", "admin");
-      headers.append("accesstoken", "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlzcyI6IkFUT1NfQ1ZNIn0.3j0w8o0ig-ngpF8OK1ls87yCbfoMJvML_rEQsOsE79Y");
+      //headers.append("username", "admin");
+      //headers.append("accesstoken", "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlzcyI6IkFUT1NfQ1ZNIn0.3j0w8o0ig-ngpF8OK1ls87yCbfoMJvML_rEQsOsE79Y");
       //var data = JSON.stringify({f: "98.4"});
+      headers.append("username", this.myjsonObj.username);
+      headers.append("accesstoken", this.myjsonObj.accesstoken);
+      
       this.http.get(link, {"headers": headers})
       .subscribe(data => {
         this.jsonObj = JSON.parse(data["_body"]);
