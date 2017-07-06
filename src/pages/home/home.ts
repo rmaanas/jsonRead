@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import {ManagerHomePage} from '../manager-home/manager-home';
 import {EmployeeHomePage} from '../employee-home/employee-home';
 import {ShareService} from '../services/ShareService';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -17,7 +18,7 @@ export class HomePage {
   loader: any;
   jsonObj: any;
   authenticated: any;
-  constructor(public loadingCtrl : LoadingController,public navCtrl: NavController, public http: Http,public shareService: ShareService) {
+  constructor(public loadingCtrl : LoadingController,public navCtrl: NavController, public http: Http,public shareService: ShareService, public storage: Storage) {
         this.data = {};
         this.data.username = '';
         this.data.response = '';
@@ -39,6 +40,7 @@ export class HomePage {
 	if(this.authenticated == "yes")
 	{
       this.shareService.setUserName(this.jsonObj.username);
+      this.storage.set("jsonObj", this.jsonObj);
 	  if(this.jsonObj.role == "manager")
       {
           console.log(this.jsonObj.username);

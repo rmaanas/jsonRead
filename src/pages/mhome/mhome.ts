@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import {Http, Headers} from '@angular/http';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProjectpagePage } from '../projectpage/projectpage';
 import {ShareService} from '../services/ShareService';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -12,9 +14,35 @@ export class MhomePage {
 
   collectings=null;
   username: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private shareService: ShareService) {
+  myjsonObj: any;
+  jsonObj: any;
+  c: any;
+  f: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,private shareService: ShareService, public storage: Storage) {
     this.collectings=this.getCollectings();
-    this.username = this.shareService.getUserName();
+    this.myjsonObj = this.storage.get("jsonObj");
+    this.username = this.myjsonObj.username;
+    this.loadcf();
+  }
+
+	loadcf()
+  {
+
+      var link = 'http://localhost:9000/TestRest/testrest/ftoc';
+      var headers = new Headers();
+      //headers.append("Content-Type", "application/json");
+      //headers.append("authorization", "admin eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlzcyI6IkFUT1NfQ1ZNIn0.3j0w8o0ig-ngpF8OK1ls87yCbfoMJvML_rEQsOsE79Y");
+      headers.append("username", "admin");
+      headers.append("accesstoken", "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlzcyI6IkFUT1NfQ1ZNIn0.3j0w8o0ig-ngpF8OK1ls87yCbfoMJvML_rEQsOsE79Y");
+      //var data = JSON.stringify({f: "98.4"});
+      this.http.get(link, {"headers": headers})
+      .subscribe(data => {
+        this.jsonObj = JSON.parse(data["_body"]);
+        this.c = this.jsonObj.c;
+      this.f = this.jsonObj.f;
+      }, error => {
+        console.log("Oooops!");
+      });
   }
 
   ionViewDidLoad() {

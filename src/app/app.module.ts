@@ -17,6 +17,8 @@ import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-m
 import { AddEditPage } from '../pages/add-edit/add-edit';
 import { ProjectpagePage } from '../pages/projectpage/projectpage';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -35,7 +37,8 @@ import { ProjectpagePage } from '../pages/projectpage/projectpage';
   imports: [
     HttpModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
