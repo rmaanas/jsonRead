@@ -31,6 +31,7 @@ export class MhomePage {
 	loadcf()
   {
 
+      //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
       var link = 'http://localhost:9000/TestRest/testrest/ftoc/-40';
       var headers = new Headers();
       //headers.append("Content-Type", "application/json");
@@ -46,8 +47,9 @@ export class MhomePage {
         this.jsonObj = JSON.parse(data["_body"]);
         this.c = this.jsonObj.c;
       this.f = this.jsonObj.f;
-      }, error => {
-        console.log("Oooops!");
+    }, error => {
+        this.jsonObj = JSON.parse(error["_body"]);
+        console.log("ERROR: " + this.jsonObj.error);
       });
   }
 

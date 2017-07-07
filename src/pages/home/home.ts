@@ -26,7 +26,8 @@ export class HomePage {
   }
  
   submit() {
-	var link = 'http://localhost:9000/TestRest/testrest/login';
+	//var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/login';
+  var link = 'http://localhost:9000/TestRest/testrest/login';
 	var data = JSON.stringify({username: this.data.username, password: this.data.password});
 	var headers = new Headers();
   headers.append("Content-Type", "application/json");
