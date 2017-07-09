@@ -32,21 +32,24 @@ export class MhomePage {
 
 	getCollectings()
   {
-
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
       var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
+      
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);
       headers.append("accesstoken", this.myjsonObj.accesstoken);
+      
       console.log('server call');
       this.presentLoading();
       this.http.get(link, {"headers": headers})
       .subscribe(data => {
+
         this.jsonObj = JSON.parse(data["_body"]);
         this.collectings = this.jsonObj.projects;
         this.loader.dismiss();
         this.storage.set('projects', this.collectings);
-    }, error => {
+      
+      }, error => {
         this.jsonObj = JSON.parse(error["_body"]);
         console.log("ERROR: " + this.jsonObj.error);
       });
@@ -66,13 +69,15 @@ export class MhomePage {
   getLocalCollectings(){
     return this.storage.get("projects").then(value=>{
       this.collectings = value;
-      console.log('local collectings');
-    
     });
   }
 
   itemSelected(item) {
-    this.navCtrl.push(ProjectpagePage);
+    this.navCtrl.push(ProjectpagePage, {
+     "projectname" : item.projectname,
+     "clienthead" : item.clienthead,
+     "organisation" : item.organisation 
+    });
     console.log(item.PROJECTNAME + " is selected");
   }
 

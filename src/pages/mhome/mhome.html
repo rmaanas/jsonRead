@@ -21,7 +21,7 @@
 
     <br>
     <ion-title>Current Visits:</ion-title>
-    <button ion-button (click)="getCollectings()">
+    <button ion-button (click)="getLocalCollectings()">
       <ion-icon name="refresh"></ion-icon>
     </button>
     <div class="row" *ngIf="collectings && collectings.length > 0">
@@ -29,10 +29,13 @@
         <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
 
           <h2>{{collecting.PROJECTNAME}}</h2>
-          <h3>{{collecting.CLIENTHEAD}}</h3>
+          <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
 
         </button>
       </ion-list>
     </div>
 
+    <ion-fab bottom right >
+      <button ion-fab mini><ion-icon name="add" (click)="createproject()"></ion-icon></button>
+    </ion-fab>
 </ion-content>
