@@ -6,7 +6,7 @@ import { ProjectpagePage } from '../projectpage/projectpage';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
-
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -21,7 +21,7 @@ export class AddProjectPage {
 	public accesstoken : any;
   projectid : any;
 
-  constructor(public storage : Storage,public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http : Http) {
+  constructor(public storage : Storage,public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http : Http, public alertCtrl: AlertController) {
     	this.addProjectForm = formBuilder.group({
         'projectname': [null,Validators.compose([Validators.required,Validators.maxLength(50)])],
         'clienthead': [null,Validators.compose([Validators.required, Validators.maxLength(50)])],
@@ -71,11 +71,12 @@ export class AddProjectPage {
 
 	     	if(status == "inserted")
 	    	{
-		        this.navCtrl.setRoot(ProjectpagePage, {
+		        this.presentConfirm(value);
+						/*this.navCtrl.setRoot(ProjectpagePage, {
               projectname : value.projectname, 
               clienthead : value.clienthead,
               organisation : value.organisation
-            });		
+            });*/		
 	    	}
 	    	else{
 	       	this.error_mssg = "* This project Name exists already! Please try again with different name!";
@@ -85,6 +86,24 @@ export class AddProjectPage {
         this.navCtrl.setRoot(HomePage,this.error_mssg);
 	    });
   	}
+
+		presentConfirm(value:any) 
+		{
+			let alert = this.alertCtrl.create({
+				title: 'Project Added Successfully!',
+				message: 'Project: ' + value.projectname + ' with Client Head: ' + value.clienthead + ' and Organisation: ' + value.organisation + ' has been created successfully, you may now add visits for this project',
+				buttons: [
+					{
+						text: 'OK',
+						handler: () => {
+							console.log('OK clicked');
+							this.navCtrl.setRoot(ManagerHomePage);
+						}
+					}
+				]
+			});
+			alert.present();
+		}
 
   	goBack(){
   		this.navCtrl.popToRoot();

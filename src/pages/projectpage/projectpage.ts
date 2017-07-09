@@ -1,57 +1,87 @@
-import { Component,ViewChild } from '@angular/core';
-import { IonicPage, MenuController, NavController, NavParams, Nav } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AddEditPage } from '../add-edit/add-edit';
-import {MhomePage} from '../mhome/mhome';
-import {ViewHistoryPage} from '../view-history/view-history';
-import {AddVisitPage} from '../add-visit/add-visit';
 
 @IonicPage()
 @Component({
-   selector : 'page-add-project',
-   templateUrl: 'projectpage.html',
- })
+  selector: 'page-projectpage',
+  templateUrl: 'projectpage.html',
+})
 export class ProjectpagePage{
-  @ViewChild(Nav) nav: Nav;
-  collectings=null;
-  pages : any;
-  public project : any;
- 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public menu: MenuController) {
-    menu.enable(true);
-    this.pages = [
-      { title: 'Manager Home', component: MhomePage },
-      { title: 'Add Visit', component: AddVisitPage },
-      { title: 'View History', component: ViewHistoryPage }
-    ];
-    this.collectings=null;
- 
-     this.collectings=this.getCollectings();
 
-    this.project = {
-      projectname : navParams.get("projectname"),
-      clienthead : navParams.get("clienthead"),
-      organisation : navParams.get("organisation")
+collectings=null;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.collectings=this.getCollectings();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad MhomePage');
+  }
+  getCollectings() {
+  return [
+    {
+      "Event"     : "Pickup the visitor",
+      "Start"     : "8:00",
+      "End"       : "9:00",
+      "Date"      : "29/06/2017",
+      "Owner"     : "Anil",
+      "Venue"     : "Airport"
+    },
+    {
+      "Event"    : "Travel to Hotel",
+      "Start"     : "9:00",
+      "End"       : "9:15",
+      "Date"      : "29/06/2017",
+      "Owner"     : "Sunil",
+      "Venue"     : "Cab"
+    },
+    {
+      "Event"    : "Meet at Hotel",
+      "Start"     : "9:15",
+      "End"       : "9:30",
+      "Date"      : "29/06/2017",
+      "Owner"     : "Ram",
+      "Venue"     : "Hotel Taj"
+    },
+    {
+      "Event"     : "Travel to  Atos",
+      "Start "    :  "9:30",
+      "End"       :  "9:45",
+      "Date"      :  "29/06/2017",
+      "Owner"     :  "Sunil",
+      "Venue"     :  "Cab"
+    },
+    {
+      "Event"     : "Meeting",
+      "Start"     :  "10:00",
+      "End"       : "12:00",
+      "Date"      : "29/06/2017",
+      "Owner"     : "Rajesh",
+      "Venue"     : "Atos, Pune"
     }
+  ]
+  }
 
-    console.log(this.project);
-   }
- 
-  openPage(page: any)
+
+  itemSelected(item,item1) {
+    this.navCtrl.push(AddEditPage,{
+    item : 'Edit',
+    item1 : item1
+    });
+    console.log(item.Event + " is selected");
+  }
+
+  fab(item)
   {
-    this.menu.close();
-    this.nav.setRoot(page.component);
+    this.navCtrl.push(AddEditPage,{
+    item:'Add',
+    item1:null
+    });
+    console.log(item+"has reached");
   }
   
-  getCollectings() {
-    
-   }
 
-   fab(item)
-   {
-     this.navCtrl.push(AddEditPage,{
-      item:'Add',
-      item1:null
-     });
-     console.log(item+"has reached");
-   }
- }
+  
+
+}
