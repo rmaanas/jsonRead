@@ -30,19 +30,21 @@ export class MhomePage {
 
 	getCollectings()
   {
-
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
       var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
+      
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);
       headers.append("accesstoken", this.myjsonObj.accesstoken);
+      
       console.log('server call');
+      
       this.http.get(link, {"headers": headers})
       .subscribe(data => {
         this.jsonObj = JSON.parse(data["_body"]);
         this.collectings = this.jsonObj.projects;
         this.storage.set('projects', this.collectings);
-    }, error => {
+      }, error => {
         this.jsonObj = JSON.parse(error["_body"]);
         console.log("ERROR: " + this.jsonObj.error);
       });
