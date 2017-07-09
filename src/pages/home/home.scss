@@ -1,3 +1,41 @@
 page-home {
-
+	.loginbutton{
+		width:50%;
+		min-height:45px;
+		margin-left:25%;
+		margin-top:30px;
+		font-size:20px;
+		background-color:#0066a1;
+	}
+	ion-img{
+		background:white;
+		width:90%;
+		padding-bottom:30%;
+		margin:0;
+	}
+	ion-title{
+		text-align:center;
+	}
+	.center{
+		height: 100%;
+	    position: relative;
+	}
+	.error-box {
+		color: #f53d3d;
+		padding: 10px 10px;
+	}
+	form{
+		margin: 0;
+	    position: absolute;
+	    width:80%;
+	    top: 50%;
+	    left: 50%;
+	    -ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+	}
+	.item{
+		padding-left:0px;
+	}
 }
+
+

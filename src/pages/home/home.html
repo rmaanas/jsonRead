@@ -1,29 +1,28 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      Login Screen
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-    <ion-list>
+<ion-content padding class="center" scroll="false">
+    <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
+		<ion-img src={{imglink}}></ion-img>
 		<ion-item>
 		  <ion-label floating>Username</ion-label>
-		  <ion-input type="text" [(ngModel)]="data.username"></ion-input>
+		  <ion-input [formControl]="loginForm.controls['username']" [(ngModel)]="loginForm.username" type="text" 
+		  [ngClass]="{'error-border':!loginForm.controls['username'].valid}"></ion-input>         
 		</ion-item>
+
+		<div class="error-box" *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched">
+            * Username is required!
+        </div>
 
 		<ion-item>
 		  <ion-label floating>Password</ion-label>
-		  <ion-input type="password" [(ngModel)]="data.password"></ion-input>
+		  <ion-input [formControl]="loginForm.controls['password']" [(ngModel)]="loginForm.password" type="password" 
+		  [ngClass]="{'error-border':!loginForm.controls['password'].valid}"></ion-input>         
 		</ion-item>
+		<div class="error-box" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+            * Password is required!
+        </div>
 
-        <button ion-button block round (click)="submit()">Login</button>
-    </ion-list>
-
-    <ion-card>
-        <ion-card-header>
-            {{authenticated}}
-        </ion-card-header>
-    </ion-card>
+	    <button ion-button round class="loginbutton" type="submit" [disabled]="!loginForm.valid">Login</button>
+	    <div class="error-box" *ngIf="error_mssg!=null">
+            {{error_mssg}}
+        </div>
+	</form>
 </ion-content>

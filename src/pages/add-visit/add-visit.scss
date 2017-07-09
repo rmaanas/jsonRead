@@ -1,35 +1,26 @@
 page-add-visit {
-	.item p{
-		color:#999;
-		font-size:16px;
-	}
-	ul{
-		list-style-type:decimal;
+	.buttons{
+		padding-top:30px;
 	}
 	.leftbutton{
-		border-radius:4px;
 		width:40%;
 		margin-left:10%;
-		font-size:15px;
 		background-color:#0066a1;
-	}
-	#add-icon{
-		font-size:30px;
-	}
-	.icon-red{
-		color:red;
-	}
-	.title{
-		text-align:center;
 	}
 	.cancelbutton{
 		width:40%;
 		background-color: #f53d3d;
-		border-radius:4px;
 	}
-	.icon-head{
-		color:white;
-		font-size: 30px;
+	.error-box {
+		color: #f53d3d;
+		padding: 10px 10px;
+	}
+	
+	.error-border {
+		color: red;
+	}
+	.date{
+		color:grey;
 	}
 }
 

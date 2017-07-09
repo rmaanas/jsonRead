@@ -10,12 +10,6 @@
 </ion-header>
 
 <ion-content padding>
-  
-    <ion-card>
-        <ion-card-header text-wrap>
-            Hello {{username}} value of C is {{c}} for F of {{f}}
-        </ion-card-header>
-    </ion-card>
 
     <ion-label><b>Project name: </b></ion-label>   
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
@@ -27,12 +21,15 @@
 
     <br>
     <ion-title>Current Visits:</ion-title>
+    <button ion-button (click)="getCollectings()">
+      <ion-icon name="refresh"></ion-icon>
+    </button>
     <div class="row" *ngIf="collectings && collectings.length > 0">
       <ion-list>
         <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
 
-          <h2>{{collecting.ProjectName}}</h2>
-          <h3>{{collecting.Date}}</h3>
+          <h2>{{collecting.PROJECTNAME}}</h2>
+          <h3>{{collecting.CLIENTHEAD}}</h3>
 
         </button>
       </ion-list>
