@@ -41,9 +41,11 @@ export class MhomePage {
       
       this.http.get(link, {"headers": headers})
       .subscribe(data => {
+
         this.jsonObj = JSON.parse(data["_body"]);
         this.collectings = this.jsonObj.projects;
         this.storage.set('projects', this.collectings);
+      
       }, error => {
         this.jsonObj = JSON.parse(error["_body"]);
         console.log("ERROR: " + this.jsonObj.error);
@@ -57,13 +59,15 @@ export class MhomePage {
   getLocalCollectings(){
     return this.storage.get("projects").then(value=>{
       this.collectings = value;
-      console.log('local collectings');
-    
     });
   }
 
   itemSelected(item) {
-    this.navCtrl.push(ProjectpagePage);
+    this.navCtrl.push(ProjectpagePage, {
+     "projectname" : item.projectname,
+     "clienthead" : item.clienthead,
+     "organisation" : item.organisation 
+    });
     console.log(item.PROJECTNAME + " is selected");
   }
 
