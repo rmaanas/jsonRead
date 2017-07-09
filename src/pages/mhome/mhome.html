@@ -13,27 +13,25 @@
 
     <ion-label><b>Project name: </b></ion-label>   
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-    <ion-list>
-      <ion-item *ngFor="let item of items">
-        {{ item }}
-      </ion-item>
-    </ion-list>
+
 
     <br>
     <ion-title>Current Visits:</ion-title>
-    <button ion-button (click)="getLocalCollectings()">
+    <button ion-button (click)="getCollectings()">
       <ion-icon name="refresh"></ion-icon>
     </button>
-    <div class="row" *ngIf="collectings && collectings.length > 0">
-      <ion-list>
-        <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
-
-          <h2>{{collecting.PROJECTNAME}}</h2>
-          <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
-
+    
+    <ion-list>
+      <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
+        <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)" text-center>
+          <ion-item>  
+            <h2>{{collecting.PROJECTNAME}}</h2>
+            <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
+          </ion-item>   
         </button>
-      </ion-list>
-    </div>
+      </ion-item-sliding>
+    </ion-list>
+    
 
     <ion-fab bottom right >
       <button ion-fab mini><ion-icon name="add" (click)="createproject()"></ion-icon></button>
