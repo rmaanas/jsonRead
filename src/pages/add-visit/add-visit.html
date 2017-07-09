@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content padding>
 <form [formGroup]="addVisitForm" (ngSubmit)="createvisit(addVisitForm.value)">
-		
+	<div *ngIf="allprojects!=null">	
 		<ion-item>
 		  <ion-label>Project Name</ion-label>
 		  <ion-input [formControl]="addVisitForm.controls['projectname']" [(ngModel)]="addVisitForm.projectname" type="text" 
@@ -78,5 +78,9 @@
 			<button ion-button round class="leftbutton" type="submit" [disabled]="!addVisitForm.valid">CREATE VISIT</button>
 			<button ion-button round class="cancelbutton" (click)="goToHome()">CANCEL</button>
 	  	</div>
+	</div>
+	<div *ngIf="allprojects==null">
+		<h2>Please create a project before adding a visit!</h2>
+	</div>
 </form>
 </ion-content>
