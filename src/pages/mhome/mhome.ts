@@ -5,6 +5,7 @@ import { ProjectpagePage } from '../projectpage/projectpage';
 import {ShareService} from '../services/ShareService';
 import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
+import { AddProjectPage } from '../pages/add-project/add-peoject';
 
 @IonicPage()
 @Component({
@@ -62,10 +63,10 @@ export class MhomePage {
     this.loader.present();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MhomePage');
+  goToAddProject(){
+    this.navCtrl.push(AddProjectPage);
   }
-  
+
   getLocalCollectings(){
     return this.storage.get("projects").then(value=>{
       this.collectings = value;
