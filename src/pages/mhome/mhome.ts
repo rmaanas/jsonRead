@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProjectpagePage } from '../projectpage/projectpage';
 import {ShareService} from '../services/ShareService';
 import { Storage } from '@ionic/storage';
+import {LoadingController} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -13,12 +14,13 @@ import { Storage } from '@ionic/storage';
 export class MhomePage {
 
   collectings:any = null;
+  loader:any;
   username: any;
   myjsonObj: any;
   jsonObj: any;
   c: any;
   f: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,private shareService: ShareService, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,public loadingCtrl: LoadingController, public storage: Storage) {
 
     this.storage.get("jsonObj").then(value=>{
       this.myjsonObj = value;
@@ -37,15 +39,24 @@ export class MhomePage {
       headers.append("username", this.myjsonObj.username);
       headers.append("accesstoken", this.myjsonObj.accesstoken);
       console.log('server call');
+      this.presentLoading();
       this.http.get(link, {"headers": headers})
       .subscribe(data => {
         this.jsonObj = JSON.parse(data["_body"]);
         this.collectings = this.jsonObj.projects;
+        this.loader.dismiss();
         this.storage.set('projects', this.collectings);
     }, error => {
         this.jsonObj = JSON.parse(error["_body"]);
         console.log("ERROR: " + this.jsonObj.error);
       });
+  }
+
+  presentLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Loading Current Visits...",
+    });
+    this.loader.present();
   }
 
   ionViewDidLoad() {
