@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Add Member to Visit</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+<form [formGroup]="addMemberForm" (ngSubmit)="addMember(addMemberForm.value)">
+		
+		<ion-item>
+		  <ion-label floating>Member Name</ion-label>
+		  <ion-input [formControl]="addVisitForm.controls['projectname']" [(ngModel)]="addVisitForm.projectname" type="text" 
+		  [ngClass]="{'error-border':!addVisitForm.controls['projectname'].valid}"></ion-input>         
+		</ion-item>
+		
+
+		 <ion-item>
+		  <ion-label>Due Date</ion-label>
+		  <ion-input [formControl]="addVisitForm.controls['duedate']" [(ngModel)]="addVisitForm.duedate" type="date" 
+		  [ngClass]="{'error-border':!addVisitForm.controls['duedate'].valid}"></ion-input>         
+		</ion-item>
+		<div class="error-box date" *ngIf="addVisitForm.controls['duedate'].hasError('required') && addVisitForm.controls['duedate'].touched">
+            * Due Date is required!
+        </div>
+
+	    <div class="buttons">
+			<button ion-button round class="leftbutton" type="submit" [disabled]="!addVisitForm.valid">CREATE VISIT</button>
+			<button ion-button round class="cancelbutton" (click)="goBack()">CANCEL</button>
+	  	</div>
+</form>
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Create Project</ion-title>
+    </ion-navbar>
+    
+</ion-header>
+<ion-content padding>
+<form [formGroup]="addProjectForm" (ngSubmit)="createproject(addProjectForm.value)">
+		
+		<ion-item>
+		  <ion-label floating>Project Name</ion-label>
+		  <ion-input [formControl]="addProjectForm.controls['projectname']" [(ngModel)]="addProjectForm.projectname" type="text"></ion-input>         
+		</ion-item>
+
+		<div class="error-box" *ngIf="addProjectForm.controls['projectname'].hasError('required') && addProjectForm.controls['projectname'].touched">
+            * Project Name is required!
+        </div>
+
+        <div class="error-box" *ngIf="addProjectForm.controls['projectname'].hasError('maxlength') && addProjectForm.controls['projectname'].touched">
+            * Maximum Project Name length is 50!
+        </div>
+
+		<ion-item>
+		  <ion-label floating>Client Head</ion-label>
+		  <ion-input [formControl]="addProjectForm.controls['clienthead']" [(ngModel)]="addProjectForm.clienthead" type="text"></ion-input>         
+		</ion-item>
+		<div class="error-box" *ngIf="addProjectForm.controls['clienthead'].hasError('required') && addProjectForm.controls['clienthead'].touched">
+            * Client Head is required!
+        </div>
+
+        <div class="error-box" *ngIf="addProjectForm.controls['clienthead'].hasError('maxlength') && addProjectForm.controls['clienthead'].touched">
+            * Maximum Client Head length is 50!
+        </div>
+
+		<ion-item>
+		  <ion-label floating>Organisation</ion-label>
+		  <ion-input [formControl]="addProjectForm.controls['organisation']" [(ngModel)]="addProjectForm.organisation" type="text"></ion-input>         
+		</ion-item>
+		<div class="error-box" *ngIf="addProjectForm.controls['organisation'].hasError('required') && addProjectForm.controls['organisation'].touched">
+            * Organisation is required!
+        </div>
+
+        <div class="error-box" *ngIf="addProjectForm.controls['organisation'].hasError('maxlength') && addProjectForm.controls['organisation'].touched">
+            * Maximum Organisation length is 50!
+        </div>
+
+	    <div class="buttons">
+			<button ion-button round class="leftbutton" type="submit">CREATE PROJECT</button>
+	  	</div>
+	  	<p class="error-box">{{ error_mssg }}</p>
+</form>
+</ion-content>

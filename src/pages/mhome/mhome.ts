@@ -5,7 +5,7 @@ import { ProjectpagePage } from '../projectpage/projectpage';
 import {ShareService} from '../services/ShareService';
 import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
-import { AddProjectPage } from '../pages/add-project/add-peoject';
+import { AddProjectPage } from '../add-project/add-project';
 
 @IonicPage()
 @Component({

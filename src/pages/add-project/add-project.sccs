@@ -1,0 +1,11 @@
+add-project-page 
+{
+	form .buttons{
+		padding-top:30px;
+	}
+	form .leftbutton{
+		width:40%;
+		margin-left:10%;
+		background-color:#0066a1;
+	}
+}
