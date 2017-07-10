@@ -13,7 +13,7 @@ import { AddRolePage } from '../pages/add-role/add-role';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = AddRolePage;
+  rootPage:any = ProjectpagePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
