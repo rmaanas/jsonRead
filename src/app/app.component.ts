@@ -13,7 +13,7 @@ import { EmployeeHomePage } from '../pages/employee-home/employee-home';
   providers: [ShareService, IonicStorageModule] 
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage:any = ManagerpagePage;
   jsonObj: any = null;
   res: any;
 
