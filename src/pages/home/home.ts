@@ -20,10 +20,16 @@ export class HomePage {
   jsonObj: any;
   authenticated: any;
   loginForm : FormGroup;
-
+  /*
+  myDate: any = new Date().toISOString().split('T')[0];
+  myDate:any = new Date();
+  newDate:any = this.myDate.getFullYear() + '-' + (this.myDate.getMonth()+1) + '-' + this.myDate.getDate();
+  */
+  
   public error_mssg : any = null;
 
   constructor(public storage : Storage,public loadingCtrl : LoadingController,public navCtrl: NavController, public formBuilder : FormBuilder, public http : Http) {
+    
         this.loginForm = formBuilder.group({
         'username': [null,Validators.compose([Validators.required,Validators.maxLength(50)])],
         'password': [null,Validators.compose([Validators.required, Validators.maxLength(50)])]

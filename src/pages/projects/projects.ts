@@ -6,56 +6,50 @@ import {ShareService} from '../services/ShareService';
 import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
 import { AddProjectPage } from '../add-project/add-project';
-import { AddVisitPage } from '../add-visit/add-visit';
+
 
 @IonicPage()
 @Component({
-  selector: 'page-mhome',
-  templateUrl: 'mhome.html',
+  selector: 'page-projects',
+  templateUrl: 'projects.html',
 })
-export class MhomePage {
+export class ProjectsPage {
 
   collectings:any = null;
   loader:any;
   username: any;
   myjsonObj: any;
   jsonObj: any;
-  date:any = new Date();
-  day:any = ('0' + this.date.getDate()).slice(-2);
-  month:any = ('0' + (this.date.getMonth() + 1)).slice(-2);
-  year:any = this.date.getFullYear();
-  currDate: any = this.year + '-' + this.month + '-' + this.day;
-
+  c: any;
+  f: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,public loadingCtrl: LoadingController, public storage: Storage) {
 
     this.storage.get("jsonObj").then(value=>{
       this.myjsonObj = value;
       this.username = this.myjsonObj.username;
-      console.log('printing from mhome constr. username= ' + this.username);
-      this.storage.set('currDate' , this.currDate);
+      console.log('printing from prjects page constr. username= ' + this.username);
       this.getCollectings();
     });
   }
 
 	getCollectings()
-  {
+    {
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
-      var link = 'http://localhost:9000/TestRest/testrest/getCurrentVisits';
-      var data = JSON.stringify({currdate: this.currDate});
+      var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
+      
       var headers = new Headers();
-      headers.append("Content-Type", "application/json");
       headers.append("username", this.myjsonObj.username);
       headers.append("accesstoken", this.myjsonObj.accesstoken);
       
       console.log('server call');
       this.presentLoading();
-      this.http.post(link,data, {"headers": headers})
+      this.http.get(link, {"headers": headers})
       .subscribe(data => {
 
         this.jsonObj = JSON.parse(data["_body"]);
-        this.collectings = this.jsonObj.visits;
+        this.collectings = this.jsonObj.projects;
         this.loader.dismiss();
-        this.storage.set("visits", this.collectings);
+        this.storage.set('projects', this.collectings);
       
       }, error => {
         this.jsonObj = JSON.parse(error["_body"]);
@@ -65,24 +59,23 @@ export class MhomePage {
 
   presentLoading() {
       this.loader = this.loadingCtrl.create({
-      content: "Loading Current Visits...",
+      content: "Loading All Projects...",
     });
     this.loader.present();
   }
 
-  goToAddVisit(){
-    this.navCtrl.push(AddVisitPage);
+  goToAddProject(){
+    this.navCtrl.push(AddProjectPage);
   }
 
   getLocalCollectings(){
-    return this.storage.get("visits").then(value=>{
+    return this.storage.get("projects").then(value=>{
       this.collectings = value;
     });
   }
 
   itemSelected(item) {
-    //this.navCtrl.push(ProjectpagePage);
-    console.log(item.NAME + " is selected");
+    console.log(item.PROJECTNAME + " is selected");
   }
 
   getItems(ev) {
@@ -94,8 +87,8 @@ export class MhomePage {
       console.log(val.toLowerCase());
       if (val && val.trim() != '') {
         this.collectings = this.collectings.filter((item) => {
-          console.log(item.NAME.toLowerCase() + " is seen");
-          return (item.NAME.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          //console.log(item.PROJECTNAME.toLowerCase() + " is seen");
+          return (item.PROJECTNAME.toLowerCase().indexOf(val.toLowerCase()) > -1);
         })
       }
     }

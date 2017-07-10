@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 import { App, MenuController } from 'ionic-angular';
 import {AddVisitPage} from '../add-visit/add-visit';
+import {ProjectsPage} from '../projects/projects';
 import {UpdateVisitPage} from '../update-visit/update-visit';
 import {MhomePage} from '../mhome/mhome';
 import {ViewHistoryPage} from '../view-history/view-history';
@@ -23,7 +24,7 @@ export class ManagerHomePage {
   	menu.enable(true);
       this.pages = [
       { title: 'Manager Home', component: MhomePage },
-      { title: 'Add Visit', component: AddVisitPage },
+      { title: 'Projects', component: ProjectsPage },
       { title: 'View History', component: ViewHistoryPage }
     ];
 

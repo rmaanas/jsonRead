@@ -4,7 +4,7 @@
     <ion-icon name="menu"></ion-icon>
   </button>
     <ion-title>
-      Manager Home
+      Projects
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -16,7 +16,7 @@
 
 
     <br>
-    <ion-title>Current Visits:</ion-title>
+    <ion-title>Projects:</ion-title>
     <button ion-button (click)="getCollectings()">
       <ion-icon name="refresh"></ion-icon>
     </button>
@@ -24,7 +24,7 @@
     <ion-list>
       <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
         <ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
-            <h2>{{collecting.NAME}} - {{collecting.VISITDATE}}</h2>
+            <h2>{{collecting.PROJECTNAME}}</h2>
             <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
         </ion-item>
       </ion-item-sliding>
@@ -32,6 +32,6 @@
     
 
     <ion-fab bottom right >
-      <button ion-fab large (click)="goToAddVisit()"><ion-icon name="add"></ion-icon></button>
+      <button ion-fab large (click)="goToAddProject()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 </ion-content>

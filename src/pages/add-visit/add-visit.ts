@@ -4,6 +4,7 @@ import { Http,Headers } from '@angular/http';
 import { ManagerHomePage } from '../manager-home/manager-home';
 import { ProjectpagePage } from '../projectpage/projectpage';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 //import { Observable } from '@angular/common';
 
 @IonicPage()
@@ -13,21 +14,48 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 })
 export class AddVisitPage {
 
-  public visit : any;
-  public data :any;
+  visit : any;
+  data :any;
   addVisitForm : FormGroup;
-  public http : Http;
-  public jsonObj : any;
-  public status : any;
+  allprojects : any = null;
+  myjsonObj: any;
+  jsonObj : any;
+  status : any;
   currdate : Date;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public storage: Storage,public http:Http,public formBuilder: FormBuilder) {
     
+    /*
+    this.getjsonObj().then(value=>{
+      this.getProjects().then(val=>{    
+      }
+      );
+    }
+    );
+    */
+    this.getjsonObj();
+    this.getProjects();
     this.addVisitForm = formBuilder.group({
-        'projectname': [null,Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])],
-        'clienthead': [null,Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
-        'organisation': [null,Validators.compose([Validators.required, Validators.maxLength(30)])],
-        'customeremail': [null,Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern('[a-z]*')])],
-        'visitdate': [null,Validators.compose([Validators.required])]
+    'projectname': [null,Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])],
+    'clienthead': [null,Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
+    'organisation': [null,Validators.compose([Validators.required, Validators.maxLength(30)])],
+    'customeremail': [null,Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern('[a-z]*')])],
+    'visitdate': [null,Validators.compose([Validators.required])]
+    });
+
+
+  }
+  
+  getjsonObj()
+  {
+    return this.storage.get("jsonObj").then(value => {
+          this.myjsonObj = value;
+    });
+  }
+
+  getProjects()
+  {
+    return this.storage.get("projects").then(value => {
+          this.allprojects = value;
     });
   }
 

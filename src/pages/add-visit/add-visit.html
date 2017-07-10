@@ -65,14 +65,6 @@
             * Maximum Customer Email length is 50!
         </div> 
 
-		 <ion-item>
-		  <ion-label>Visit Date</ion-label>
-		  <ion-input [formControl]="addVisitForm.controls['visitdate']" [(ngModel)]="addVisitForm.visitdate" type="date" 
-		  [ngClass]="{'error-border':!addVisitForm.controls['visitdate'].valid}" class="date"></ion-input>         
-		</ion-item>
-		<div class="error-box" *ngIf="addVisitForm.controls['visitdate'].hasError('required') && addVisitForm.controls['visitdate'].touched">
-            * Due Date is required!
-        </div>
 
 	    <div class="buttons">
 			<button ion-button round class="leftbutton" type="submit" [disabled]="!addVisitForm.valid">CREATE VISIT</button>
