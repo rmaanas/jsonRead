@@ -15,8 +15,11 @@ import { EmployeeHomePage } from '../pages/employee-home/employee-home';
 import { EmployeeAllProjectsPage } from '../pages/employee-all-projects/employee-all-projects';
 import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-my-projects';
 import { AddEditPage } from '../pages/add-edit/add-edit';
+import { AddPage } from '../pages/add/add';
 import { ProjectpagePage } from '../pages/projectpage/projectpage';
+import { ProjectsPage } from '../pages/projects/projects';
 import { AddProjectPage } from '../pages/add-project/add-project';
+import { EditProjectPage } from '../pages/edit-project/edit-project';
 import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
@@ -33,7 +36,10 @@ import { IonicStorageModule } from '@ionic/storage';
     ViewHistoryPage,
     AddEditPage,
     ProjectpagePage,
-    AddProjectPage
+    AddProjectPage,
+    AddPage,
+    ProjectsPage,
+    EditProjectPage
   ],
   imports: [
     HttpModule,
@@ -55,7 +61,10 @@ import { IonicStorageModule } from '@ionic/storage';
     ViewHistoryPage,
     AddEditPage,
     ProjectpagePage,
-    AddProjectPage
+    AddProjectPage,
+    AddPage,
+    ProjectsPage,
+    EditProjectPage
   ],
   providers: [
     StatusBar,

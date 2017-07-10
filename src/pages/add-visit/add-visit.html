@@ -1,78 +1,45 @@
 <ion-header>
     <ion-navbar color="primary">
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
         <ion-title>Create Visit</ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content padding>
-<form [formGroup]="addVisitForm" (ngSubmit)="createvisit(addVisitForm.value)">
-	<div *ngIf="allprojects!=null">	
-		<ion-item>
-		  <ion-label>Project Name</ion-label>
-		  <ion-input [formControl]="addVisitForm.controls['projectname']" [(ngModel)]="addVisitForm.projectname" type="text" 
-		  [ngClass]="{'error-border':!addVisitForm.controls['projectname'].valid}"></ion-input>         
-		</ion-item>
 
-		<div class="error-box" *ngIf="addVisitForm.controls['projectname'].hasError('required') && addVisitForm.controls['projectname'].touched">
-            * Project Name is required!
-        </div>
+  <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
+  
+  <form [formGroup]="addVisitForm">
 
-		<ion-item>
-		  <ion-label>Customer Name</ion-label>
-		  <ion-input [formControl]="addVisitForm.controls['clienthead']" [(ngModel)]="addVisitForm.clienthead" type="text" 
-		  [ngClass]="{'error-border':!addVisitForm.controls['clienthead'].valid}"></ion-input>         
-		</ion-item>
-		<div class="error-box" *ngIf="addVisitForm.controls['clienthead'].hasError('required') && addVisitForm.controls['clienthead'].touched">
-            * Client Head is required!
-        </div>
-		
-		<div class="error-box" *ngIf="addVisitForm.controls['clienthead'].hasError('pattern') && addVisitForm.controls['clienthead'].touched">
-            * Enter Clent Head in alphabetical format only!
-        </div>
+  	             <ion-item>
+                    <ion-label>Project</ion-label>
+                    <ion-select formControlName="project">
+				        <ion-option value={{project.PROJECTID}} *ngFor="let project of allprojects">
+				            <h2>{{project.NAME}}</h2>
+                            <h3>{{project.ORGANISATION}}</h3>
+				        </ion-option>
+                    </ion-select>
+                </ion-item>
 
-        <div class="error-box" *ngIf="addVisitForm.controls['clienthead'].hasError('maxlength') && addVisitForm.controls['clienthead'].touched">
-            * Maximum Client Head length is 30!
-        </div>
+                <ion-item *ngIf="!addVisitForm.controls.project.valid  && (addVisitForm.controls.project.dirty || submitAttempt)">
+                <p>Please select a project name.</p>
+                </ion-item>
 
-		<ion-item>
-		  <ion-label>Venue</ion-label>
-		  <ion-input [formControl]="addVisitForm.controls['venue']" [(ngModel)]="addVisitForm.venue" type="text" 
-		  [ngClass]="{'error-border':!addVisitForm.controls['venue'].valid}"></ion-input>         
-		</ion-item>
-		<div class="error-box" *ngIf="addVisitForm.controls['venue'].hasError('required') && addVisitForm.controls['venue'].touched">
-            * Venue is required!
-        </div>
-		
-        <div class="error-box" *ngIf="addVisitForm.controls['venue'].hasError('maxlength') && addVisitForm.controls['venue'].touched">
-            * Maximum Venue length should be 50!
-        </div>
-
-
-		<ion-item>
-		  <ion-label>Customer Email</ion-label>
-		  <ion-input [formControl]="addVisitForm.controls['customeremail']" [(ngModel)]="addVisitForm.customeremail" type="text" 
-		  [ngClass]="{'error-border':!addVisitForm.controls['customeremail'].valid}"></ion-input>         
-		</ion-item>
-		<div class="error-box" *ngIf="addVisitForm.controls['customeremail'].hasError('required') && addVisitForm.controls['customeremail'].touched">
-            * Customer Email is required!
-        </div>
-        <div class="error-box" *ngIf="addVisitForm.controls['customerermail'].hasError('pattern') && addVisitForm.controls['customerermail'].touched">
-            * Enter Customer Email in correct format only!
-        </div>
-        <div class="error-box" *ngIf="addVisitForm.controls['customeremail'].hasError('maxlength') && addVisitForm.controls['customeremail'].touched">
-            * Maximum Customer Email length is 50!
-        </div> 
-
-
-	    <div class="buttons">
-			<button ion-button round class="leftbutton" type="submit" [disabled]="!addVisitForm.valid">CREATE VISIT</button>
-			<button ion-button round class="cancelbutton" (click)="goToHome()">CANCEL</button>
-	  	</div>
-	</div>
-	<div *ngIf="allprojects==null">
-		<h2>Please create a project before adding a visit!</h2>
-	</div>
+  	           <ion-item>
+	           <ion-label floating>Venue</ion-label>
+                <ion-input formControlName="venue" type="text" [class.invalid]="!addVisitForm.controls.venue.valid && (addVisitForm.controls.venue.dirty || submitAttempt)"></ion-input>
+               </ion-item>
+ 
+            <ion-item *ngIf="!addVisitForm.controls.venue.valid  && (addVisitForm.controls.venue.dirty || submitAttempt)">
+                <p>Please enter a valid name.</p>
+            </ion-item>
+ 
+            <ion-item>
+                <ion-label floating>Visit Date</ion-label>
+                 <ion-input formControlName="date" type="date" ></ion-input> 
+             <!--    <ion-input formControlName="date" type="date" [class.invalid]="!slideOneForm.controls.date.valid && (slideOneForm.controls.date.dirty || submitAttempt)"></ion-input> -->
+            </ion-item>
+ 
+            
+            <button ion-button full (click)="save()">Save</button><br>
+            <button ion-button full color="danger" (click)="goBack()">Cancel</button>
 </form>
 </ion-content>

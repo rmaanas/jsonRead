@@ -5,6 +5,7 @@ import { ManagerHomePage } from '../manager-home/manager-home';
 import { ProjectpagePage } from '../projectpage/projectpage';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import {LoadingController} from 'ionic-angular';
 //import { Observable } from '@angular/common';
 
 @IonicPage()
@@ -14,49 +15,77 @@ import { Storage } from '@ionic/storage';
 })
 export class AddVisitPage {
 
-  visit : any;
-  data :any;
-  addVisitForm : FormGroup;
-  allprojects : any = null;
+  collectings:any = null;
+  loader:any;
+  username: any;
   myjsonObj: any;
-  jsonObj : any;
-  status : any;
+  jsonObj: any;
+  submitAttempt: boolean = false;
+  public visit : any;
+  allprojects :any;
+  addVisitForm : FormGroup;
+  public status : any;
   currdate : Date;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public storage: Storage,public http:Http,public formBuilder: FormBuilder) {
-    
-    /*
-    this.getjsonObj().then(value=>{
-      this.getProjects().then(val=>{    
-      }
-      );
-    }
-    );
-    */
-    this.getjsonObj();
-    this.getProjects();
-    this.addVisitForm = formBuilder.group({
-    'projectname': [null,Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])],
-    'clienthead': [null,Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
-    'organisation': [null,Validators.compose([Validators.required, Validators.maxLength(30)])],
-    'customeremail': [null,Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern('[a-z]*')])],
-    'visitdate': [null,Validators.compose([Validators.required])]
-    });
-
-
-  }
   
-  getjsonObj()
-  {
-    return this.storage.get("jsonObj").then(value => {
-          this.myjsonObj = value;
+  constructor(public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage) {
+    
+      this.allprojects = [
+     {
+        name: "project1",
+        projectid: 1,
+        organisation: "org1"
+     },
+     {
+        name: "project13",
+        projectid: 2,
+        organisation: "org2"
+     }
+     ];
+
+      this.storage.get("jsonObj").then(value=>{
+        this.myjsonObj = value;
+        this.username = this.myjsonObj.username;
+        console.log('printing from add-visit page constr. username= ' + this.username);
+        this.getCollectings();
+      });
+
+      this.addVisitForm = formBuilder.group({
+        project: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+        venue: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        date: ['', Validators.compose([Validators.maxLength(30), Validators.required])]
     });
   }
 
-  getProjects()
-  {
-    return this.storage.get("projects").then(value => {
-          this.allprojects = value;
+	getCollectings()
+    {
+      //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
+      var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
+      
+      var headers = new Headers();
+      headers.append("username", this.myjsonObj.username);
+      headers.append("accesstoken", this.myjsonObj.accesstoken);
+      
+      console.log('server call');
+      this.presentLoading();
+      this.http.get(link, {"headers": headers})
+      .subscribe(data => {
+
+        this.jsonObj = JSON.parse(data["_body"]);
+        this.allprojects = this.jsonObj.projects;
+        this.loader.dismiss();
+        this.storage.set('projects', this.allprojects);
+      
+      }, error => {
+        this.jsonObj = JSON.parse(error["_body"]);
+        console.log("ERROR: " + this.jsonObj.error);
+      });
+  }
+
+  presentLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Loading All Projects...",
     });
+    this.loader.present();
   }
 
   goToHome(){
@@ -64,48 +93,68 @@ export class AddVisitPage {
     this.navCtrl.popToRoot();
   }
 
-  createvisit(data : any):void{
-  	console.log("ADD VISIT FUNDCTION");
-     console.log(data);
-     /*
-    var link = 'http://localhost:9000/TestRest/testrest/addvisit';
-    var data = JSON.stringify({ projectname: this.visit.projectname, clienthead: this.visit.clienthead, organisation:this.visit.organisation, customeremail: this.visit.customeremail, duedate:this.visit.duedate });
+  createvisit(value : any){
+  	//console.log("ADD VISIT FUNDCTION");
+    //console.log(data);
+
+    var link = 'http://localhost:9000/TestRest/testrest/addVisit';
+    var data = JSON.stringify(
+      { 
+        projectid: value.project, 
+        visitdate: value.date, 
+        venue: value.venue, 
+      });
     
     var headers = new Headers();
     headers.append("Content-Type", "application/json");
-  
+  	headers.append("username",this.myjsonObj.username);
+	  headers.append("accesstoken",this.myjsonObj.accesstoken);
+    
     this.http.post(link, data, {headers: headers})
     .subscribe(data => {
-      this.data.response = data["_body"];
+
       this.jsonObj = JSON.parse(data["_body"]);
       this.status = this.jsonObj.status;
      
-    if(this.status == "true")
+    if(this.status == "inserted")
     {
       this.navCtrl.setRoot(ManagerHomePage).then(
       ()=>{
         this.navCtrl.popToRoot();
       }
       );
-    }}, error => {
+    }
+    else
+    {
+
+    }
+  }, error => {
     });
 
-    this.navCtrl.push(ProjectpagePage, {visit:this.visit});*/
+    /*
+    this.navCtrl.push(ProjectpagePage, {visit:this.visit});
+    */
   }
 
-  addmembers()
-  {
-  	console.log("ADD MEMBERS");
-  }
+   save(){
+ 
+    this.submitAttempt = true;
+ 
+    if(!this.addVisitForm.valid){
+        this.submitAttempt = true;
 
-  editmember()
-  {
-    console.log("Edit successful");
-  }
-  
-  removemember()
-  {
-    console.log("Removal successful");
-  }
+        console.log("Invalid");
+    } 
+    
+    else {
+        console.log("success!")
+        this.createvisit(this.addVisitForm.value);
+    }
+ 
+}
+
+  	goBack(){
+  		this.navCtrl.popToRoot();
+  	}
 
 }

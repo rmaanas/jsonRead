@@ -6,7 +6,8 @@ import {ShareService} from '../services/ShareService';
 import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
 import { AddProjectPage } from '../add-project/add-project';
-
+import { AddPage } from '../add/add';
+import { EditProjectPage } from '../edit-project/edit-project';
 
 @IonicPage()
 @Component({
@@ -20,14 +21,13 @@ export class ProjectsPage {
   username: any;
   myjsonObj: any;
   jsonObj: any;
-  c: any;
-  f: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,public loadingCtrl: LoadingController, public storage: Storage) {
 
     this.storage.get("jsonObj").then(value=>{
       this.myjsonObj = value;
       this.username = this.myjsonObj.username;
-      console.log('printing from prjects page constr. username= ' + this.username);
+      console.log('printing from projects page constr. username= ' + this.username);
       this.getCollectings();
     });
   }
@@ -65,7 +65,7 @@ export class ProjectsPage {
   }
 
   goToAddProject(){
-    this.navCtrl.push(AddProjectPage);
+    this.navCtrl.push(AddPage);
   }
 
   getLocalCollectings(){
@@ -75,7 +75,9 @@ export class ProjectsPage {
   }
 
   itemSelected(item) {
-    console.log(item.PROJECTNAME + " is selected");
+    console.log(item.NAME + " is selected");
+    this.storage.set("currProj", item);
+    this.navCtrl.push(EditProjectPage);
   }
 
   getItems(ev) {
@@ -88,7 +90,7 @@ export class ProjectsPage {
       if (val && val.trim() != '') {
         this.collectings = this.collectings.filter((item) => {
           //console.log(item.PROJECTNAME.toLowerCase() + " is seen");
-          return (item.PROJECTNAME.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          return (item.NAME.toLowerCase().indexOf(val.toLowerCase()) > -1);
         })
       }
     }
