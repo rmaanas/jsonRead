@@ -18,6 +18,8 @@ import { AddEditPage } from '../pages/add-edit/add-edit';
 import { ProjectpagePage } from '../pages/projectpage/projectpage';
 import { AddProjectPage } from '../pages/add-project/add-project';
 import { IonicStorageModule } from '@ionic/storage';
+import { AddPage } from '../pages/add/add';
+import { EmailValidator } from '../pages/add/emailValid';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,10 @@ import { IonicStorageModule } from '@ionic/storage';
     ViewHistoryPage,
     AddEditPage,
     ProjectpagePage,
-    AddProjectPage
+    AddProjectPage,
+    AddPage,
+   
+    
   ],
   imports: [
     HttpModule,
@@ -55,7 +60,9 @@ import { IonicStorageModule } from '@ionic/storage';
     ViewHistoryPage,
     AddEditPage,
     ProjectpagePage,
-    AddProjectPage
+    AddProjectPage,
+    AddPage,
+   
   ],
   providers: [
     StatusBar,

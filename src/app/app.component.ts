@@ -8,19 +8,23 @@ import {Storage} from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import {ManagerHomePage} from '../pages/manager-home/manager-home';
 import { EmployeeHomePage } from '../pages/employee-home/employee-home';
+import { AddProjectPage } from '../pages/add-project/add-project';
+import { AddPage } from '../pages/add/add';
+import { AddVisitPage } from '../pages/add-visit/add-visit';
+
 @Component({
   templateUrl: 'app.html',
   providers: [ShareService, IonicStorageModule] 
 })
 export class MyApp {
-  rootPage:any = ManagerpagePage;
+  rootPage:any = AddVisitPage;
   jsonObj: any = null;
   res: any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public storage: Storage) {
     platform.ready().then(() => {
 
-      this.storage.get("jsonObj").then(value=>{
+ /*     this.storage.get("jsonObj").then(value=>{
         this.jsonObj = value;
         this.res = (this.jsonObj != null);
         console.log("bool: " + this.res);
@@ -40,7 +44,7 @@ export class MyApp {
         {
           this.rootPage = HomePage;
         }
-      });
+      }); */
 
     statusBar.styleDefault();
     splashScreen.hide();

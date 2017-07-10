@@ -13,7 +13,10 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 })
 export class AddVisitPage {
 
+
+  submitAttempt: boolean = false;
   public visit : any;
+  allprojects :any;
   public data :any;
   addVisitForm : FormGroup;
   public http : Http;
@@ -22,15 +25,41 @@ export class AddVisitPage {
   currdate : Date;
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
     
-    this.addVisitForm = formBuilder.group({
-        'projectname': [null,Validators.compose([Validators.required,Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9]*')])],
-        'clienthead': [null,Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
-        'organisation': [null,Validators.compose([Validators.required, Validators.maxLength(30)])],
-        'customeremail': [null,Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern('[a-z]*')])],
-        'visitdate': [null,Validators.compose([Validators.required])]
+      this.allprojects = [
+     {
+        name: "project1",
+        projectid: 1,
+        organisation: "org1"
+     },
+     {
+        name: "project13",
+        projectid: 2,
+        organisation: "org2"
+     }
+     ];
+      
+      this.addVisitForm = formBuilder.group({
+        project: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+        venue: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        date: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])]
     });
   }
 
+   initialize()
+   {
+     return [
+     {
+        name: "project1",
+        projectid: 1,
+        organisation: "org1"
+     },
+     {
+        name: "project13",
+        projectid: 2,
+        organisation: "org2"
+     }
+     ];
+   }
   goToHome(){
     this.navCtrl.setRoot(ManagerHomePage)
     this.navCtrl.popToRoot();
@@ -64,6 +93,22 @@ export class AddVisitPage {
 
     this.navCtrl.push(ProjectpagePage, {visit:this.visit});*/
   }
+   save(){
+ 
+    this.submitAttempt = true;
+ 
+    if(!this.addVisitForm.valid){
+        this.submitAttempt = true;
+
+        console.log("Invalid");
+    } 
+    
+    else {
+        console.log("success!")
+        console.log(this.addVisitForm.value);
+    }
+ 
+}
 
   addmembers()
   {
