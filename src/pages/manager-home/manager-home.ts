@@ -27,7 +27,7 @@ export class ManagerHomePage {
       { title: 'Manager Home', component: MhomePage },
       { title: 'Projects', component: ProjectsPage },
       { title: 'View History', component: ViewHistoryPage },
-      { title: 'Add Role', component: AddRolePage }
+      { title: 'Add User', component: AddRolePage }
     ];
 
   }
