@@ -110,25 +110,26 @@ presentLoading() {
 
   searchhistory() {
 
-    console.log(this.fdate);
     var link = 'http://localhost:9000/TestRest/testrest/searchhistory';
     var data = JSON.stringify({cname: this.cname, pname: this.pname, fdate: this.fdate, tdate: this.tdate});
-    
     var headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("username", this.myjsonObj.username);
     headers.append("accesstoken", this.myjsonObj.accesstoken);
 
-     this.http.post(link, data, {headers: headers})
+    console.log('server call');
+    this.presentLoading();
+    this.http.post(link,data, {"headers": headers})
     .subscribe(data => {
-      //value.response = data["_body"];
+
       this.jsonObj = JSON.parse(data["_body"]);
-
-
-      console.log(this.jsonObj.ename);
-
-      },error => {
-        console.log("Error!");
+      this.collectings = this.jsonObj.visits;
+      this.loader.dismiss();
+      this.storage.set("visits", this.collectings);
+    
+    }, error => {
+      this.jsonObj = JSON.parse(error["_body"]);
+      console.log("ERROR: " + this.jsonObj.error);
     });
   }
 
