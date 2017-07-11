@@ -24,6 +24,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import {Visit1Page} from '../pages/visit1/visit1';
 import {Visit2Page} from '../pages/visit2/visit2';
 import {VisitpagePage} from '../pages/visitpage/visitpage';
+import { AddEventPage } from '../pages/add-event/add-event';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import {VisitpagePage} from '../pages/visitpage/visitpage';
     EditProjectPage,
     Visit1Page,
     Visit2Page,
-    VisitpagePage
+    VisitpagePage,
+    AddEventPage
   ],
   imports: [
     HttpModule,
@@ -73,7 +76,8 @@ import {VisitpagePage} from '../pages/visitpage/visitpage';
     EditProjectPage,
     Visit1Page,
     Visit2Page,
-    VisitpagePage
+    VisitpagePage,
+    AddEventPage
   ],
   providers: [
     StatusBar,

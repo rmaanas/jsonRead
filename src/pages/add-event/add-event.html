@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Add Event</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+  <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details correctly and submit again.</p>
+  <p *ngIf="errormessage" style="color: #ea6153;">{{errormessage}}</p>
+
+  <form [formGroup]="addEventForm">
+
+    <ion-item>
+        <ion-label floating>Event Name:</ion-label>
+        <ion-input formControlName="name" type="text" [class.invalid]="!addEventForm.controls.name.valid && (addEventForm.controls.name.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+ 
+    <ion-item *ngIf="!addEventForm.controls.name.valid  && (addEventForm.controls.name.dirty || submitAttempt)">
+        <p>Please enter a valid name.</p>
+    </ion-item>
+ 
+    <ion-item>
+        <ion-label floating>Date</ion-label>
+        <ion-input formControlName="date1" type="date" [class.invalid]="!addEventForm.controls.date1.valid && (addEventForm.controls.date1.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+        <ion-label floating>Start time:</ion-label>
+        <ion-input formControlName="time1" type="time" [class.invalid]="!addEventForm.controls.time1.valid && (addEventForm.controls.time1.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>End Time:</ion-label>
+        <ion-input formControlName="time2" type="time" [class.invalid]="!addEventForm.controls.time2.valid && (addEventForm.controls.time2.dirty || submitAttempt)"></ion-input> 
+    </ion-item>
+
+    <ion-item *ngIf="!addEventForm.controls.time2.valid  && (addEventForm.controls.time2.dirty || submitAttempt)">
+        <p>Please enter a valid time.</p>
+    </ion-item>
+             
+    <ion-item>
+        <ion-label class="Reg">Owner</ion-label>
+            <ion-select full value="Owner Name" formControlName="owner" [class.invalid]="!addEventForm.controls.owner.valid && (addEventForm.controls.owner.dirty || submitAttempt)">
+                <ion-option value={{collecting.username}} *ngFor="let collecting of collectings">
+                    <h2>{{collecting.username}}</h2>
+                </ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="!addEventForm.controls.owner.valid  && (addEventForm.controls.owner.dirty || submitAttempt)">
+        <p>Please select an owner name.</p>
+    </ion-item>
+    <br><br>
+    <ion-item>
+        <ion-label>Venue:</ion-label>
+        <ion-input formControlName="venue" type="text" [class.invalid]="!addEventForm.controls.venue.valid && (addEventForm.controls.venue.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+ 
+    <ion-item *ngIf="!addEventForm.controls.venue.valid  && (addEventForm.controls.venue.dirty || submitAttempt)">
+        <p>Please enter a valid name.</p>
+    </ion-item>
+            
+    <br>
+    <button ion-button full (click)="save()">Save</button> <br>
+    <button ion-button full color="danger" (click)="goBack()">Cancel</button>
+
+</form>
+</ion-content>

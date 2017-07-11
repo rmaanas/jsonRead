@@ -7,6 +7,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
 import {AddEditPage } from '../add-edit/add-edit';
+import {AddEventPage } from '../add-event/add-event';
 
 
 @IonicPage()
@@ -97,18 +98,7 @@ export class Visit2Page {
 
   fab()
   {
-    this.navCtrl.push(AddEditPage,{
-    item:'Add',
-    item1:{
-    "Event"     : "",
-      "Start"     : "",
-      "End"       : "",
-      "Date"      : "",
-      "Owner"     : "",
-      "Venue"     : ""
-    }
-    });
-    console.log("has reached");
+    this.navCtrl.push(AddEventPage);
   }
 
 }
