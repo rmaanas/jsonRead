@@ -13,7 +13,10 @@ Agenda    </ion-title>
 
 </ion-header>
 
-<ion-fab middle right >
+
+<ion-content padding>
+
+<ion-fab bottom right >
     <button ion-fab mini><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
      <button ion-fab  (click)="fab()"><ion-icon name="add"></ion-icon></button>
@@ -22,7 +25,6 @@ Agenda    </ion-title>
     </ion-fab-list>
 </ion-fab>
 
-<ion-content padding>
  <ion-list>
 
  <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0"> 
