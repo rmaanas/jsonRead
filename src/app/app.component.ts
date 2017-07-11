@@ -8,6 +8,7 @@ import {Storage} from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import {ManagerHomePage} from '../pages/manager-home/manager-home';
 import { EmployeeHomePage } from '../pages/employee-home/employee-home';
+import { ViewHistoryPage } from '../pages/view-history/view-history';
 @Component({
   templateUrl: 'app.html',
   providers: [ShareService, IonicStorageModule] 
