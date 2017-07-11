@@ -16,6 +16,7 @@ import { EmployeeAllProjectsPage } from '../pages/employee-all-projects/employee
 import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-my-projects';
 import { AddEditPage } from '../pages/add-edit/add-edit';
 import { AddPage } from '../pages/add/add';
+import { AddRolePage } from '../pages/add-role/add-role';
 import { ProjectpagePage } from '../pages/projectpage/projectpage';
 import { ProjectsPage } from '../pages/projects/projects';
 import { AddProjectPage } from '../pages/add-project/add-project';
@@ -41,6 +42,7 @@ import {VisitpagePage} from '../pages/visitpage/visitpage';
     ProjectpagePage,
     AddProjectPage,
     AddPage,
+    AddRolePage,
     ProjectsPage,
     EditProjectPage,
     Visit1Page,
@@ -69,6 +71,7 @@ import {VisitpagePage} from '../pages/visitpage/visitpage';
     ProjectpagePage,
     AddProjectPage,
     AddPage,
+    AddRolePage,
     ProjectsPage,
     EditProjectPage,
     Visit1Page,

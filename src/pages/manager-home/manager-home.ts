@@ -6,6 +6,7 @@ import {ProjectsPage} from '../projects/projects';
 import {UpdateVisitPage} from '../update-visit/update-visit';
 import {MhomePage} from '../mhome/mhome';
 import {ViewHistoryPage} from '../view-history/view-history';
+import {AddRolePage} from '../add-role/add-role';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 @Component({
@@ -25,7 +26,8 @@ export class ManagerHomePage {
       this.pages = [
       { title: 'Manager Home', component: MhomePage },
       { title: 'Projects', component: ProjectsPage },
-      { title: 'View History', component: ViewHistoryPage }
+      { title: 'View History', component: ViewHistoryPage },
+      { title: 'Add Role', component: AddRolePage }
     ];
 
   }
