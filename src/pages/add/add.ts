@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import {Http, Headers} from '@angular/http';
 import { AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { ManagerHomePage } from '../manager-home/manager-home';
 import {ProjectsPage} from '../projects/projects';
 
 @IonicPage()
@@ -117,7 +118,7 @@ export class AddPage {
 						text: 'OK',
 						handler: () => {
 							console.log('OK clicked');
-							this.navCtrl.setRoot(ProjectsPage);
+							this.navCtrl.setRoot(ManagerHomePage);
 						}
 					}
 				]

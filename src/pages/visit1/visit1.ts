@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, MenuController, Nav, Navbar } from 'ionic-angular';
 import { Http,Headers } from '@angular/http';
 import { ManagerHomePage } from '../manager-home/manager-home';
 import { ProjectpagePage } from '../projectpage/projectpage';
@@ -14,6 +14,7 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'visit1.html',
 })
 export class Visit1Page {
+  @ViewChild(Navbar) navBar:Navbar;
   
   loader:any;
   username: any;
@@ -32,7 +33,7 @@ export class Visit1Page {
   currVisit: any;
 
 
-  constructor(public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public nav: Nav,public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage, public alertCtrl: AlertController) {
         this.addVisitForm = formBuilder.group({
         venue: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
         date: ['', Validators.compose([Validators.maxLength(30), Validators.required])]
@@ -113,7 +114,7 @@ export class Visit1Page {
 						text: 'OK',
 						handler: () => {
 							console.log('OK clicked');
-              this.navCtrl.setRoot(ManagerHomePage);
+              this.navCtrl.parent.viewCtrl.dismiss();
 						}
 					}
 				]
@@ -140,8 +141,17 @@ export class Visit1Page {
  
 }
 
+  goBack()
+  {
+    this.navCtrl.parent.viewCtrl.dismiss();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad Visit1Page');
+    this.navBar.backButtonClick = (e:UIEvent) => {
+        console.log("Back button clicked");
+        this.navCtrl.parent.viewCtrl.dismiss();
+    };
   }
 
 }

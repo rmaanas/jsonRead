@@ -19,49 +19,41 @@
     <ion-list>
 
   <ion-item>
-    <ion-label stacked>Customer Name</ion-label>
-    <ion-input type="text"></ion-input>
+      <ion-label floating>Customer Name</ion-label>
+      <ion-input type="text" [value]="cname" [(ngModel)]="cname"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>Project Name</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+      <ion-label floating>Project Name</ion-label>
+      <ion-input type="text" [value]="pname" [(ngModel)]="pname"></ion-input>
+    </ion-item>
 
   <ion-item>
     <ion-label stacked>From Date</ion-label>
-    <ion-input type="date"></ion-input>
+    <ion-input type="date" [value]="fdate" [(ngModel)]="fdate"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>To Date</ion-label>
-    <ion-input type="date"></ion-input>
+    <ion-input type="date" [value]="tdate" [(ngModel)]="tdate"></ion-input>
   </ion-item>
 
 </ion-list>
 
-	<button (click)="SearchHist()" ion-button round>Search</button>
-
-
-	<ion-list>
-  <ion-item>
-    <ion-label>Sort By</ion-label>
-    <ion-select #C (ionChange)="onChange(C.value)" [(ngModel)]="sort">
-      <ion-option value="Ascending">Ascending</ion-option>
-      <ion-option value="Descending">Descending</ion-option>
-      <ion-option value="Date">Date</ion-option>
-    </ion-select>
-  </ion-item>
-</ion-list>
-
+<div padding>
+  <button ion-button round (click)="searchhistory()">Search</button>
+</div>
 
     <ion-title>Records:</ion-title>
-<div class="row" *ngIf="collectings && collectings.length > 0">
+
   <ion-list>
- <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)" text-center>
-   <h2> <b>Project:</b>{{"     " + collecting.ProjectName + " ----------- "}} <b>Date:</b>{{"     " + collecting.Date}}</h2>
- </button>
- </ion-list>
-</div>
+    <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
+      <ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
+          <h2>{{collecting.PROJECTNAME}}</h2>
+          <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+    
 
 </ion-content>
