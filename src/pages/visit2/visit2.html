@@ -18,12 +18,18 @@
   </ion-fab>
 
   <ion-list>
+    <ion-item>
+      <ion-title>Events:</ion-title>
+      <button ion-button (click)="getCollectings()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
 
-    <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0"> 
       <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
           <ion-item>
             <h1><b>Event:</b>{{"    " + collecting.NAME + "  "}} </h1> <br>
-            <h3><b>Start time:</b>{{"  "+collecting.Start+"    "}}<b>End time:</b>{{"  "+collecting.End+"  "}}</h3> <br>
+            <h3><b>Start time:</b>{{"  "+ collecting.STARTTIME +"    "}}<b>End time:</b>{{"  " + collecting.ENDTIME + "  "}}</h3> <br>
             <h3><b>Status:</b>{{"  "+collecting.STATUS+"     "}}</h3><br>  
           </ion-item>
       </button>

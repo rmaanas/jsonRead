@@ -20,12 +20,22 @@ export class HomePage {
   jsonObj: any;
   authenticated: any;
   loginForm : FormGroup;
+  
   /*
   myDate: any = new Date().toISOString().split('T')[0];
   myDate:any = new Date();
   newDate:any = this.myDate.getFullYear() + '-' + (this.myDate.getMonth()+1) + '-' + this.myDate.getDate();
-  */
   
+  date:any = new Date();
+  day:any = ('0' + this.date.getDate()).slice(-2);
+  month:any = ('0' + (this.date.getMonth() + 1)).slice(-2);
+  year:any = this.date.getFullYear();
+  currDate: any = this.year + '-' + this.month + '-' + this.day;
+  currTime:any = this.date.getTime();
+  hours:any;
+  minutes:any;
+  */
+
   public error_mssg : any = null;
 
   constructor(public storage : Storage,public loadingCtrl : LoadingController,public navCtrl: NavController, public formBuilder : FormBuilder, public http : Http) {
@@ -88,4 +98,27 @@ export class HomePage {
     });
     this.loader.present();
   }
+
+/*  
+  printCurrDate()
+  {
+    this.getCurrDate();
+    console.log("current date is " + this.currDate + " and time is " + this.currTime);
+    console.log("current time is among noon or afternoon? " + (this.currTime > "12:00"));
+  }
+  
+  getCurrDate()
+  {
+        this.date = new Date();
+        this.day = ('0' + this.date.getDate()).slice(-2);
+        this.month = ('0' + (this.date.getMonth() + 1)).slice(-2);
+        this.year = this.date.getFullYear();
+        this.currDate = this.year + '-' + this.month + '-' + this.day;
+        this.hours = ('0' + this.date.getHours()).slice(-2);
+        this.minutes = ('0' + this.date.getMinutes()).slice(-2);
+        this.currTime = this.hours + ":" + this.minutes;
+        //console.log(" getCurr: current date is " + this.currDate + " and time is " + this.currTime);    
+  }
+*/
+
 }

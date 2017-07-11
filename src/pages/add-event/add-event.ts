@@ -6,6 +6,8 @@ import { ProjectpagePage } from '../projectpage/projectpage';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import {LoadingController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
+import {VisitpagePage} from '../visitpage/visitpage';
 //import { Observable } from '@angular/common';
 
 @IonicPage()
@@ -31,8 +33,14 @@ export class AddEventPage {
   month:any = ('0' + (this.date.getMonth() + 1)).slice(-2);
   year:any = this.date.getFullYear();
   currDate: any = this.year + '-' + this.month + '-' + this.day;
+  currTime:any = this.date.getTime();
+  hours:any;
+  minutes:any;
+  events: any;
+  eventValid: any = false;
+  eventStatus: any = "Yet to start";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public loadingCtrl: LoadingController, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public loadingCtrl: LoadingController, public http: Http, public alertCtrl: AlertController) {
       
       this.addEventForm = formBuilder.group({
         name:  ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
@@ -48,7 +56,12 @@ export class AddEventPage {
         this.currVisit = value;
         this.storage.get("jsonObj").then(val=>{
           this.myjsonObj = val;
-          this.getCollectings();
+          this.storage.get("events").then(va=>{
+              this.events = va;
+              console.log(this.events.length);
+              this.getCollectings();
+          }
+          );
         });
       }); 
   }
@@ -87,7 +100,8 @@ export class AddEventPage {
 
   save()
   {
- 
+    var i;
+
     if(!this.addEventForm.valid)
     {
         this.submitAttempt = true;
@@ -95,19 +109,159 @@ export class AddEventPage {
     } 
     else 
     {
-        if(this.addEventForm.value.time1 >= this.addEventForm.value.time2)
+        this.getCurrDate();
+        if(this.addEventForm.value.time1 < this.addEventForm.value.time2)
         {
-          console.log("invalid start and end time");
-          this.errormessage = "invalid start and end time";
+          if(this.currVisit.VISITDATE >= this.currDate)
+          {
+            if(this.currVisit.VISITDATE == this.currDate)
+            {
+                if(this.addEventForm.value.time1 >= this.currTime)
+                {
+                    if(this.events.length == 0)
+                    {
+                      this.eventValid = true;
+                    }
+
+                    for(i=0;i<this.events.length && !this.eventValid;i++)
+                    {
+                      console.log('from if starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
+                      console.log('from if endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
+                      //console.log('if endtime<= event start time' + (this.addEventForm.value.time2 <= this.events[i].STARTTIME) + '');
+                       if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
+                       {
+                          if(i == this.events.length-1)
+                          {
+                              this.eventValid = true;
+                          }
+                       }
+                       else
+                       {
+                          break;
+                       }
+                    }
+                }
+            }
+            else
+            {
+                if(this.events.length == 0)
+                {
+                  this.eventValid = true;
+                }
+
+                for(i=0;i<this.events.length && !this.eventValid;i++)
+                {
+                      console.log('from else starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
+                      console.log('from else endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');
+                    if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
+                    {
+                      if(i == this.events.length-1)
+                      {
+                          this.eventValid = true;
+                      }
+                    }
+                    else
+                    {
+                      break;
+                    }
+                }
+            }
+          }
+        }
+        
+        console.log(this.addEventForm.value);
+        //due date validation
+        if(this.addEventForm.value.date1 > this.currVisit.VISITDATE || this.addEventForm.value.date1 < this.currDate)
+        {
+          this.eventValid = false;
+        }
+
+        if(this.eventValid)
+        {
+          this.errormessage = null;
+          console.log("The event is valid and is going to be added to events");
+          if(this.currVisit.VISITDATE == this.currDate && this.addEventForm.value.time1 == this.currTime)
+          {
+            this.eventStatus = "Ongoing";
+          }
+          this.createEvent(this.addEventForm.value);
         }
         else
         {
-          this.errormessage = null;
+          this.errormessage = "Invalid (or) Overlapping Timings for the event (or) Invalid Due Date";
+          console.log(this.errormessage);
         }
-        console.log(this.addEventForm.value);
     }
- 
+
   }
+
+  createEvent(value : any){
+  	//console.log("ADD VISIT FUNDCTION");
+    //console.log(data);
+
+    var link = 'http://localhost:9000/TestRest/testrest/addEvent';
+    var data = JSON.stringify(
+      { 
+        visitid: this.currVisit.VISITID,
+        name: value.name,
+        starttime: value.time1,
+        endtime: value.time2,
+        owner: value.owner,
+        duedate: value.date1,
+        venue: value.venue,
+        status: this.eventStatus
+      });
+    
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json");
+  	headers.append("username",this.myjsonObj.username);
+	  headers.append("accesstoken",this.myjsonObj.accesstoken);
+    
+    this.http.post(link, data, {headers: headers})
+    .subscribe(data => {
+
+      this.jsonObj = JSON.parse(data["_body"]);
+      this.status = this.jsonObj.status;
+     
+    if(this.status == "inserted")
+    {
+      this.presentConfirm(value);
+      /*this.navCtrl.setRoot(ManagerHomePage).then(
+      ()=>{
+        this.navCtrl.popToRoot();
+      }
+      );*/
+    }
+    else
+    {
+      this.errormessage = "problem from server";
+    }
+  }, error => {
+    this.errormessage = "problem from server";
+    });
+
+    /*
+    this.navCtrl.push(ProjectpagePage, {visit:this.visit});
+    */
+  }
+
+  presentConfirm(value:any) 
+  {
+    let alert = this.alertCtrl.create({
+      title: 'Event Added Successfully!',
+      message: 'Event: ' + value.name + ' added succesfully',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            console.log('OK clicked');
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    alert.present();
+	}
 
   getCurrDate()
   {
@@ -115,7 +269,11 @@ export class AddEventPage {
         this.day = ('0' + this.date.getDate()).slice(-2);
         this.month = ('0' + (this.date.getMonth() + 1)).slice(-2);
         this.year = this.date.getFullYear();
-        this.currDate = this.year + '-' + this.month + '-' + this.day;    
+        this.currDate = this.year + '-' + this.month + '-' + this.day;
+        this.hours = ('0' + this.date.getHours()).slice(-2);
+        this.minutes = ('0' + this.date.getMinutes()).slice(-2);
+        this.currTime = this.hours + ":" + this.minutes;
+        //console.log(" getCurr: current date is " + this.currDate + " and time is " + this.currTime);    
   }
 
   goBack()
