@@ -14,6 +14,9 @@ import { Visit1Page } from '../pages/visit1/visit1';
 import { AddVisitPage } from '../pages/add-visit/add-visit';
 import { VisitpagePage } from '../pages/visitpage/visitpage';
 import { Visit2Page } from '../pages/visit2/visit2';
+import { AddEventPage } from '../pages/add-event/add-event';
+
+
 
 @Component({
   templateUrl: 'app.html',

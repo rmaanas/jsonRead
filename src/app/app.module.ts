@@ -23,6 +23,8 @@ import { EmailValidator } from '../pages/add/emailValid';
 import { Visit1Page } from '../pages/visit1/visit1';
 import {VisitpagePage } from '../pages/visitpage/visitpage';
 import { Visit2Page } from '../pages/visit2/visit2';
+import { AddEventPage } from '../pages/add-event/add-event';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { Visit2Page } from '../pages/visit2/visit2';
     AddPage,
     Visit1Page,
     VisitpagePage,
-    Visit2Page
+    Visit2Page,
+    AddEventPage
    
     
   ],
@@ -70,7 +73,8 @@ import { Visit2Page } from '../pages/visit2/visit2';
     AddPage,
     Visit1Page,
     VisitpagePage,
-    Visit2Page
+    Visit2Page,
+    AddEventPage
    
   ],
   providers: [

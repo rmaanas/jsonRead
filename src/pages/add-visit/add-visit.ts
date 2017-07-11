@@ -45,21 +45,7 @@ export class AddVisitPage {
     });
   }
 
-   initialize()
-   {
-     return [
-     {
-        name: "project1",
-        projectid: 1,
-        organisation: "org1"
-     },
-     {
-        name: "project13",
-        projectid: 2,
-        organisation: "org2"
-     }
-     ];
-   }
+  
   goToHome(){
     this.navCtrl.setRoot(ManagerHomePage)
     this.navCtrl.popToRoot();
@@ -95,7 +81,7 @@ export class AddVisitPage {
   }
    save(){
  
-    this.submitAttempt = true;
+    
  
     if(!this.addVisitForm.valid){
         this.submitAttempt = true;

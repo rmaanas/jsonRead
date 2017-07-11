@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {AddEditPage } from '../add-edit/add-edit';
+import {AddEventPage } from '../add-event/add-event';
+//import {Printer, PrintOptions} from 'ionic-native';
+
 
 
 /**
@@ -26,6 +28,20 @@ export class Visit2Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Visit2Page');
   }
+
+ /* print(){
+
+        Printer.isAvailable().then(function(){
+            Printer.print("https://www.techiediaries.com").then(function(){
+            alert("printing done successfully !");
+            },function(){
+            alert("Error while printing !");
+            });
+        }, function(){
+        alert('Error : printing is unavailable on your device ');
+        });
+
+} */
 
    getCollectings() {
   return [
@@ -73,27 +89,9 @@ export class Visit2Page {
   }
 
 
-  itemSelected(item1) {
-    this.navCtrl.push(AddEditPage,{
-    item : 'Edit',
-    item1 : item1
-    });
-    console.log(item1.Event + " is selected");
-  }
-
   fab()
   {
-    this.navCtrl.push(AddEditPage,{
-    item:'Add',
-    item1:{
-    "Event"     : "",
-      "Start"     : "",
-      "End"       : "",
-      "Date"      : "",
-      "Owner"     : "",
-      "Venue"     : ""
-    }
-    });
+    this.navCtrl.push(AddEventPage);
     console.log("has reached");
   }
 
