@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Visit1Page } from '../visit1/visit1';
+import { Visit2Page } from '../visit2/visit2';
 
 /**
  * Generated class for the VisitpagePage page.

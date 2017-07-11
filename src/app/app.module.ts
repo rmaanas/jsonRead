@@ -20,6 +20,9 @@ import { AddProjectPage } from '../pages/add-project/add-project';
 import { IonicStorageModule } from '@ionic/storage';
 import { AddPage } from '../pages/add/add';
 import { EmailValidator } from '../pages/add/emailValid';
+import { Visit1Page } from '../pages/visit1/visit1';
+import {VisitpagePage } from '../pages/visitpage/visitpage';
+import { Visit2Page } from '../pages/visit2/visit2';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { EmailValidator } from '../pages/add/emailValid';
     ProjectpagePage,
     AddProjectPage,
     AddPage,
+    Visit1Page,
+    VisitpagePage,
+    Visit2Page
    
     
   ],
@@ -62,6 +68,9 @@ import { EmailValidator } from '../pages/add/emailValid';
     ProjectpagePage,
     AddProjectPage,
     AddPage,
+    Visit1Page,
+    VisitpagePage,
+    Visit2Page
    
   ],
   providers: [

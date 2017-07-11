@@ -10,14 +10,17 @@ import {ManagerHomePage} from '../pages/manager-home/manager-home';
 import { EmployeeHomePage } from '../pages/employee-home/employee-home';
 import { AddProjectPage } from '../pages/add-project/add-project';
 import { AddPage } from '../pages/add/add';
+import { Visit1Page } from '../pages/visit1/visit1';
 import { AddVisitPage } from '../pages/add-visit/add-visit';
+import { VisitpagePage } from '../pages/visitpage/visitpage';
+import { Visit2Page } from '../pages/visit2/visit2';
 
 @Component({
   templateUrl: 'app.html',
   providers: [ShareService, IonicStorageModule] 
 })
 export class MyApp {
-  rootPage:any = AddVisitPage;
+  rootPage:any = VisitpagePage;
   jsonObj: any = null;
   res: any;
 
