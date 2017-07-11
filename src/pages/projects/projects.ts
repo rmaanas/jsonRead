@@ -77,7 +77,7 @@ export class ProjectsPage {
   itemSelected(item) {
     console.log(item.NAME + " is selected");
     this.storage.set("currProj", item);
-    this.navCtrl.push(EditProjectPage);
+    this.navCtrl.push(EditProjectPage, {currProject: item});
   }
 
   getItems(ev) {
