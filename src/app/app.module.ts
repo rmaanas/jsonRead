@@ -21,6 +21,9 @@ import { ProjectsPage } from '../pages/projects/projects';
 import { AddProjectPage } from '../pages/add-project/add-project';
 import { EditProjectPage } from '../pages/edit-project/edit-project';
 import { IonicStorageModule } from '@ionic/storage';
+import {Visit1Page} from '../pages/visit1/visit1';
+import {Visit2Page} from '../pages/visit2/visit2';
+import {VisitpagePage} from '../pages/visitpage/visitpage';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { IonicStorageModule } from '@ionic/storage';
     AddProjectPage,
     AddPage,
     ProjectsPage,
-    EditProjectPage
+    EditProjectPage,
+    Visit1Page,
+    Visit2Page,
+    VisitpagePage
   ],
   imports: [
     HttpModule,
@@ -64,7 +70,10 @@ import { IonicStorageModule } from '@ionic/storage';
     AddProjectPage,
     AddPage,
     ProjectsPage,
-    EditProjectPage
+    EditProjectPage,
+    Visit1Page,
+    Visit2Page,
+    VisitpagePage
   ],
   providers: [
     StatusBar,

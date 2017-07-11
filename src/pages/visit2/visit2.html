@@ -1,0 +1,45 @@
+<!--
+  Generated template for the Visit2Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header >
+
+  <ion-navbar color="primary">
+    <ion-title text-center>
+Agenda    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-fab middle right >
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+     <button ion-fab  (click)="fab()"><ion-icon name="add"></ion-icon></button>
+   <button ion-fab  ><ion-icon name="clipboard"></ion-icon></button>
+    
+    </ion-fab-list>
+</ion-fab>
+
+<ion-content padding>
+ <ion-list>
+
+ <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0"> 
+ <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)" text-center>
+<ion-item>
+<h1><b>Event:</b>{{"    "+collecting.Event}}</h1> <br>
+    <h3><b>Date:</b>{{"  "+collecting.Date+"     "}}<b>Owner:</b>{{"  "+collecting.Owner+"      "}}<b>Venue:</b>{{"  "+collecting.Venue}}</h3><br>  
+  <h3><b>Start time:</b>{{"  "+collecting.Start+"    "}}<b>End time:</b>{{"  "+collecting.End+"  "}}</h3> <br>
+    </ion-item>
+    <ion-item-options side="left">
+      <button ion-button color="primary">
+        <ion-icon name="text"></ion-icon>
+        Edit
+      </button>
+    </ion-item-options>
+ </button>
+    </ion-item-sliding>
+ </ion-list>
+</ion-content>
+ 
