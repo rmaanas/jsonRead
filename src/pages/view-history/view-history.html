@@ -40,7 +40,7 @@
 
 </ion-list>
 
-	<button (click)="SearchHist()" ion-button round>Search</button>
+	<button (click)="searchhistory()" ion-button round>Search</button>
 
 
 	<ion-list>
@@ -56,12 +56,13 @@
 
 
     <ion-title>Records:</ion-title>
-<div class="row" *ngIf="collectings && collectings.length > 0">
-  <ion-list>
- <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)" text-center>
-   <h2> <b>Project:</b>{{"     " + collecting.ProjectName + " ----------- "}} <b>Date:</b>{{"     " + collecting.Date}}</h2>
- </button>
- </ion-list>
-</div>
+<ion-list>
+      <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
+        <ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
+            <h2>{{collecting.NAME}} - {{collecting.VISITDATE}}</h2>
+            <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
 
 </ion-content>
