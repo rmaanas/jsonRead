@@ -40,7 +40,7 @@ export class ViewHistoryPage {
   getCollectings()
   {
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
-      var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
+      var link = 'http://localhost:9000/TestRest/testrest/searchhistory';
       
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);
@@ -125,7 +125,7 @@ presentLoading() {
       this.jsonObj = JSON.parse(data["_body"]);
 
 
-      console.log(this.jsonObj.organisation);
+      console.log(this.jsonObj.ename);
 
       },error => {
         console.log("Error!");
