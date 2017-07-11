@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
 import { AddProjectPage } from '../add-project/add-project';
 import { AddVisitPage } from '../add-visit/add-visit';
+import { VisitpagePage } from '../visitpage/visitpage';
 
 @IonicPage()
 @Component({
@@ -81,8 +82,9 @@ export class MhomePage {
   }
 
   itemSelected(item) {
-    //this.navCtrl.push(ProjectpagePage);
-    console.log(item.NAME + " is selected");
+    this.storage.set("currVisit", item);
+    this.navCtrl.push(VisitpagePage, {currVisit: item});
+    //console.log(item.NAME + " is selected");
   }
 
   getItems(ev) {
