@@ -45,6 +45,8 @@ export class History2Page {
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
       var link = 'http://localhost:9000/TestRest/testrest/getEvents';
       
+      console.log(this.currVisit.VISITID);
+
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("username", this.myjsonObj.username);

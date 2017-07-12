@@ -25,7 +25,7 @@
     </ion-item>
     <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
 
-      <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
+      <button ion-item *ngFor="let collecting of collectings">
           <ion-item>
             <h1><b>Event:</b>{{"    " + collecting.NAME + "  "}} </h1> <br>
             <h3><b>Start time:</b>{{"  "+ collecting.STARTTIME +"    "}}<b>End time:</b>{{"  " + collecting.ENDTIME + "  "}}</h3> <br>
