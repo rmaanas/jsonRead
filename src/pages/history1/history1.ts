@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
@@ -15,7 +15,9 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'history1.html',
 })
 export class History1Page {
-loader:any;
+
+  @ViewChild(Navbar) navBar:Navbar;
+  loader:any;
   username: any;
   myjsonObj: any;
   jsonObj: any;
@@ -64,6 +66,10 @@ loader:any;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad History1Page');
+    this.navBar.backButtonClick = (e:UIEvent) => {
+        console.log("Back button clicked");
+        this.navCtrl.parent.viewCtrl.dismiss();
+    };
   }
 
 }

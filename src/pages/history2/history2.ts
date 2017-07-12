@@ -79,13 +79,11 @@ export class History2Page {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Visit2Page');
+    console.log('ionViewDidLoad History2Page');
     this.navBar.backButtonClick = (e:UIEvent) => {
         console.log("Back button clicked");
         this.navCtrl.parent.viewCtrl.dismiss();
     };
   }
-
-
 
 }

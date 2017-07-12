@@ -27,7 +27,7 @@ export class AddRolePage {
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams,public http: Http, public storage: Storage, public alertCtrl: AlertController) {
 
    this.slideOneForm = formBuilder.group({
-        name: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        name: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         email: ['', EmailValidator.isValid]
     });
   }

@@ -107,6 +107,7 @@ export class EditEventPage {
             date1: this.currEvent.DUEDATE,
             time1: this.currEvent.STARTTIME,
             time2: this.currEvent.ENDTIME,
+            mode: "None",
             duration:"00:00"
           }
           );
