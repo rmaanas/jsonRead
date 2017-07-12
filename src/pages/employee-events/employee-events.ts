@@ -48,7 +48,7 @@ export class EmployeeEventsPage {
     .subscribe(data => {
 
         this.jsonObj = JSON.parse(data["_body"]);
-        this.allevents = this.jsonObj.visits;
+        this.allevents = this.jsonObj.events;
         this.loader.dismiss();
       
       }, error => {
