@@ -14,6 +14,7 @@ import { ViewHistoryPage } from '../pages/view-history/view-history';
 import { EmployeeHomePage } from '../pages/employee-home/employee-home';
 import { EmployeeAllProjectsPage } from '../pages/employee-all-projects/employee-all-projects';
 import { EmployeeMyProjectsPage } from '../pages/employee-my-projects/employee-my-projects';
+import { EmployeeEventsPage } from '../pages/employee-events/employee-events';
 import { AddEditPage } from '../pages/add-edit/add-edit';
 import { AddPage } from '../pages/add/add';
 import { ProjectpagePage } from '../pages/projectpage/projectpage';
@@ -26,6 +27,9 @@ import {Visit2Page} from '../pages/visit2/visit2';
 import {VisitpagePage} from '../pages/visitpage/visitpage';
 import { AddEventPage } from '../pages/add-event/add-event';
 import { EditEventPage } from '../pages/edit-event/edit-event';
+import {History1Page} from '../pages/history1/history1';
+import {History2Page} from '../pages/history2/history2';
+import {HistoryPage} from '../pages/history/history';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,7 @@ import { EditEventPage } from '../pages/edit-event/edit-event';
     EmployeeHomePage,
     EmployeeAllProjectsPage,
     EmployeeMyProjectsPage,
+    EmployeeEventsPage,
     UpdateVisitPage,
     ViewHistoryPage,
     AddEditPage,
@@ -49,7 +54,10 @@ import { EditEventPage } from '../pages/edit-event/edit-event';
     Visit2Page,
     VisitpagePage,
     AddEventPage,
-    EditEventPage
+    EditEventPage,
+    History1Page,
+    History2Page,
+    HistoryPage
   ],
   imports: [
     HttpModule,
@@ -64,6 +72,7 @@ import { EditEventPage } from '../pages/edit-event/edit-event';
 	  ManagerHomePage,
     MhomePage,
     EmployeeHomePage,
+    EmployeeEventsPage,
     EmployeeAllProjectsPage,
     EmployeeMyProjectsPage,
     AddVisitPage,
@@ -79,7 +88,10 @@ import { EditEventPage } from '../pages/edit-event/edit-event';
     Visit2Page,
     VisitpagePage,
     AddEventPage,
-    EditEventPage
+    EditEventPage,
+    History1Page,
+    History2Page,
+    HistoryPage
   ],
   providers: [
     StatusBar,
