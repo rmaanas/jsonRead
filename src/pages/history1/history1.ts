@@ -45,7 +45,7 @@ loader:any;
         this.clienthead =  this.currVisit.CLIENTHEAD;
         this.organisation= this.currVisit.ORGANISATION;
         this.clientemail = this.currVisit.CLIENTEMAIL;
-        this.visitdate  =  this.currVisit.Venue;
+        this.visitdate  =  this.currVisit.VENUE;
         this.venue      =  this.currVisit.VISITDATE;
         //this.addVisitForm.controls['venue'].setValue = this.currVisit.VENUE;
         this.loader.dismiss();
