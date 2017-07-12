@@ -26,6 +26,7 @@ export class HomePage {
   newDate:any = this.myDate.getFullYear() + '-' + (this.myDate.getMonth()+1) + '-' + this.myDate.getDate();
   */
   
+  splash = true;
   public error_mssg : any = null;
 
   constructor(public storage : Storage,public loadingCtrl : LoadingController,public navCtrl: NavController, public formBuilder : FormBuilder, public http : Http) {
@@ -36,6 +37,12 @@ export class HomePage {
     });
   }
  
+  ionViewDidLoad(){
+    setTimeout(()=>{
+      this.splash = false;
+    },4000);
+  }
+
   submit(value : any) {
   	var link = 'http://localhost:9000/TestRest/testrest/login';
   	var data = JSON.stringify({username: value.username, password: value.password});
