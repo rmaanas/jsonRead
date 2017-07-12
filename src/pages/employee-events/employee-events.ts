@@ -10,7 +10,7 @@ import {LoadingController} from 'ionic-angular';
 })
 export class EmployeeEventsPage {
 
-	allevents: any;
+	allevents:any = [];
 	date:any = new Date();
   day:any = ('0' + this.date.getDate()).slice(-2);
   month:any = ('0' + (this.date.getMonth() + 1)).slice(-2);
@@ -25,7 +25,8 @@ export class EmployeeEventsPage {
 
   constructor(public loadingCtrl: LoadingController,public storage: Storage,public http:Http,public navCtrl: NavController, public navParams: NavParams) {
 
-  	this.storage.get("jsonObj").then(value=>{
+    this.presentLoading();
+    this.storage.get("jsonObj").then(value=>{
     	this.myjsonObj = value;
     	this.storage.set('currDate' , this.currDate);
       	this.getallevents();
@@ -43,7 +44,6 @@ export class EmployeeEventsPage {
     headers.append("username", this.myjsonObj.username);
     headers.append("accesstoken", this.myjsonObj.accesstoken);
       
-     this.presentLoading();
     this.http.post(link,data, {"headers": headers})
     .subscribe(data => {
 
