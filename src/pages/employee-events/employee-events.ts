@@ -36,7 +36,7 @@ export class EmployeeEventsPage {
   getallevents(){
 
   	var link = 'http://localhost:9000/TestRest/testrest/getemployeeevents';
-    var data = JSON.stringify({currdate: this.currDate});
+    var data = JSON.stringify({currdate: this.currDate, username : this.myjsonObj.username});
     var headers = new Headers();
 
     headers.append("Content-Type", "application/json");

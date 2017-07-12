@@ -23,7 +23,7 @@
     <ion-list>
       <ion-item-sliding class="row" *ngIf="event && allevents.length > 0">
         <ion-item *ngFor="let event of allevents" (click)="itemSelected(event)">
-            <h2>Event Details: {{event.NAME}} - {{event.VISITDATE}}</h2>
+            <h2>Project Details: {{event.PROJECTNAME}} - {{event.VISITDATE}}</h2>
             <h3>Time: {{event.STARTTIME}} - {{ event.ENDTIME }}</h3>
             <h3>Venue: {{ event.VENUES }}</h3>
             <h4>Due Date: {{ event.DUEDATE }}</h4>
