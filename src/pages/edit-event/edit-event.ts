@@ -38,6 +38,8 @@ export class EditEventPage {
   events: any;
   eventValid: any = false;
   eventStatus: any = "Yet to start";
+  eventIndex: any = -1;
+  fieldsValid: any;
   modes:any = [
     {
       mode: "None"
@@ -185,113 +187,141 @@ export class EditEventPage {
     {
         this.getCurrDate();
         this.updateEvents();
+        this.eventValid = true;
         if(this.currEvent.STATUS!="SUSPENDED" && this.currEvent.STATUS!="COMPLETED")
         {
-            if(formvalue.mode == "None")
+            this.validateFields(formvalue);
+            if(this.fieldsValid)
             {
-                this.validateNONE(formvalue);
-            }
-            if(formvalue.mode == "Shift")
-            {
-                this.validateSHIFT(formvalue);
-            }
-            if(formvalue.mode == "Shrink")
-            {
-                this.validateSHRINK(formvalue);
+              if(formvalue.mode == "None")
+              {
+                  this.validateNONE(formvalue);
+              }
+              if(formvalue.mode == "Shift")
+              {
+                  this.validateSHIFT(formvalue);
+              }
+              if(formvalue.mode == "Shrink")
+              {
+                  this.validateSHRINK(formvalue);
+              }
             }
         }
         else
         {
-            this.errormessage = "can't edit suspended or completed events";
+            this.errormessage = "Can't edit suspended or completed events";
         }
+        this.eventValid = false;
     }
   }
+
+  validateFields(value:any)
+  {
+      this.fieldsValid = true;
+
+      //start time greater than equal to end time
+      if(value.time1 >= value.time2)
+      {
+          this.fieldsValid = false;
+          this.errormessage = "start time must be less than end time";
+      }
+
+      //start time
+      if(this.fieldsValid && this.currVisit.VISITDATE == this.currDate && value.time1 <= this.currTime)
+      {
+          if(this.currEvent.STATUS != "ONGOING")
+          {
+            this.fieldsValid = false;
+            this.errormessage = "start time should be greater than current time";
+          }
+      }
+
+      //due date
+      if(this.fieldsValid && (value.date < this.currDate || value.date > this.currVisit.VISITDATE))
+      {
+          this.fieldsValid = false;
+          this.errormessage = "the due date has to be greater than today's date and less than or equal to visit date";
+      }
+
+      // for ongoing events
+      if(this.fieldsValid && this.currEvent.STATUS == "ONGOING")
+      {
+          //venue can't be changed for an ongoing event
+          if(this.fieldsValid && this.currEvent.VENUE != value.venue)
+          {              
+              this.fieldsValid = false;
+              this.errormessage = "venue can't be changed for an ongoing event";
+          }
+
+          //start time can't be changed for an ongoing event
+          if(this.fieldsValid && this.currEvent.STARTTIME.substring(0,5) != value.time1)
+          {              
+              this.fieldsValid = false;
+              this.errormessage = "Start time can't be changed for an ongoing event";
+          }          
+      }
+
+      if(this.fieldsValid)
+      {
+        //start time or end time has been changed
+        if((this.currEvent.STARTTIME.substring(0,5) != value.time1) || (this.currEvent.ENDTIME.substring(0,5) != value.time2))
+        {
+            //Not allowed to change start or end time while using Shrink or Shift mode 
+            if(value.mode != "None")
+            {
+                this.fieldsValid = false;
+                this.errormessage = "Not allowed to change start or end time while using Shrink or Shift mode";
+            }
+        }
+      }
+
+  }
+
 
   validateNONE(value:any)
   {
     var i=0;
+    var eventIndex = 0;
+    var wasFalse = false;
     this.eventValid = false;
     this.errormessage = null;
 
-    if(this.addEventForm.value.time1 < this.addEventForm.value.time2)
+    for(i=0;i<this.events.length && !wasFalse;i++)
     {
-      if(this.currVisit.VISITDATE >= this.currDate)
+      //console.log(' starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
+      //console.log(' endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
+    
+      if(this.events[i].EVENTID != this.currEvent.EVENTID)
       {
-        if(this.currVisit.VISITDATE == this.currDate)
+        if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
         {
-            if(this.addEventForm.value.time1 >= this.currTime)
-            {
-                if(this.events.length == 0)
-                {
-                  this.eventValid = true;
-                }
 
-                for(i=0;i<this.events.length && !this.eventValid;i++)
-                {
-                  console.log('from if starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
-                  console.log('from if endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
-                  //console.log('if endtime<= event start time' + (this.addEventForm.value.time2 <= this.events[i].STARTTIME) + '');
-                  if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
-                  {
-                      if(i == this.events.length-1)
-                      {
-                          this.eventValid = true;
-                      }
-                  }
-                  else
-                  {
-                      break;
-                  }
-                }
-            }
         }
         else
         {
-            if(this.events.length == 0)
-            {
-              this.eventValid = true;
-            }
-
-            for(i=0;i<this.events.length && !this.eventValid;i++)
-            {
-                  console.log('from else starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
-                  console.log('from else endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');
-                if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
-                {
-                  if(i == this.events.length-1)
-                  {
-                      this.eventValid = true;
-                  }
-                }
-                else
-                {
-                  break;
-                }
-            }
+            wasFalse = true;
         }
       }
+      else
+      {
+         this.eventIndex = i;
+      }
     }
+
+    this.eventValid =  !wasFalse;
     
     console.log(this.addEventForm.value);
-    //due date validation
-    if(this.addEventForm.value.date1 > this.currVisit.VISITDATE || this.addEventForm.value.date1 < this.currDate)
-    {
-      this.eventValid = false;
-    }
 
     if(this.eventValid)
     {
       this.errormessage = null;
-      console.log("The event is valid and is going to be added to events");
-      if(this.currVisit.VISITDATE == this.currDate && this.addEventForm.value.time1 == this.currTime)
-      {
-        this.eventStatus = "Ongoing";
-      }
-      this.createEvent(this.addEventForm.value);
+      //this.events[this.eventIndex].
+      console.log("The event is valid and is going to be updated");
+      this.createEvent(value);
     }
     else
     {
-      this.errormessage = "Invalid (or) Overlapping Timings for the event (or) Invalid Due Date";
+      this.errormessage = "Overlapping Timings for the event";
       console.log(this.errormessage);
     }
   }
@@ -299,173 +329,91 @@ export class EditEventPage {
   validateSHIFT(value:any)
   {
     var i=0;
-    this.eventValid = false;
-    if(this.addEventForm.value.time1 < this.addEventForm.value.time2)
+    this.eventValid = true;
+    this.errormessage = null;
+    for(i=0;i<this.events.length && !this.eventValid;i++)
     {
-      if(this.currVisit.VISITDATE >= this.currDate)
+      //console.log('from if starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
+      //console.log('from if endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
+
+      if(value.time1 < this.events[i].STARTTIME.substring(0,5))
       {
-        if(this.currVisit.VISITDATE == this.currDate)
-        {
-            if(this.addEventForm.value.time1 >= this.currTime)
-            {
-                if(this.events.length == 0)
-                {
-                  this.eventValid = true;
-                }
-
-                for(i=0;i<this.events.length && !this.eventValid;i++)
-                {
-                  console.log('from if starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
-                  console.log('from if endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
-                  //console.log('if endtime<= event start time' + (this.addEventForm.value.time2 <= this.events[i].STARTTIME) + '');
-                  if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
-                  {
-                      if(i == this.events.length-1)
-                      {
-                          this.eventValid = true;
-                      }
-                  }
-                  else
-                  {
-                      break;
-                  }
-                }
-            }
-        }
-        else
-        {
-            if(this.events.length == 0)
-            {
-              this.eventValid = true;
-            }
-
-            for(i=0;i<this.events.length && !this.eventValid;i++)
-            {
-                  console.log('from else starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
-                  console.log('from else endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');
-                if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
-                {
-                  if(i == this.events.length-1)
-                  {
-                      this.eventValid = true;
-                  }
-                }
-                else
-                {
-                  break;
-                }
-            }
-        }
+          console.log("increment by duration ");
+          console.log((this.events[i].STARTTIME.substring(0,5) + value.duration));
+          console.log((this.events[i].ENDTIME.substring(0,5) + value.duration));
+          //increrment both start and end times
       }
-    }
-    
-    console.log(this.addEventForm.value);
-    //due date validation
-    if(this.addEventForm.value.date1 > this.currVisit.VISITDATE || this.addEventForm.value.date1 < this.currDate)
-    {
-      this.eventValid = false;
-    }
-
-    if(this.eventValid)
-    {
-      this.errormessage = null;
-      console.log("The event is valid and is going to be added to events");
-      if(this.currVisit.VISITDATE == this.currDate && this.addEventForm.value.time1 == this.currTime)
+      if(value.time1 == this.events[i].STARTTIME.substring(0,5))
       {
-        this.eventStatus = "Ongoing";
+          this.eventIndex = i;
+          console.log((this.events[i].ENDTIME.substring(0,5) + value.duration));
+          //increment only end time
       }
-      this.createEvent(this.addEventForm.value);
-    }
-    else
-    {
-      this.errormessage = "Invalid (or) Overlapping Timings for the event (or) Invalid Due Date";
-      console.log(this.errormessage);
     }
   }
 
   validateSHRINK(value:any)
   {
     var i=0;
-    this.eventValid = false;
-    if(this.addEventForm.value.time1 < this.addEventForm.value.time2)
+    var ongoing=-1;
+    this.eventValid = true;
+    //shrink duration cant be more than or equal to event duration
+    if(value.time2 - value.time1 <= value.duration)
     {
-      if(this.currVisit.VISITDATE >= this.currDate)
+        this.eventValid = false;
+        this.errormessage = "shrink duration cant be more than or equal to event duration";
+    }
+
+    if(this.eventValid && this.currDate < this.currVisit.VISITDATE)
+    {
+      this.eventValid = false;
+      this.errormessage = "shrink can be used only on day of event with atleast one ONGOING event to be extended";
+    }
+
+    for(i=0;i<this.events.length && this.eventValid;i++)
+    {
+      //console.log('from if starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
+      //console.log('from if endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
+
+      if(this.events[i].STATUS == "ONGOING")
       {
-        if(this.currVisit.VISITDATE == this.currDate)
-        {
-            if(this.addEventForm.value.time1 >= this.currTime)
-            {
-                if(this.events.length == 0)
-                {
-                  this.eventValid = true;
-                }
-
-                for(i=0;i<this.events.length && !this.eventValid;i++)
-                {
-                  console.log('from if starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
-                  console.log('from if endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
-                  //console.log('if endtime<= event start time' + (this.addEventForm.value.time2 <= this.events[i].STARTTIME) + '');
-                  if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
-                  {
-                      if(i == this.events.length-1)
-                      {
-                          this.eventValid = true;
-                      }
-                  }
-                  else
-                  {
-                      break;
-                  }
-                }
-            }
-        }
-        else
-        {
-            if(this.events.length == 0)
-            {
+          if(i == this.currEvent.EVENTID)
+          {
+              this.eventValid = false;
+              this.errormessage = "can't shrink ongoing event";
+          }
+          else
+          {
+              ongoing = i;
+              this.events[i].ENDTIME = this.events[i].ENDTIME.substring(0,5) + value.duration;
+          }
+      }
+      else if(i>ongoing && ongoing!=-1)
+      {
+          if(i == this.currEvent.EVENTID)
+          {
               this.eventValid = true;
-            }
-
-            for(i=0;i<this.events.length && !this.eventValid;i++)
-            {
-                  console.log('from else starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
-                  console.log('from else endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');
-                if(this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5) || this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5))
-                {
-                  if(i == this.events.length-1)
-                  {
-                      this.eventValid = true;
-                  }
-                }
-                else
-                {
-                  break;
-                }
-            }
-        }
+              this.events[i].STARTTIME = this.events[i].STARTTIME.substring(0,5) + value.duration;
+              break;
+          }
+          else
+          {
+              this.events[i].STARTTIME = this.events[i].STARTTIME.substring(0,5) + value.duration;
+              this.events[i].ENDTIME = this.events[i].ENDTIME.substring(0,5) + value.duration;
+          }
       }
     }
     
     console.log(this.addEventForm.value);
-    //due date validation
-    if(this.addEventForm.value.date1 > this.currVisit.VISITDATE || this.addEventForm.value.date1 < this.currDate)
-    {
-      this.eventValid = false;
-    }
 
     if(this.eventValid)
     {
       this.errormessage = null;
-      console.log("The event is valid and is going to be added to events");
-      if(this.currVisit.VISITDATE == this.currDate && this.addEventForm.value.time1 == this.currTime)
-      {
-        this.eventStatus = "Ongoing";
-      }
-      this.createEvent(this.addEventForm.value);
+      console.log("The event is valid and is going to be updated");
+      this.createEvent(value);
     }
     else
     {
-      this.errormessage = "Invalid (or) Overlapping Timings for the event (or) Invalid Due Date";
       console.log(this.errormessage);
     }
   }

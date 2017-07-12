@@ -182,7 +182,7 @@ export class AddEventPage {
           console.log("The event is valid and is going to be added to events");
           if(this.currVisit.VISITDATE == this.currDate && this.addEventForm.value.time1 == this.currTime)
           {
-            this.eventStatus = "Ongoing";
+            this.eventStatus = "ONGOING";
           }
           this.createEvent(this.addEventForm.value);
         }
