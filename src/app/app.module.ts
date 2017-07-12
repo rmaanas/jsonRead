@@ -30,6 +30,7 @@ import { EditEventPage } from '../pages/edit-event/edit-event';
 import {History1Page} from '../pages/history1/history1';
 import {History2Page} from '../pages/history2/history2';
 import {HistoryPage} from '../pages/history/history';
+import { AddRolePage } from '../pages/add-role/add-role';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {HistoryPage} from '../pages/history/history';
     EditEventPage,
     History1Page,
     History2Page,
-    HistoryPage
+    HistoryPage,
+    AddRolePage
   ],
   imports: [
     HttpModule,
@@ -91,7 +93,8 @@ import {HistoryPage} from '../pages/history/history';
     EditEventPage,
     History1Page,
     History2Page,
-    HistoryPage
+    HistoryPage,
+    AddRolePage
   ],
   providers: [
     StatusBar,
