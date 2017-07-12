@@ -28,6 +28,9 @@ import {VisitpagePage} from '../pages/visitpage/visitpage';
 import { HistdetavisitPage } from '../pages/histdetavisit/histdetavisit';
 import { HistdetaagendaPage } from '../pages/histdetaagenda/histdetaagenda';
 import { HistdetaPage } from '../pages/histdeta/histdeta';
+import { HistoryPage } from '../pages/history/history';
+import { History2Page } from '../pages/history2/history2';
+import { History1Page } from '../pages/history1/history1';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,10 @@ import { HistdetaPage } from '../pages/histdeta/histdeta';
     VisitpagePage,
     HistdetaPage,
     HistdetaagendaPage,
-    HistdetavisitPage
+    HistdetavisitPage,
+    HistoryPage,
+    History1Page,
+    History2Page
   ],
   imports: [
     HttpModule,
@@ -85,7 +91,10 @@ import { HistdetaPage } from '../pages/histdeta/histdeta';
     VisitpagePage,
     HistdetaPage,
     HistdetaagendaPage,
-    HistdetavisitPage
+    HistdetavisitPage,
+    HistoryPage,
+    History1Page,
+    History2Page
   ],
   providers: [
     StatusBar,

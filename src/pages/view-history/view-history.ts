@@ -5,6 +5,8 @@ import {ShareService} from '../services/ShareService';
 import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
 import {Http, Headers} from '@angular/http';
+import { HistoryPage } from '../history/history';
+
 
 
 @IonicPage()
@@ -60,8 +62,8 @@ presentLoading() {
   }
 
   itemSelected(item) {
-    
-    console.log(item.PROJECTNAME + " is selected");
+     this.storage.set("currVisit",item);
+     this.navCtrl.push(HistoryPage);
   }
 
   getItems(ev) {

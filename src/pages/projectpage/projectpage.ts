@@ -64,21 +64,19 @@ collectings=null;
   }
 
 
-  itemSelected(item,item1) {
+  itemSelected(item1) {
     this.navCtrl.push(AddEditPage,{
     item : 'Edit',
     item1 : item1
     });
-    console.log(item.Event + " is selected");
   }
 
-  fab(item)
+  fab()
   {
     this.navCtrl.push(AddEditPage,{
     item:'Add',
     item1:null
     });
-    console.log(item+"has reached");
   }
   
 
