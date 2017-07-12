@@ -30,6 +30,14 @@ export class Visit2Page {
   addVisitForm : FormGroup;
   status : any;
   currdate : Date;
+  date:any = new Date();
+  day:any = ('0' + this.date.getDate()).slice(-2);
+  month:any = ('0' + (this.date.getMonth() + 1)).slice(-2);
+  year:any = this.date.getFullYear();
+  currDate: any = this.year + '-' + this.month + '-' + this.day;
+  currTime:any = this.date.getTime();
+  hours:any;
+  minutes:any;
 
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public navParams: NavParams,public http: Http,public loadingCtrl: LoadingController, public storage: Storage) {
 
@@ -64,6 +72,7 @@ export class Visit2Page {
 
           this.jsonObj = JSON.parse(data["_body"]);
           this.collectings = this.jsonObj.events;
+          this.updateEvents();
           this.loader.dismiss();
           this.storage.set('events', this.collectings);
         }, error => {
@@ -71,6 +80,61 @@ export class Visit2Page {
           console.log("ERROR: " + this.jsonObj.error);
         });
   }
+
+
+  updateEvents()
+  {
+    var i;
+    this.getCurrDate();
+    for(i=0;i<this.collectings.length;i++)
+    {
+        if(this.currVisit.VISITDATE == this.currDate)
+        {
+          if(this.collectings[i].STATUS != "SUSPENDED")
+          {
+            if(this.currTime < this.collectings[i].STARTTIME.substring(0,5))
+            {
+
+            }
+            if(this.currTime >= this.collectings[i].STARTTIME.substring(0,5))
+            {
+                if(this.currTime < this.collectings[i].ENDTIME.substring(0,5))
+                {
+                  this.collectings[i].STATUS = "ONGOING";
+                }
+                else
+                {
+                  this.collectings[i].STATUS = "COMPLETED";
+                }
+            }            
+          }
+        }
+        
+        if(this.currVisit.VISITDATE < this.currDate)
+        {
+          if(this.collectings[i].STATUS != "SUSPENDED")
+          {
+            this.collectings[i].STATUS = "COMPLETED";
+          }
+        }
+    }
+  } 
+
+  getCurrDate()
+  {
+        this.date = new Date();
+        this.day = ('0' + this.date.getDate()).slice(-2);
+        this.month = ('0' + (this.date.getMonth() + 1)).slice(-2);
+        this.year = this.date.getFullYear();
+        this.currDate = this.year + '-' + this.month + '-' + this.day;
+        this.hours = ('0' + this.date.getHours()).slice(-2);
+        this.minutes = ('0' + this.date.getMinutes()).slice(-2);
+        this.currTime = this.hours + ":" + this.minutes;
+        //console.log(" getCurr: current date is " + this.currDate + " and time is " + this.currTime);    
+  }
+
+
+
 
   presentLoading() 
   {
@@ -91,13 +155,14 @@ export class Visit2Page {
   itemSelected(item1) {
     console.log(item1.NAME + " is selected");
     this.navCtrl.push(EditEventPage,{
-    currEvent : item1
+    currEvent : item1,
+    parentPage: this
     });
   }
 
   fab()
   {
-    this.navCtrl.push(AddEventPage);
+    this.navCtrl.push(AddEventPage, {parentPage: this});
   }
 
 }

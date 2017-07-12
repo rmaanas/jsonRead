@@ -38,10 +38,11 @@ export class AddEventPage {
   minutes:any;
   events: any;
   eventValid: any = false;
-  eventStatus: any = "Yet to start";
+  eventStatus: any = "YET TO START";
+  parentPage: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public loadingCtrl: LoadingController, public http: Http, public alertCtrl: AlertController) {
-      
+      this.parentPage = this.navParams.get('parentPage');    
       this.addEventForm = formBuilder.group({
         name:  ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         owner: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
@@ -255,6 +256,7 @@ export class AddEventPage {
           text: 'OK',
           handler: () => {
             console.log('OK clicked');
+            this.parentPage.getCollectings();
             this.navCtrl.popToRoot();
           }
         }
@@ -278,6 +280,7 @@ export class AddEventPage {
 
   goBack()
   {
+    this.parentPage.getCollectings();
     this.navCtrl.pop();
   }
 

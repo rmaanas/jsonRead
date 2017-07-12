@@ -19,7 +19,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public storage: Storage) {
     platform.ready().then(() => {
-      
+  
       this.storage.get("jsonObj").then(value=>{
         this.jsonObj = value;
         this.res = (this.jsonObj != null);

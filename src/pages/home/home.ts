@@ -100,13 +100,40 @@ export class HomePage {
   }
 
 /*  
-  printCurrDate()
+  printValue()
   {
-    this.getCurrDate();
-    console.log("current date is " + this.currDate + " and time is " + this.currTime);
-    console.log("current time is among noon or afternoon? " + (this.currTime > "12:00"));
+    //this.getCurrDate();
+    //console.log("current date is " + this.currDate + " and time is " + this.currTime);
+    //console.log("current time is among noon or afternoon? " + (this.currTime > "12:00"));
+    var t:any = new Date("2017-07-13 00:00");
+    var x:any = new Date("2017-07-13 09:59");
+    var y:any = new Date("2017-07-13 10:01");
+    var z:any = y.getTime() + x.getTime() - (2 * t.getTime());
+    var hours: any = parseInt(z/3600000+'');
+    var minutes: any = parseInt(((z%3600000)/60000) + '');
+    //z = y-x;
+    hours = ('0' + hours).slice(-2);
+    minutes = ('0' + minutes).slice(-2);
+    console.log(this.timeAdd("09:01","00:59"));
+    //console.log(z.getHours());
   }
+
+  timeAdd(t1:any, t2:any): any
+  {
+    var t:any = new Date("2017-07-13 00:00");
+    var x:any = new Date("2017-07-13 " + t1);
+    var y:any = new Date("2017-07-13 " + t2);
+    var z:any = y.getTime() + x.getTime() - (2 * t.getTime());
+    var hours: any = parseInt(z/3600000+'');
+    var minutes: any = parseInt(((z%3600000)/60000) + '');
   
+    hours = ('0' + hours).slice(-2);
+    minutes = ('0' + minutes).slice(-2);
+
+    return hours+":"+minutes;
+  }
+
+
   getCurrDate()
   {
         this.date = new Date();

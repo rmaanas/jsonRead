@@ -40,6 +40,8 @@ export class EditEventPage {
   eventStatus: any = "Yet to start";
   eventIndex: any = -1;
   fieldsValid: any;
+  parentPage: any;
+
   modes:any = [
     {
       mode: "None"
@@ -54,6 +56,7 @@ export class EditEventPage {
   currEvent: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public loadingCtrl: LoadingController, public http: Http, public alertCtrl: AlertController) {
+      this.parentPage = this.navParams.get('parentPage');
       this.currEvent = this.navParams.get('currEvent');
       this.addEventForm = formBuilder.group({
         name:  ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
@@ -107,8 +110,8 @@ export class EditEventPage {
             owner: this.currEvent.OWNER,
             venue: this.currEvent.VENUE,
             date1: this.currEvent.DUEDATE,
-            time1: this.currEvent.STARTTIME,
-            time2: this.currEvent.ENDTIME,
+            time1: this.currEvent.STARTTIME.substring(0,5),
+            time2: this.currEvent.ENDTIME.substring(0,5),
             mode: "None",
             duration:"00:00"
           }
@@ -139,7 +142,7 @@ export class EditEventPage {
             }
             if(this.currTime >= this.events[i].STARTTIME.substring(0,5))
             {
-                if(this.currTime <= this.events[i].ENDTIME.substring(0,5))
+                if(this.currTime < this.events[i].ENDTIME.substring(0,5))
                 {
                   this.events[i].STATUS = "ONGOING";
                 }
@@ -151,7 +154,7 @@ export class EditEventPage {
           }
         }
         
-        if(this.currVisit.VISITDATE > this.currDate)
+        if(this.currVisit.VISITDATE < this.currDate)
         {
           if(this.events[i].STATUS != "SUSPENDED")
           {
@@ -169,7 +172,7 @@ export class EditEventPage {
   presentLoading() 
   {
       this.loader = this.loadingCtrl.create({
-      content: "Loading ...",
+      content: "Waiting for server response ...",
       });
       this.loader.present();
   }
@@ -237,10 +240,22 @@ export class EditEventPage {
       }
 
       //due date
-      if(this.fieldsValid && (value.date < this.currDate || value.date > this.currVisit.VISITDATE))
+      console.log("duedate: " + value.date1);
+      console.log(" date of visit: " + this.currVisit.VISITDATE) 
+      console.log(" Truth of date: " + (value.date > this.currVisit.VISITDATE) + " ");
+      
+      if(this.fieldsValid && (value.date1 < this.currDate || value.date1 > this.currVisit.VISITDATE))
       {
           this.fieldsValid = false;
+          console.log("reached");
           this.errormessage = "the due date has to be greater than today's date and less than or equal to visit date";
+          
+          //due date of past if unchanged is valid for submission
+          if(value.date1 < this.currDate && value.date1 == this.currEvent.DUEDATE)
+          {
+            this.fieldsValid = true;
+            this.errormessage = null;
+          }
       }
 
       // for ongoing events
@@ -288,6 +303,7 @@ export class EditEventPage {
 
     for(i=0;i<this.events.length && !wasFalse;i++)
     {
+      //console.log("i: " + i + "eventID: " + this.events[i].EVENTID + "  currEventID: " + this.currEvent.EVENTID);
       //console.log(' starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
       //console.log(' endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
     
@@ -315,9 +331,15 @@ export class EditEventPage {
     if(this.eventValid)
     {
       this.errormessage = null;
-      //this.events[this.eventIndex].
+      //update the event
+      this.events[this.eventIndex].NAME = value.name;
+      this.events[this.eventIndex].OWNER = value.owner;
+      this.events[this.eventIndex].VENUE =  value.venue;
+      this.events[this.eventIndex].DUEDATE =  value.date1;
+      this.events[this.eventIndex].STARTTIME =  value.time1;
+      this.events[this.eventIndex].ENDTIME = value.time2;
       console.log("The event is valid and is going to be updated");
-      this.createEvent(value);
+      this.editEvent(value);
     }
     else
     {
@@ -331,25 +353,36 @@ export class EditEventPage {
     var i=0;
     this.eventValid = true;
     this.errormessage = null;
-    for(i=0;i<this.events.length && !this.eventValid;i++)
+    for(i=0;i<this.events.length && this.eventValid;i++)
     {
       //console.log('from if starttime:'+ this.addEventForm.value.time1 + ' >= event end time: ' + this.events[i].ENDTIME.substring(0,5) + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME.substring(0,5)) + '');
       //console.log('from if endtime:' + this.addEventForm.value.time2 + ' <= event start time: ' + this.events[i].STARTTIME.substring(0,5) + ' ' +  (this.addEventForm.value.time2 <= this.events[i].STARTTIME.substring(0,5)) + '');                      //console.log('if starttime:'+ this.addEventForm.value.time1 +' >= eventend: '+ this.events[i].ENDTIME + ' ' + (this.addEventForm.value.time1 >= this.events[i].ENDTIME) + '');
-
+      
       if(value.time1 < this.events[i].STARTTIME.substring(0,5))
       {
-          console.log("increment by duration ");
-          console.log((this.events[i].STARTTIME.substring(0,5) + value.duration));
-          console.log((this.events[i].ENDTIME.substring(0,5) + value.duration));
+          //console.log("increment by duration ");
+          this.events[i].STARTTIME = this.timeAdd(this.events[i].STARTTIME.substring(0,5) , value.duration);
+          this.events[i].ENDTIME = this.timeAdd(this.events[i].ENDTIME.substring(0,5) , value.duration);
+
           //increrment both start and end times
       }
+      //console.log("tym"+ value.time1 + " " + this.events[i].STARTTIME.substring(0,5));
       if(value.time1 == this.events[i].STARTTIME.substring(0,5))
-      {
+      { 
           this.eventIndex = i;
-          console.log((this.events[i].ENDTIME.substring(0,5) + value.duration));
+          this.events[i].ENDTIME = this.timeAdd(this.events[i].ENDTIME.substring(0,5) , value.duration);
           //increment only end time
       }
     }
+
+    //update event
+    //console.log("eventIndex is " + this.eventIndex);
+    this.events[this.eventIndex].NAME = value.name;
+    this.events[this.eventIndex].OWNER = value.owner;
+    this.events[this.eventIndex].VENUE =  value.venue;
+    this.events[this.eventIndex].DUEDATE =  value.date1;
+    console.log("Event is valid and going to be updated");
+    this.editEvent(value);
   }
 
   validateSHRINK(value:any)
@@ -358,7 +391,7 @@ export class EditEventPage {
     var ongoing=-1;
     this.eventValid = true;
     //shrink duration cant be more than or equal to event duration
-    if(value.time2 - value.time1 <= value.duration)
+    if(this.timeSub(value.time2 , value.time1) <= value.duration)
     {
         this.eventValid = false;
         this.errormessage = "shrink duration cant be more than or equal to event duration";
@@ -377,7 +410,7 @@ export class EditEventPage {
 
       if(this.events[i].STATUS == "ONGOING")
       {
-          if(i == this.currEvent.EVENTID)
+          if(this.events[i].EVENTID == this.currEvent.EVENTID)
           {
               this.eventValid = false;
               this.errormessage = "can't shrink ongoing event";
@@ -385,32 +418,39 @@ export class EditEventPage {
           else
           {
               ongoing = i;
-              this.events[i].ENDTIME = this.events[i].ENDTIME.substring(0,5) + value.duration;
+              this.events[i].ENDTIME = this.timeAdd(this.events[i].ENDTIME.substring(0,5) , value.duration);
           }
+          break;
       }
-      else if(i>ongoing && ongoing!=-1)
+    }    
+    
+    for(i=ongoing+1;i<this.events.length && this.eventValid;i++)
+    {
+      if(this.events[i].EVENTID == this.currEvent.EVENTID)
       {
-          if(i == this.currEvent.EVENTID)
-          {
-              this.eventValid = true;
-              this.events[i].STARTTIME = this.events[i].STARTTIME.substring(0,5) + value.duration;
-              break;
-          }
-          else
-          {
-              this.events[i].STARTTIME = this.events[i].STARTTIME.substring(0,5) + value.duration;
-              this.events[i].ENDTIME = this.events[i].ENDTIME.substring(0,5) + value.duration;
-          }
+          this.eventValid = true;
+          this.eventIndex = i;
+          this.events[i].STARTTIME = this.timeAdd(this.events[i].STARTTIME.substring(0,5) , value.duration);
+          break;
+      }
+      else
+      {
+          this.events[i].STARTTIME = this.timeAdd(this.events[i].STARTTIME.substring(0,5) , value.duration);
+          this.events[i].ENDTIME = this.timeAdd(this.events[i].ENDTIME.substring(0,5) , value.duration);
       }
     }
     
-    console.log(this.addEventForm.value);
+    //console.log(this.addEventForm.value);
 
     if(this.eventValid)
     {
       this.errormessage = null;
       console.log("The event is valid and is going to be updated");
-      this.createEvent(value);
+      this.events[this.eventIndex].NAME = value.name;
+      this.events[this.eventIndex].OWNER = value.owner;
+      this.events[this.eventIndex].VENUE =  value.venue;
+      this.events[this.eventIndex].DUEDATE =  value.date1;
+      this.editEvent(value);
     }
     else
     {
@@ -419,21 +459,14 @@ export class EditEventPage {
   }
 
 
-  createEvent(value : any){
+  editEvent(value : any){
   	//console.log("ADD VISIT FUNDCTION");
     //console.log(data);
 
-    var link = 'http://localhost:9000/TestRest/testrest/addEvent';
+    var link = 'http://localhost:9000/TestRest/testrest/editEvent';
     var data = JSON.stringify(
       { 
-        visitid: this.currVisit.VISITID,
-        name: value.name,
-        starttime: value.time1,
-        endtime: value.time2,
-        owner: value.owner,
-        duedate: value.date1,
-        venue: value.venue,
-        status: this.eventStatus
+        events: this.events
       });
     
     var headers = new Headers();
@@ -441,14 +474,17 @@ export class EditEventPage {
   	headers.append("username",this.myjsonObj.username);
 	  headers.append("accesstoken",this.myjsonObj.accesstoken);
     
+    this.presentLoading();
     this.http.post(link, data, {headers: headers})
     .subscribe(data => {
 
+      this.loader.dismiss();
       this.jsonObj = JSON.parse(data["_body"]);
       this.status = this.jsonObj.status;
      
-    if(this.status == "inserted")
+    if(this.status == "updated")
     {
+      this.storage.set("events", this.events);
       this.presentConfirm(value);
       /*this.navCtrl.setRoot(ManagerHomePage).then(
       ()=>{
@@ -472,13 +508,14 @@ export class EditEventPage {
   presentConfirm(value:any) 
   {
     let alert = this.alertCtrl.create({
-      title: 'Event Added Successfully!',
-      message: 'Event: ' + value.name + ' added succesfully',
+      title: 'Event Updated Successfully!',
+      message: 'Event: ' + value.name + ' updated succesfully',
       buttons: [
         {
           text: 'OK',
           handler: () => {
             console.log('OK clicked');
+            this.parentPage.getCollectings();
             this.navCtrl.popToRoot();
           }
         }
@@ -502,7 +539,38 @@ export class EditEventPage {
 
   goBack()
   {
+    this.parentPage.getCollectings();
     this.navCtrl.pop();
+  }
+
+  timeAdd(t1:any, t2:any): any
+  {
+    var t:any = new Date("2017-07-13 00:00");
+    var x:any = new Date("2017-07-13 " + t1);
+    var y:any = new Date("2017-07-13 " + t2);
+    var z:any = y.getTime() + x.getTime() - (2 * t.getTime());
+    var hours: any = parseInt(z/3600000+'');
+    var minutes: any = parseInt(((z%3600000)/60000) + '');
+  
+    hours = ('0' + hours).slice(-2);
+    minutes = ('0' + minutes).slice(-2);
+
+    return hours+":"+minutes;
+  }
+
+  timeSub(t1:any, t2:any): any
+  {
+    //var t:any = new Date("2017-07-13 00:00");
+    var x:any = new Date("2017-07-13 " + t1);
+    var y:any = new Date("2017-07-13 " + t2);
+    var z:any = x.getTime() - y.getTime();
+    var hours: any = parseInt(z/3600000+'');
+    var minutes: any = parseInt(((z%3600000)/60000) + '');
+  
+    hours = ('0' + hours).slice(-2);
+    minutes = ('0' + minutes).slice(-2);
+
+    return hours+":"+minutes;
   }
 
 }
