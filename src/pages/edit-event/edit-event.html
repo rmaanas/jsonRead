@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar color="primary">
-        <ion-title>Add Event</ion-title>
+        <ion-title>Edit Event</ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content padding>
@@ -56,13 +56,35 @@
         <ion-label>Venue:</ion-label>
         <ion-input formControlName="venue" type="text" [class.invalid]="!addEventForm.controls.venue.valid && (addEventForm.controls.venue.dirty || submitAttempt)"></ion-input>
     </ion-item>
- 
+
     <ion-item *ngIf="!addEventForm.controls.venue.valid  && (addEventForm.controls.venue.dirty || submitAttempt)">
         <p>Please enter a valid name.</p>
     </ion-item>
-            
+    
+    <ion-item>
+      <ion-label class="Reg">Mode</ion-label>
+      <ion-select full value="Mode Name" formControlName="mode" [class.invalid]="!addEventForm.controls.mode.valid && (addEventForm.controls.mode.dirty || submitAttempt)">
+        <ion-option value={{mode.mode}} *ngFor="let mode of modes">
+          <h2>{{mode.mode}}</h2>
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="!addEventForm.controls.mode.valid  && (addEventForm.controls.mode.dirty || submitAttempt)">
+        <p>Please select a mode name.</p>
+    </ion-item>
+    <br><br>
+
+    <ion-item>
+        <ion-label floating>Duration:</ion-label>
+        <ion-input formControlName="duration" type="time" [class.invalid]="!addEventForm.controls.duration.valid && (addEventForm.controls.duration.dirty || submitAttempt)"></ion-input> 
+    </ion-item>
+
+    <ion-item *ngIf="!addEventForm.controls.duration.valid  && (addEventForm.controls.duration.dirty || submitAttempt)">
+        <p>Please enter a valid time.</p>
+    </ion-item>            
     <br>
-    <button ion-button full (click)="save()">Save</button> <br>
+    <button ion-button full (click)="save(addEventForm.value)">Save</button> <br>
     <button ion-button full color="danger" (click)="goBack()">Cancel</button>
 
 </form>

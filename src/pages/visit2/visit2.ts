@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
 import {AddEditPage } from '../add-edit/add-edit';
 import {AddEventPage } from '../add-event/add-event';
-
+import {EditEventPage } from '../edit-event/edit-event';
 
 @IonicPage()
 @Component({
@@ -89,11 +89,10 @@ export class Visit2Page {
   }
 
   itemSelected(item1) {
-    this.navCtrl.push(AddEditPage,{
-    item : 'Edit',
-    item1 : item1
-    });
     console.log(item1.NAME + " is selected");
+    this.navCtrl.push(EditEventPage,{
+    currEvent : item1
+    });
   }
 
   fab()
