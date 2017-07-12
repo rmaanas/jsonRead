@@ -1,0 +1,48 @@
+<ion-header >
+
+  <ion-navbar color="primary" class="force-back-button">
+    <ion-title>
+      Agenda    
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-fab bottom right >
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab  ><ion-icon name="clipboard"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-list>
+    <ion-item>
+      <ion-title>Events:</ion-title>
+      <button ion-button (click)="getCollectings()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
+
+      <button ion-item *ngFor="let collecting of collectings">
+          <ion-item>
+            <h1><b>Event:</b>{{"    " + collecting.NAME + "  "}} </h1> <br>
+            <h3><b>Start time:</b>{{"  "+ collecting.STARTTIME +"    "}}<b>End time:</b>{{"  " + collecting.ENDTIME + "  "}}</h3> <br>
+            <h3><b>Status:</b>{{"  "+collecting.STATUS+"     "}}</h3><br>  
+          </ion-item>
+      </button>
+    </ion-item-sliding>
+
+    <ion-item class="row" *ngIf="!collectings || collectings.length == 0">
+      <ion-card>
+          <ion-card-header text-wrap>
+              No Events added to the agenda please add events
+          </ion-card-header>
+      </ion-card>
+    </ion-item>
+  
+  </ion-list>
+
+</ion-content>
+ 
