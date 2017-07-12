@@ -61,16 +61,14 @@ export class HomePage {
           this.navCtrl.setRoot(ManagerHomePage).then(
           ()=>{
           this.navCtrl.popToRoot();
-          }
-          );
+          });
         }
         else
         {
           this.navCtrl.setRoot(EmployeeHomePage).then(
           ()=>{
-          this.navCtrl.popToRoot();
-          }
-          );
+            this.navCtrl.popToRoot();
+          });
         }
       }
       else

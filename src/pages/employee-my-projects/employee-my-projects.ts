@@ -9,27 +9,25 @@ import { ProjectpagePage } from '../projectpage/projectpage';
 })
 export class EmployeeMyProjectsPage {
   collectings=null;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.collectings=this.getCollectings();
+  myjsonObj : any;
+  username : string;
+  currdate : any;
+  constructor(public storage : Storage,public navCtrl: NavController, public navParams: NavParams) {
+    this.storage.get("jsonObj").then(value=>{
+      this.myjsonObj = value;
+      this.username = this.myjsonObj.username;
+      console.log('printing from mhome constr. username= ' + this.username);
+      this.getCollectings();
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MhomePage');
   }
   getCollectings() {
-  return [
-    {
-      "CustomerName": "Customer 2",
-      "ProjectName": "Customer Visit Management",
-      "Date": "14/07/2017"
-    },
-    {
-      "CustomerName": "Customer 3",
-      "ProjectName": "App Devlopment",
-      "Date": "18/07/2017"
-    }
-  ];
+  
+
+
   }
 
   itemSelected(item) {
