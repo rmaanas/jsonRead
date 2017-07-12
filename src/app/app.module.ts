@@ -24,7 +24,9 @@ import { Visit1Page } from '../pages/visit1/visit1';
 import {VisitpagePage } from '../pages/visitpage/visitpage';
 import { Visit2Page } from '../pages/visit2/visit2';
 import { AddEventPage } from '../pages/add-event/add-event';
-
+import { HistoryPage } from '../pages/history/history';
+import { History1Page } from '../pages/history1/history1';
+import { History2Page } from '../pages/history2/history2';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,10 @@ import { AddEventPage } from '../pages/add-event/add-event';
     Visit1Page,
     VisitpagePage,
     Visit2Page,
-    AddEventPage
+    AddEventPage,
+    HistoryPage,
+    History1Page,
+    History2Page
    
     
   ],
@@ -74,7 +79,11 @@ import { AddEventPage } from '../pages/add-event/add-event';
     Visit1Page,
     VisitpagePage,
     Visit2Page,
-    AddEventPage
+    AddEventPage,
+    HistoryPage,
+    History1Page,
+    History2Page
+
    
   ],
   providers: [

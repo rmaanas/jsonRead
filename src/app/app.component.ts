@@ -15,6 +15,9 @@ import { AddVisitPage } from '../pages/add-visit/add-visit';
 import { VisitpagePage } from '../pages/visitpage/visitpage';
 import { Visit2Page } from '../pages/visit2/visit2';
 import { AddEventPage } from '../pages/add-event/add-event';
+import { HistoryPage } from '../pages/history/history';
+import { History1Page } from '../pages/history1/history1';
+import { History2Page } from '../pages/history2/history2';
 
 
 
@@ -23,7 +26,7 @@ import { AddEventPage } from '../pages/add-event/add-event';
   providers: [ShareService, IonicStorageModule] 
 })
 export class MyApp {
-  rootPage:any = VisitpagePage;
+  rootPage:any = HistoryPage;
   jsonObj: any = null;
   res: any;
 
