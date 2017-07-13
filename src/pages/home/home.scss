@@ -74,10 +74,11 @@ page-home {
 	  padding-left:10px;
 	  padding-right:10px;
 	  width: 40%;
-	  radius-border : 50%;
 	  height: auto;
 	  animation: animation 1500ms linear 1 both;
 	  animation-delay: .5s;
+	  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	  text-align : center;
 	}
 
 	@keyframes pulse {
@@ -89,13 +90,11 @@ page-home {
 	  }
 	}
 
-
 .animation-target {
   -webkit-animation: animation 1000ms linear both;
   animation: animation 1000ms linear both;
 }
 
-/* Generated with Bounce.js. Edit at https://goo.gl/y3FSYm */
 
 @-webkit-keyframes animation { 
   0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
