@@ -1,0 +1,39 @@
+﻿
+
+<ion-content padding class="center" scroll="false">
+  <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <div class="flb">
+      <div class="Aligner-item Aligner-item--top"></div>
+      <img src="assets/Atos.svg.png>
+      <div class="Aligner-item Aligner-item--bottom"></div>
+    </div>
+  </div>
+    <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
+		<ion-img src={{imglink}}></ion-img>
+		<ion-item>
+		  <ion-label floating>Username</ion-label>
+		  <ion-input [formControl]="loginForm.controls['username']" [(ngModel)]="loginForm.username" type="text" 
+		  [ngClass]="{'error-border':!loginForm.controls['username'].valid}"></ion-input>         
+		</ion-item>
+
+		<div class="error-box" *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched">
+            * Username is required!
+        </div>
+
+		<ion-item>
+		  <ion-label floating>Password</ion-label>
+		  <ion-input [formControl]="loginForm.controls['password']" [(ngModel)]="loginForm.password" type="password" 
+		  [ngClass]="{'error-border':!loginForm.controls['password'].valid}"></ion-input>         
+		</ion-item>
+		<div class="error-box" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+            * Password is required!
+        </div>
+
+	    <button ion-button round class="loginbutton" type="submit" [disabled]="!loginForm.valid">Login</button>
+	    <div class="error-box" *ngIf="error_mssg!=null">
+            {{error_mssg}}
+        </div>
+      <button ion-button full (click)="printCurrDate()">Print Date!</button>
+	</form>
+	
+</ion-content>

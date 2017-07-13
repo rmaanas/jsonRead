@@ -1,0 +1,93 @@
+﻿#custom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100000;
+  width: 100%;
+  background-color: #002a3e;
+}
+
+.flb {
+  background-color: #3ebffb;
+  height: 100%;
+  width: 100%;
+  animation: pulse 1s linear forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Aligner-item {
+  max-width: 50%;
+}
+
+.Aligner-item--top {
+  align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+  align-self: flex-end;
+}
+
+#custom-overlay img {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: auto;
+  animation: animation 3100ms linear infinite both;
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+page-home {
+	.loginbutton{
+		width:50%;
+		min-height:45px;
+		margin-left:25%;
+		margin-top:30px;
+		font-size:20px;
+		background-color:#0066a1;
+	}
+	ion-img{
+		background:white;
+		width:90%;
+		padding-bottom:30%;
+		margin:0;
+	}
+	ion-title{
+		text-align:center;
+	}
+	.center{
+		height: 100%;
+	    position: relative;
+	}
+	.error-box {
+		color: #f53d3d;
+		padding: 10px 10px;
+	}
+	form{
+		margin: 0;
+	    position: absolute;
+	    width:80%;
+	    top: 50%;
+	    left: 50%;
+	    -ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+	}
+	.item{
+		padding-left:0px;
+	}
+}
+
+
