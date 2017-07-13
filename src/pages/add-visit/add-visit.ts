@@ -26,6 +26,15 @@ export class AddVisitPage {
   addVisitForm : FormGroup;
   public status : any;
   currdate : Date;
+  date:any = new Date();
+  day:any = ('0' + this.date.getDate()).slice(-2);
+  month:any = ('0' + (this.date.getMonth() + 1)).slice(-2);
+  year:any = this.date.getFullYear();
+  currDate: any = this.year + '-' + this.month + '-' + this.day;
+  currTime:any = this.date.getTime();
+  hours:any;
+  minutes:any;
+  errormessage:any =  null;
   
   constructor(public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage) {
     
@@ -51,7 +60,7 @@ export class AddVisitPage {
 
       this.addVisitForm = formBuilder.group({
         project: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
-        venue: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        venue: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
         date: ['', Validators.compose([Validators.maxLength(30), Validators.required])]
     });
   }
@@ -90,7 +99,7 @@ export class AddVisitPage {
 
   goToHome(){
     this.navCtrl.setRoot(ManagerHomePage)
-    this.navCtrl.popToRoot();
+    //this.navCtrl.popToRoot();
   }
 
   createvisit(value : any){
@@ -137,21 +146,42 @@ export class AddVisitPage {
   }
 
    save(){
- 
-    this.submitAttempt = true;
- 
+    this.getCurrDate();
     if(!this.addVisitForm.valid){
         this.submitAttempt = true;
 
         console.log("Invalid");
     } 
     
-    else {
-        console.log("success!")
-        this.createvisit(this.addVisitForm.value);
+    else 
+    {
+        
+        if(this.addVisitForm.value.date < this.currDate)
+        {
+            this.errormessage = "Date has to be greater than or equal to visit date";
+        }
+        else
+        {
+          console.log("success!");
+          this.createvisit(this.addVisitForm.value);
+        }
     }
  
 }
+
+
+  getCurrDate()
+  {
+        this.date = new Date();
+        this.day = ('0' + this.date.getDate()).slice(-2);
+        this.month = ('0' + (this.date.getMonth() + 1)).slice(-2);
+        this.year = this.date.getFullYear();
+        this.currDate = this.year + '-' + this.month + '-' + this.day;
+        this.hours = ('0' + this.date.getHours()).slice(-2);
+        this.minutes = ('0' + this.date.getMinutes()).slice(-2);
+        this.currTime = this.hours + ":" + this.minutes;
+        //console.log(" getCurr: current date is " + this.currDate + " and time is " + this.currTime);    
+  }
 
   	goBack(){
   		this.navCtrl.popToRoot();

@@ -5,6 +5,7 @@ import { ManagerHomePage } from '../manager-home/manager-home';
 import { ProjectpagePage } from '../projectpage/projectpage';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import {Events} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
@@ -31,9 +32,18 @@ export class Visit1Page {
   organisation:any = '';
   clientemail:any = '';
   currVisit: any;
+  date:any = new Date();
+  day:any = ('0' + this.date.getDate()).slice(-2);
+  month:any = ('0' + (this.date.getMonth() + 1)).slice(-2);
+  year:any = this.date.getFullYear();
+  currDate: any = this.year + '-' + this.month + '-' + this.day;
+  currTime:any = this.date.getTime();
+  hours:any;
+  minutes:any;
+  errormessage:any =  null;
 
 
-  constructor(public nav: Nav,public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public nav: Nav,public angularevents: Events,public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage, public alertCtrl: AlertController) {
         this.addVisitForm = formBuilder.group({
         venue: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
         date: ['', Validators.compose([Validators.maxLength(30), Validators.required])]
@@ -107,13 +117,14 @@ export class Visit1Page {
   presentConfirm(value:any) 
 		{
 			let alert = this.alertCtrl.create({
-				title: 'Visit updated Successfully!',
+				title: 'Visit updated Successfully',
 				message: 'Visit Venue: ' + value.venue + ' and Visit Date: ' + value.date + ' ' ,
 				buttons: [
 					{
 						text: 'OK',
 						handler: () => {
 							console.log('OK clicked');
+              this.angularevents.publish('reloadManagerHomePage');
               this.navCtrl.parent.viewCtrl.dismiss();
 						}
 					}
@@ -131,12 +142,21 @@ export class Visit1Page {
         console.log("Invalid");
     } 
     
-    else {
+    else 
+    {
         console.log(this.addVisitForm.value);
-        this.storage.get("jsonObj").then(value=>{
-          this.myjsonObj = value;
-          this.createvisit(this.addVisitForm.value);
-      });
+        if(this.addVisitForm.value.date < this.currDate)
+        {
+            this.errormessage = "Date has to be greater than or equal to visit date";
+        }
+        else
+        {
+          this.storage.get("jsonObj").then(value=>{
+              this.myjsonObj = value;
+              this.createvisit(this.addVisitForm.value);
+          });
+        }
+
     }
  
 }
@@ -152,6 +172,19 @@ export class Visit1Page {
         console.log("Back button clicked");
         this.navCtrl.parent.viewCtrl.dismiss();
     };
+  }
+
+  getCurrDate()
+  {
+        this.date = new Date();
+        this.day = ('0' + this.date.getDate()).slice(-2);
+        this.month = ('0' + (this.date.getMonth() + 1)).slice(-2);
+        this.year = this.date.getFullYear();
+        this.currDate = this.year + '-' + this.month + '-' + this.day;
+        this.hours = ('0' + this.date.getHours()).slice(-2);
+        this.minutes = ('0' + this.date.getMinutes()).slice(-2);
+        this.currTime = this.hours + ":" + this.minutes;
+        //console.log(" getCurr: current date is " + this.currDate + " and time is " + this.currTime);    
   }
 
 }

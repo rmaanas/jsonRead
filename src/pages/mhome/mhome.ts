@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Http, Headers} from '@angular/http';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ProjectpagePage } from '../projectpage/projectpage';
 import {ShareService} from '../services/ShareService';
 import { Storage } from '@ionic/storage';
@@ -27,7 +27,7 @@ export class MhomePage {
   year:any = this.date.getFullYear();
   currDate: any = this.year + '-' + this.month + '-' + this.day;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,public loadingCtrl: LoadingController, public storage: Storage) {
+  constructor(public navCtrl: NavController,public angularevents: Events, public navParams: NavParams,public http: Http,public loadingCtrl: LoadingController, public storage: Storage) {
 
     this.storage.get("jsonObj").then(value=>{
       this.myjsonObj = value;
@@ -36,6 +36,8 @@ export class MhomePage {
       this.storage.set('currDate' , this.currDate);
       this.getCollectings();
     });
+
+    this.angularevents.subscribe('reloadManagerHomePage',() => {  this.getCollectings();});
   }
 
 	getCollectings()

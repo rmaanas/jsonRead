@@ -125,8 +125,8 @@ export class EditProjectPage {
 		presentConfirm(value:any) 
 		{
 			let alert = this.alertCtrl.create({
-				title: 'Project Edited Successfully!',
-				message: 'Project: ' + value.name + ' with Client Head: ' + value.clientName + ' and Organisation: ' + value.organization + ' has been edited successfully',
+				title: 'Project updated Successfully!',
+				message: 'Project: ' + value.name + ' with Client Head: ' + value.clientName + ' and Organisation: ' + value.organization + ' has been updated successfully',
 				buttons: [
 					{
 						text: 'OK',
