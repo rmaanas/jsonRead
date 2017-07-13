@@ -11,11 +11,11 @@
 
   <form [formGroup]="addVisitForm">
 
-  	             <ion-item>
+  	             <ion-item text-wrap>
                     <ion-label>Project</ion-label>
-                    <ion-select formControlName="project">
-				        <ion-option value={{project.PROJECTID}} *ngFor="let project of allprojects">
-				            <h2>{{project.NAME}}</h2>
+                    <ion-select formControlName="project" text-wrap>
+				        <ion-option value={{project.PROJECTID}} *ngFor="let project of allprojects" text-wrap>
+				            <h3>{{project.NAME}}</h3>
                             <h3>{{project.ORGANISATION}}</h3>
 				        </ion-option>
                     </ion-select>
@@ -25,7 +25,7 @@
                 <p>Please select a project name.</p>
                 </ion-item>
 
-  	           <ion-item>
+  	           <ion-item text-wrap>
 	           <ion-label floating>Venue</ion-label>
                 <ion-input formControlName="venue" type="text" [class.invalid]="!addVisitForm.controls.venue.valid && (addVisitForm.controls.venue.dirty || submitAttempt)"></ion-input>
                </ion-item>

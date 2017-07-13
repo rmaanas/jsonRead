@@ -13,6 +13,7 @@
 <ion-content padding>
 
 <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately and submit again.</p>
+<p *ngIf="errormessage" style="color: #ea6153;">{{errormessage}}</p>
     <ion-list no-lines>
  
         <form [formGroup]="slideOneForm">

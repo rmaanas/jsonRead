@@ -19,9 +19,6 @@ import { EmployeeEventsPage } from '../employee-events/employee-events';
   templateUrl: 'employee-home.html',
 })
 export class EmployeeHomePage {
-  tab1Root = EmployeeAllProjectsPage;
-  tab2Root = EmployeeMyProjectsPage;
-
   @ViewChild(Nav) nav: Nav;
   rootPage: any = EmployeeEventsPage;
   username: any;
@@ -30,7 +27,6 @@ export class EmployeeHomePage {
   	menu.enable(true);
       this.pages = [
       { title: 'My Events', component: EmployeeEventsPage },
-      { title: 'Projects', component: ProjectsPage },
       { title: 'View History', component: ViewHistoryPage },
     ];
 
@@ -43,7 +39,7 @@ export class EmployeeHomePage {
   }
   
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagerHomePage');
+    console.log('ionViewDidLoad employeeHomePage');
   }
 
 }

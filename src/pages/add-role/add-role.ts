@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailValidator } from  '../add/emailValid';
 import { Storage } from '@ionic/storage';
 import {Http, Headers} from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { MhomePage } from '../mhome/mhome';
 
@@ -22,9 +22,11 @@ export class AddRolePage {
     accesstoken: any;
     error_mssg: any = null;
     slideOneForm: FormGroup;
+    errormessage: any = null;
     submitAttempt: boolean = false;
+    loader: any;
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams,public http: Http, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams,public http: Http, public storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
    this.slideOneForm = formBuilder.group({
         name: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
@@ -43,6 +45,13 @@ export class AddRolePage {
   ionViewDidLoad() 
   {
     console.log('ionViewDidLoad AddRolePage');
+  }
+
+  presentLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Waiting for server response...",
+    });
+    this.loader.present();
   }
 
   save()
@@ -83,7 +92,7 @@ export class AddRolePage {
   		});
   	
   		//console.log(value.name);
-	    
+      this.presentLoading();
       var headers = new Headers();
 	    headers.append("Content-Type", "application/json");
 	    headers.append("username",this.username);
@@ -95,13 +104,15 @@ export class AddRolePage {
 	      jsonObj = JSON.parse(data["_body"]);
 	      
         status = jsonObj.status;
-
+        this.loader.dismiss();
         if(status == "inserted")
         {
             this.presentConfirm(value);   
         }
-        else{
-          this.error_mssg = "* This project Name exists already! Please try again with different name!";
+        else
+        {
+          this.errormessage = "* This username exists already try different username";
+          console.log("wrong");
         }
 
 	    },error => {

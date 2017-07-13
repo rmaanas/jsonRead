@@ -1,4 +1,26 @@
+        <!--
 <ion-tabs>
   <ion-tab [root]="tab1Root" tabTitle="All Projects" tabIcon="home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="My Projects" tabIcon="clipboard"></ion-tab>
 </ion-tabs>
+        -->
+
+<ion-menu [content]="mycontent" [persistent] = "true">
+    <ion-header>
+        <ion-navbar color="primary">
+            <ion-title>Menu</ion-title>
+        </ion-navbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                {{p.title}}
+            </button>
+        </ion-list>
+    </ion-content>
+
+
+
+</ion-menu>
+
+<ion-nav  [root]="rootPage" #mycontent></ion-nav>

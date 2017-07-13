@@ -422,6 +422,12 @@ export class EditEventPage {
           }
           break;
       }
+    }
+
+    if(this.eventValid && ongoing == -1)
+    {
+      this.eventValid = false;
+      this.errormessage = "shrink can be used only on day of event with atleast one ONGOING event to be extended";
     }    
     
     for(i=ongoing+1;i<this.events.length && this.eventValid;i++)

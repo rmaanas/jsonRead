@@ -3,12 +3,7 @@ import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-/**
- * Generated class for the History1Page page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-history1',
@@ -48,8 +43,8 @@ export class History1Page {
         this.clienthead =  this.currVisit.CLIENTHEAD;
         this.organisation= this.currVisit.ORGANISATION;
         this.clientemail = this.currVisit.CLIENTEMAIL;
-        this.visitdate  =  this.currVisit.VENUE;
-        this.venue      =  this.currVisit.VISITDATE;
+        this.visitdate  =  this.currVisit.VISITDATE;
+        this.venue      =  this.currVisit.VENUE;
         console.log(this.projectname);
         //this.addVisitForm.controls['venue'].setValue = this.currVisit.VENUE;
         this.loader.dismiss();
