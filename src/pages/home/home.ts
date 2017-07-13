@@ -14,6 +14,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
+   splash = true;
   public imglink = "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Atos.svg/800px-Atos.svg.png";
   
   loader: any;
@@ -45,7 +46,9 @@ export class HomePage {
         'password': [null,Validators.compose([Validators.required, Validators.maxLength(50)])]
     });
   }
- 
+   ionViewDidLoad() {
+    setTimeout(() => this.splash = false, 4000);
+  }
   submit(value : any) {
   	var link = 'http://localhost:9000/TestRest/testrest/login';
   	var data = JSON.stringify({username: value.username, password: value.password});
