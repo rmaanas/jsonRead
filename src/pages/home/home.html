@@ -1,4 +1,11 @@
 <ion-content padding class="center" scroll="false">
+     <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top"></div>
+    <img src="assets/Atos.svg.png">
+    <div class="Aligner-item Aligner-item--bottom"></div>
+  </div>
+</div>
     <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
 		<ion-img src={{imglink}}></ion-img>
 		<ion-item>
