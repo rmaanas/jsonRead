@@ -6,8 +6,6 @@
     <div class="Aligner-item Aligner-item--bottom"></div>
   </div>
 </div>
-
-<ion-content padding class="center" scroll="false">
     <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
 		<ion-img src={{imglink}}></ion-img>
 		<ion-item>
@@ -34,4 +32,5 @@
             {{error_mssg}}
         </div>
 	</form>
+	<!--<button ion-button full (click)="printValue()">Print Value!</button>-->
 </ion-content>
