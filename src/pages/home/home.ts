@@ -14,7 +14,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public imglink = "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Atos.svg/800px-Atos.svg.png";
+  public imglink = "assets/800px-Atos.svg.png";
   
   loader: any;
   jsonObj: any;
@@ -99,11 +99,12 @@ export class HomePage {
     this.loader.present();
   }
 
-  ionDidLoadPage(){
+  ionViewDidLoad(){
     setTimeout(()=>{
       this.splash = false;
-    },4000);
+    },2500);
   }
+
 
 /*  
   printValue()
