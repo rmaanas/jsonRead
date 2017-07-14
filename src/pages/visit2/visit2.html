@@ -9,31 +9,24 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-fab bottom right >
-    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab  (click)="fab()"><ion-icon name="add"></ion-icon></button>
-      <button ion-fab  ><ion-icon name="clipboard"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
-
+  
   <ion-list>
     <ion-item>
-      <ion-title>Events:</ion-title>
-      <button ion-button (click)="getCollectings()">
-        <ion-icon name="refresh"></ion-icon>
-      </button>
+      <h1>
+        <b>Events Schedule</b>
+         <button right ion-button (click)="getCollectings()">
+          <ion-icon name="refresh"></ion-icon>
+        </button>
+      </h1>
     </ion-item>
-    <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
 
-      <button ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
-          <ion-item>
-            <h1><b>Event:</b>{{"    " + collecting.NAME + "  "}} </h1> <br>
-            <h3><b>Start time:</b>{{"  "+ collecting.STARTTIME +"    "}}<b>End time:</b>{{"  " + collecting.ENDTIME + "  "}}</h3> <br>
-            <h3><b>Status:</b>{{"  "+collecting.STATUS+"     "}}</h3><br>  
+    <div class="row" *ngIf="collectings && collectings.length > 0">
+      <ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
+         <h2><b>Agenda:</b>{{"     " + collecting.NAME + "  "}} </h2> <br>
+            <h4><b>Time:</b>{{"     " + collecting.STARTTIME +" - "}}{{ collecting.ENDTIME }}</h4> <br>
+            <h4><b>Status:</b>{{"     " + collecting.STATUS}}</h4><br>  
           </ion-item>
-      </button>
-    </ion-item-sliding>
+    </div>
 
     <ion-item class="row" *ngIf="!collectings || collectings.length == 0">
       <ion-card>
@@ -42,8 +35,18 @@
           </ion-card-header>
       </ion-card>
     </ion-item>
-  
   </ion-list>
+
+  <button ion-button medium (click)="printpdf()">PRINT SCHEDULE</button>
+
+  <ion-fab bottom right >
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab  (click)="fab()"><ion-icon name="add"></ion-icon></button>
+      <button ion-fab  ><ion-icon name="clipboard"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
 
 </ion-content>
  

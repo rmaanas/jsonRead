@@ -9,6 +9,7 @@ import {LoadingController} from 'ionic-angular';
 import {AddEditPage } from '../add-edit/add-edit';
 import {AddEventPage } from '../add-event/add-event';
 import {EditEventPage } from '../edit-event/edit-event';
+import { saveAs } from 'filesaver';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,7 @@ export class Visit2Page {
   currVisit: any;
   jsonObj: any;
   submitAttempt: boolean = false;
-  visit : any;
+  visitdate : any;
   allprojects :any;
   addVisitForm : FormGroup;
   status : any;
@@ -38,6 +39,10 @@ export class Visit2Page {
   currTime:any = this.date.getTime();
   hours:any;
   minutes:any;
+  projectname : string;
+  clienthead : string;
+  organisation : string;
+  clientemail : string;
 
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,public navParams: NavParams,public http: Http,public loadingCtrl: LoadingController, public storage: Storage) {
 
@@ -133,8 +138,47 @@ export class Visit2Page {
         //console.log(" getCurr: current date is " + this.currDate + " and time is " + this.currTime);    
   }
 
+  printpdf(){
+    var link = 'http://localhost:9000/TestRest/testrest/getpdf';
 
+    this.storage.get("currVisit").then(value=>{
+      this.currVisit = value;
+      this.projectname = this.currVisit.NAME;
+      this.clienthead = this.currVisit.CLIENTHEAD;
+      this.organisation = this.currVisit.ORGANISATION;
+      this.clientemail = this.currVisit.CLIENTEMAIL;
+      this.visitdate = this.currVisit.VISITDATA;
+    });
+        
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append("username", this.myjsonObj.username);
+    headers.append("accesstoken", this.myjsonObj.accesstoken);
+    
+    var jsonout = JSON.stringify({ 
+      "events" :this.collectings,
+      "projectname" : this.projectname,
+      "clienthead" : this.clienthead,
+      "organisation" : this.organisation,
+      "clientemail" : this.clientemail
+    });
+            
+    console.log('server call');
+        
+    this.http.post(link,jsonout, {"headers": headers })
+      .subscribe(response => {
+        console.log(response);    
+        var mediaType = 'application/pdf';
+        var blob = new Blob([response.blob()], {type: mediaType});
+        var filename = this.projectname+'.pdf';
+        saveAs(blob, filename);//FileSaver.js libray
+      }, error => {
 
+        this.jsonObj = JSON.parse(error["_body"]);
+        console.log("ERROR: " + this.jsonObj.error);
+    
+    });
+  }
 
   presentLoading() 
   {
