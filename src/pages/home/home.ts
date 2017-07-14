@@ -20,7 +20,7 @@ export class HomePage {
   jsonObj: any;
   authenticated: any;
   loginForm : FormGroup;
-  splash : any;
+  splash : true;
   /*
   myDate: any = new Date().toISOString().split('T')[0];
   myDate:any = new Date();
