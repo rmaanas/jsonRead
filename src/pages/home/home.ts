@@ -20,7 +20,7 @@ export class HomePage {
   jsonObj: any;
   authenticated: any;
   loginForm : FormGroup;
-  
+  splash : any;
   /*
   myDate: any = new Date().toISOString().split('T')[0];
   myDate:any = new Date();
@@ -97,6 +97,12 @@ export class HomePage {
       content: "Authenticating...",
     });
     this.loader.present();
+  }
+
+  ionDidLoadPage(){
+    setTimeout(()=>{
+      this.splash = false;
+    },4000);
   }
 
 /*  
