@@ -36,11 +36,10 @@ page-home {
 	.item{
 		padding-left:0px;
 	}
-
-	
 }
 
-	#custom-overlay {
+
+#custom-overlay {
 	  position: fixed;
 	  top: 0;
 	  right: 0;
@@ -75,7 +74,7 @@ page-home {
 	  padding-right:10px;
 	  width: 40%;
 	  height: auto;
-	  animation: animation 1500ms linear 1 both;
+	  animation: animation 2000ms linear 1 both;
 	  animation-delay: .5s;
 	  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	  text-align : center;
@@ -91,8 +90,8 @@ page-home {
 	}
 
 .animation-target {
-  -webkit-animation: animation 1000ms linear both;
-  animation: animation 1000ms linear both;
+  -webkit-animation: animation 2500ms linear both;
+  animation: animation 2500ms linear both;
 }
 
 
@@ -153,8 +152,3 @@ page-home {
   90.69% { -webkit-transform: matrix3d(1.999, 0, 0, 0, 0, 1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.999, 0, 0, 0, 0, 1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   100% { -webkit-transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
 }
-
-
-
-
-
