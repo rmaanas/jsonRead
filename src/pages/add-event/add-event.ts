@@ -44,7 +44,7 @@ export class AddEventPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public loadingCtrl: LoadingController, public http: Http, public alertCtrl: AlertController) {
       this.parentPage = this.navParams.get('parentPage');    
       this.addEventForm = formBuilder.group({
-        name:  ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+        name:  ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         owner: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         venue: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         date1:  ['', Validators.compose([Validators.required])],
