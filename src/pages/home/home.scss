@@ -74,7 +74,7 @@ page-home {
 	  padding-right:10px;
 	  width: 40%;
 	  height: auto;
-	  animation: animation 1500ms linear 1 both;
+	  animation: animation 1500 linear both;
 	  animation-delay: .5s;
 	  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	  text-align : center;
@@ -90,7 +90,7 @@ page-home {
 	}
 
 .animation-target {
-  -webkit-animation: animation 1000ms linear both;
+  -webkit-animation: animation 2000 linear both;
   animation: animation 1000ms linear both;
 }
 
