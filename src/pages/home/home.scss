@@ -38,7 +38,7 @@ page-home {
 	}
 }
 
-
+/*
 #custom-overlay {
 	  position: fixed;
 	  top: 0;
@@ -74,10 +74,8 @@ page-home {
 	  padding-right:10px;
 	  width: 40%;
 	  height: auto;
-	  animation: animation 1000 linear both;
+	  animation: animation 1000 ease-out 1 both;
 	  animation-delay: .5s;
-	  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	  text-align : center;
 	}
 
 	@keyframes pulse {
@@ -90,8 +88,8 @@ page-home {
 	}
 
 .animation-target {
-  -webkit-animation: animation 2500 linear both;
-  animation: animation 2500ms linear both;
+  -webkit-animation: animation 2500 ease-out both;
+  animation: animation 2500ms ease-out both;
 }
 
 
@@ -151,4 +149,4 @@ page-home {
   85.49% { -webkit-transform: matrix3d(1.999, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.999, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   90.69% { -webkit-transform: matrix3d(1.999, 0, 0, 0, 0, 1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.999, 0, 0, 0, 0, 1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   100% { -webkit-transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
-}
+}*/
