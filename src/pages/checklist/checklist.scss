@@ -1,0 +1,16 @@
+page-checklist {
+	ion-item p{
+		font-size:30px;
+	}
+	.build,.cancel{
+		width:10%;
+		height:10px;
+		float:right;
+		font-size:25px;
+	}
+	.cancel{
+		padding-left:10px;
+		color:#f53d3d;
+		font-weight:bold;
+	}
+}

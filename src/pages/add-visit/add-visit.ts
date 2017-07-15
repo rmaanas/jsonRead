@@ -6,7 +6,6 @@ import { ProjectpagePage } from '../projectpage/projectpage';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import {LoadingController} from 'ionic-angular';
-//import { Observable } from '@angular/common';
 
 @IonicPage()
 @Component({
@@ -21,7 +20,6 @@ export class AddVisitPage {
   myjsonObj: any;
   jsonObj: any;
   submitAttempt: boolean = false;
-  public visit : any;
   allprojects :any;
   addVisitForm : FormGroup;
   public status : any;
@@ -37,19 +35,6 @@ export class AddVisitPage {
   errormessage:any =  null;
   
   constructor(public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage) {
-    
-      this.allprojects = [
-     {
-        name: "project1",
-        projectid: 1,
-        organisation: "org1"
-     },
-     {
-        name: "project13",
-        projectid: 2,
-        organisation: "org2"
-     }
-     ];
 
       this.storage.get("jsonObj").then(value=>{
         this.myjsonObj = value;
@@ -103,9 +88,6 @@ export class AddVisitPage {
   }
 
   createvisit(value : any){
-  	//console.log("ADD VISIT FUNDCTION");
-    //console.log(data);
-
     var link = 'http://localhost:9000/TestRest/testrest/addVisit';
     var data = JSON.stringify(
       { 
@@ -130,8 +112,7 @@ export class AddVisitPage {
       this.navCtrl.setRoot(ManagerHomePage).then(
       ()=>{
         this.navCtrl.popToRoot();
-      }
-      );
+      });
     }
     else
     {

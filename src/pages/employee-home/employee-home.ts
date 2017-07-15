@@ -12,7 +12,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { EmployeeAllProjectsPage } from '../employee-all-projects/employee-all-projects';
 import { EmployeeMyProjectsPage } from '../employee-my-projects/employee-my-projects';
 import { EmployeeEventsPage } from '../employee-events/employee-events';
-
 @IonicPage()
 @Component({
   selector: 'page-employee-home',

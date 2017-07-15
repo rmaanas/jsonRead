@@ -65,11 +65,9 @@ export class Visit2Page {
         { 
           visitid: this.currVisit.VISITID
         });
-            
-        console.log('server call');
+
         this.http.post(link,data, {"headers": headers})
         .subscribe(data => {
-
           this.jsonObj = JSON.parse(data["_body"]);
           this.collectings = this.jsonObj.events;
           this.updateEvents();

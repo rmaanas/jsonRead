@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+  
+    <ion-title>Checklist</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding> 
+    <ion-list>
+      <h2>Event list:</h2>
+      <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
+        <ion-item *ngFor="let collecting of collectings">
+            <h2><b>Agenda:</b> {{"    " + collecting.name}}<br> 
+            
+            <b>Time:</b>{{"    " + collecting.starttime}}   -   {{ collecting.endtime }}
+            <ion-icon name="close" class="cancel" (click)="presentConfirm(collecting)"></ion-icon>
+            <ion-icon name="build" class="build" (click)="editevent(collecting)"></ion-icon>
+            <br>
+            
+            <b>Venue:</b> {{"    " + collecting.venue}} </h2>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-fab bottom right >
+      <button ion-fab large (click)="addevent()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+    <button color="danger" ion-button (click)="goBack()">Back</button>
+</ion-content>

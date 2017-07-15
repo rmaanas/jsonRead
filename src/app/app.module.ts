@@ -31,6 +31,9 @@ import {History1Page} from '../pages/history1/history1';
 import {History2Page} from '../pages/history2/history2';
 import {HistoryPage} from '../pages/history/history';
 import { AddRolePage } from '../pages/add-role/add-role';
+import { CreateeventPage } from '../pages/createevent/createevent';
+import { ChecklistPage } from '../pages/checklist/checklist';
+import { EditChecklistEventPage } from '../pages/edit-checklist-event/edit-checklist-event';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { AddRolePage } from '../pages/add-role/add-role';
     History1Page,
     History2Page,
     HistoryPage,
-    AddRolePage
+    AddRolePage,
+    CreateeventPage,
+    ChecklistPage,
+    EditChecklistEventPage
   ],
   imports: [
     HttpModule,
@@ -94,7 +100,10 @@ import { AddRolePage } from '../pages/add-role/add-role';
     History1Page,
     History2Page,
     HistoryPage,
-    AddRolePage
+    AddRolePage,
+    CreateeventPage,
+    ChecklistPage,
+    EditChecklistEventPage
   ],
   providers: [
     StatusBar,
