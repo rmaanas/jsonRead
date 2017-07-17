@@ -1,7 +1,9 @@
 <ion-header>
 
   <ion-navbar color="primary">
-  
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Checklist</ion-title>
   </ion-navbar>
 
@@ -23,11 +25,17 @@
             <b>Venue:</b> {{"    " + collecting.venue}} </h2>
         </ion-item>
       </ion-item-sliding>
+      <ion-item class="row" *ngIf="!collectings || collectings.length == 0">
+        <ion-card>
+            <ion-card-header text-wrap>
+                No Events added to the checklist please add events
+            </ion-card-header>
+        </ion-card>
+      </ion-item>
     </ion-list>
 
     <ion-fab bottom right >
       <button ion-fab large (click)="addevent()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
-    <button color="danger" ion-button (click)="goBack()">Back</button>
 </ion-content>
