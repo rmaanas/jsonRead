@@ -22,7 +22,7 @@ export class ChecklistPage {
 	loader : any;
 	imglink :string = "../assets/icon/edit.png";
   count : any;
-  reload : any;
+  reload : any = "false";
   item : any;
 
   constructor(public http : Http, public alertCtrl: AlertController,public navCtrl: NavController,public loadingCtrl: LoadingController, public storage: Storage, public navParams: NavParams) {
@@ -30,6 +30,7 @@ export class ChecklistPage {
 	    this.myjsonObj = value;
 	    this.getchecklist();
 	  });
+
   }
 
   getchecklist(){
@@ -103,7 +104,7 @@ export class ChecklistPage {
 
   editevent(data:any)
   {
-    this.navCtrl.push(EditChecklistEventPage,{"currevent" : data});
+    this.navCtrl.setRoot(EditChecklistEventPage,{"currevent" : data});
   }
 
   presentLoading() {
@@ -122,7 +123,7 @@ export class ChecklistPage {
   }
 
   addevent(){
-  	this.navCtrl.push(CreateeventPage);
+  	this.navCtrl.push(CreateeventPage , {"parentpage" : this});
   }
 
 

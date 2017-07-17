@@ -5,6 +5,7 @@ import {Http, Headers} from '@angular/http';
 import { ManagerHomePage } from '../manager-home/manager-home';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import {ChecklistPage } from '../checklist/checklist';
 
 @IonicPage()
 @Component({
@@ -27,10 +28,10 @@ export class EditChecklistEventPage {
   	eventname : string;
   	venue : string;
 
-  constructor(public alertCtrl: AlertController,public navCtrl: NavController,public storage:Storage, public http:Http,public formBuilder: FormBuilder, public navParams: NavParams) {
+  	constructor(public alertCtrl: AlertController,public navCtrl: NavController,public storage:Storage, public http:Http,public formBuilder: FormBuilder, public navParams: NavParams) {
 
-  	this.currevent = this.navParams.get("currevent");
-  	this.storage.get("jsonObj").then(value=>{
+  		this.currevent = this.navParams.get("currevent");
+  		this.storage.get("jsonObj").then(value=>{
 	        this.myjsonObj = value;
 	    });
 
@@ -40,36 +41,29 @@ export class EditChecklistEventPage {
 	  	});
 
 	  	this.createEventForm = formBuilder.group({
-	       'eventname': ['', Validators.compose([Validators.required,Validators.maxLength(50)])],
-	       'starttime': ['', Validators.compose([Validators.required])],
-	       'endtime': ['', Validators.compose([Validators.required])],
-	       'venue': ['', Validators.compose([Validators.required,Validators.maxLength(50)])]
+	       'eventname': [this.currevent.name, Validators.compose([Validators.required,Validators.maxLength(50)])],
+	       'starttime': [this.currevent.starttime, Validators.compose([Validators.required])],
+	       'endtime': [ this.currevent.endtime, Validators.compose([Validators.required])],
+	       'venue': [this.currevent.venue, Validators.compose([Validators.required,Validators.maxLength(50)])]
 	    });
+  	}
 
-	    this.createEventForm.setValue({
-	    	'eventname' : this.currevent.name,
-	    	"starttime" : this.currevent.starttime,
-	    	'endtime' : this.currevent.endtime,
-	    	'venue' : this.currevent.venue
-	    });
-  }
+	ionViewDidLoad() {
+	    console.log('ionViewDidLoad EditChecklistEventPage');
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditChecklistEventPage');
-  }
+  	presentAlert() {
+	  let alert = this.alertCtrl.create({
+	    title: 'Event Modified',
+	    subTitle: 'The event has been successfully modified!',
+	    buttons: ['OK']
+	  });
+	  alert.present();
+	}
 
-  presentAlert() {
-  let alert = this.alertCtrl.create({
-    title: 'Event Modified',
-    subTitle: 'The event has been successfully modified!',
-    buttons: ['OK']
-  });
-  alert.present();
-}
-
-  createevent(value:any){
+  	modifyevent(value:any){
 		
-	  	var link = 'http://localhost:9000/TestRest/testrest/modifyeventinchecklist';
+	  	var link = 'http://localhost:9000/TestRest/testrest/modifychecklist';
 	  	var data = JSON.stringify({ 
 	  		"eventname" : value.eventname,
 	  		"starttime" : value.starttime,
@@ -92,12 +86,8 @@ export class EditChecklistEventPage {
 	      	if(status == "updated")
 	      	{
 	      		this.presentAlert();
-		        this.navCtrl.pop();
+		        this.navCtrl.setRoot(ChecklistPage);
 		    }
-	        else
-	        {
-	          	this.error_mssg = "This event already exists. You can directly create new events!";
-	        }
 	    },error => {
 	    	this.error_mssg = "There was some problem. Please try again!";
 	    });
@@ -113,19 +103,19 @@ export class EditChecklistEventPage {
 		let end02 = this.checklist[i].endtime.substring(0,2);
 		let end35 = this.checklist[i].endtime.substring(3,5);
 
-		if(end02 < this.starttime.substring(0,2))
+		if(end02 < this.currevent.starttime.substring(0,2))
 		{
-			if(start02 >= this.endtime.substring(0,2))
+			if(start02 >= this.currevent.endtime.substring(0,2))
 			{
-				if(start35 >= this.endtime.substring(3,5))
+				if(start35 >= this.currevent.endtime.substring(3,5))
 				{
 					valid = true;
 				}
 			}
 		}
-		else if(end02 == this.starttime.substring(0,2))
+		else if(end02 == this.currevent.starttime.substring(0,2))
 		{
-			if(end35 <= this.starttime.substring(3,5))
+			if(end35 <= this.currevent.starttime.substring(3,5))
 			{
 				valid = true;
 			}
@@ -133,49 +123,124 @@ export class EditChecklistEventPage {
 	    return valid;
 	}
 
-	create(value:any)
+	validate()
 	{
+		let flag : boolean = false; 
 		if(this.starttime >= this.endtime)
 	    {
 	    	this.error_mssg = "Please enter start time less than end time!";
 	    }
 	    else 
 	    {
-	    	if(!this.createEventForm.valid)
+	    	var i =0,pos = -1;
+	    	if(this.checklist.length == 1)			//if checklist lengthi is 1
+	   		{
+	   			return true;
+	   		}
+			else		
 	    	{
-	        	this.submitAttempt = true;
-	    	} 
-	    	else 
-	    	{
-	    		let present : boolean = false;
-	    		
-	    		for(var i = 0; i<this.checklist.length-1 && !present && this.checklist[i].name != this.currevent.name; i++)
+	    		for(i=0;i<this.checklist.length;i++)			//seaching for item
 	    		{
-	    			if(i==0)
+	    			if(this.checklist[i].name == this.currevent.name)
 	    			{
-	    				if(this.checklist[i].starttime.substring(0,2) >= this.endtime.substring(0,2))
-			    		{
-			    			present = true;
-			    		}
+	    				pos=i;
 	    			}
-	    			if(this.check(i) == true)
+	    		}
+
+	    		if(pos != -1)
+	    			this.checklist.splice(pos,1);			//deleting that item
+	    			
+	    		i = 0;	
+	    		if(this.checklist.length ==0)
+	    		{
+	    			return true;
+	    		}
+	    		else if(this.checklist.length == 1)
+	    		{
+	    			if(this.checklist[i].starttime.substring(0,2) > this.currevent.endtime.substring(0,2))		//insert at start
 	    			{
-	    				present = true;
+	    				return true;
 	    			}
-	    		}	
-	    		if(this.checklist[i].endtime.substring(0,2) <= this.starttime.substring(0,2))
-	    		{
-	    			present = true;
+	    			else if(this.checklist[i].starttime.substring(0,2) > this.currevent.endtime.substring(0,2))
+	    			{
+	    				if(this.checklist[i].starttime.substring(3,5) >= this.currevent.endtime.substring(3,5))
+	    				{
+	    					return true;
+	    				}
+	    			}
+	    			else
+	    			{
+	    				if(this.checklist[i].endtime.substring(0,2) < this.currevent.starttime.substring(0,2))			//insert at end
+		    			{
+		    				return true;
+		    			}
+		    			else if(this.checklist[i].endtime.substring(0,2) > this.currevent.starttime.substring(0,2))
+		    			{
+		    				if(this.checklist[i].endtime.substring(3,5) >= this.currevent.starttime.substring(3,5))
+		    				{
+		    					return true;
+		    				}
+		    			}
+	    			}
 	    		}
-	    		if(present)
+	    		else
 	    		{
-	    			this.createevent(value);
-	    		}
-	    		else{
-	    			this.error_mssg = "* The starttime and endtime is overlapping! Please enter correct time!";
+	    			if(this.checklist[i].starttime.substring(0,2) > this.currevent.endtime.substring(0,2))		//insert at start
+	    			{
+	    				return true;
+	    			}
+	    			else if(this.checklist[i].starttime.substring(0,2) > this.currevent.endtime.substring(0,2))
+	    			{
+	    				if(this.checklist[i].starttime.substring(3,5) >= this.currevent.endtime.substring(3,5))
+	    				{
+	    					return true;
+	    				}
+	    			}
+	    			
+	    			for(i=0;i<this.checklist.length-1;i++)			//insert in between
+	    			{
+	    				console.log(this.checklist[i].starttime.substring(0,2) + "  " + this.checklist[i].starttime.substring(3,5) + "  " + this.checklist[i].endtime.substring(0,2) + "  " + this.checklist[i].endtime.substring(3,5));
+
+	    				if(this.check(i))
+	    				{
+	    					return true;
+	    				}
+	    			}
+	    			
+	    			console.log("insertion at last");
+		  	    	console.log(this.checklist[i].starttime.substring(0,2) + "  " + this.checklist[i].starttime.substring(3,5) + "  " + this.checklist[i].endtime.substring(0,2) + "  " + this.checklist[i].endtime.substring(3,5));
+
+	    			if(this.checklist[i].endtime.substring(0,2) > this.currevent.starttime.substring(0,2))			//insert at end
+	    			{
+	    				return true;
+	    			}
+	    			else if(this.checklist[i].endtime.substring(0,2) > this.currevent.starttime.substring(0,2))
+	    			{
+	    				if(this.checklist[i].endtime.substring(3,5) >= this.currevent.starttime.substring(3,5))
+	    				{
+	    					return true;
+	    				}
+	    			}
 	    		}
 	    	}
 	    }
+	    return flag;
 	}
 
+	modify(value : any)
+	{
+		if(this.validate())
+		{
+			this.modifyevent(value);
+		}
+		else
+		{
+			this.error_mssg = "The timing of event is overlapping! Please enter correct times!";
+		}
+	}
+
+	goback()
+	{
+		this.navCtrl.setRoot(ChecklistPage);
+	}
 }

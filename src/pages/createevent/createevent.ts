@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 import {Http, Headers} from '@angular/http';
 import { Storage } from '@ionic/storage';
@@ -26,7 +26,7 @@ export class CreateeventPage {
   	eventname : string;
   	venue : string;
 
-  	constructor(public navCtrl: NavController,public storage:Storage, public http:Http,public formBuilder: FormBuilder, public navParams: NavParams) {
+  	constructor(public navCtrl: NavController,public alertCtrl: AlertController,public storage:Storage, public http:Http,public formBuilder: FormBuilder, public navParams: NavParams) {
 
 	  	this.storage.get("jsonObj").then(value=>{
 	        this.myjsonObj = value;
@@ -34,7 +34,7 @@ export class CreateeventPage {
 
 	  	this.storage.get("checklist").then(value=>{
 	  		this.checklist = value;
-	  		console.log(this.checklist.length);
+	  		console.log(this.checklist);
 	  	});
 
 	  	this.createEventForm = formBuilder.group({
@@ -45,6 +45,19 @@ export class CreateeventPage {
 	    });
 	}
 
+	presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Event created',
+      message: 'Your event has been successfully added!',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {}
+        }
+      ]
+    });
+    alert.present();
+  }
 
 	createevent(value:any){
 		
@@ -68,7 +81,8 @@ export class CreateeventPage {
 	      	
 	      	if(status == "inserted")
 	      	{
-		        this.navCtrl.pop();
+	      		this.presentConfirm();
+		        this.navCtrl.setRoot(ChecklistPage);
 		    }
 	        else
 	        {
@@ -88,6 +102,8 @@ export class CreateeventPage {
 
 		let end02 = this.checklist[i].endtime.substring(0,2);
 		let end35 = this.checklist[i].endtime.substring(3,5);
+
+		console.log("start02 " + start02 + "start35 " + start35 + "end02 " + end02 + " end35 " + end35); 
 
 		if(end02 < this.starttime.substring(0,2))
 		{
@@ -109,8 +125,9 @@ export class CreateeventPage {
 	    return valid;
 	}
 
-	create(value:any)
+	validate()
 	{
+		let present : boolean = false; 
 		if(this.starttime >= this.endtime)
 	    {
 	    	this.error_mssg = "Please enter start time less than end time!";
@@ -123,33 +140,81 @@ export class CreateeventPage {
 	    	} 
 	    	else 
 	    	{
-	    		let present : boolean = false;
-	    		for(var i = 0; i<this.checklist.length-1 && !present; i++)
+	    		present = false;
+	    		var i =0;
+	    		if(this.checklist.length == 0)		//if checklist is empty
 	    		{
-	    			if(i==0)
+	    			return true;
+	    		}
+	    		else if(this.checklist.length == 1)			//if only 1 entry present
+	    		{
+	    			if(this.checklist[i].starttime.substring(0,2) >= this.endtime.substring(0,2))
 	    			{
-	    				if(this.checklist[i].starttime.substring(0,2) >= this.endtime.substring(0,2))
+	    				if(this.checklist[i].starttime.substring(3,5) >= this.endtime.substring(3,5))
+				   		{
+				  			return true;
+				  		}
+	    			}
+	    			else if(this.checklist[i].endtime.substring(0,2) <= this.starttime.substring(0,2))
+	    			{
+	    				if(this.checklist[i].endtime.substring(3,5) <= this.endtime.substring(3,5))
+	    				{
+	    					return true;
+	    				}
+	    			}
+	    		}
+				else
+				{
+					if(this.checklist[i].starttime.substring(0,2) > this.endtime.substring(0,2))		//check for insertion at start
+					{
+						return true;
+					}
+		    		else if(this.checklist[i].starttime.substring(0,2) >= this.endtime.substring(0,2))					
+				    {
+						if(this.checklist[i].starttime.substring(3,5) >= this.endtime.substring(3,5))
+				   		{
+				  			return true;
+				  		}
+			  		}
+
+			    	for(i = 0; i<this.checklist.length-1; i++)				//check for insertion in between events
+			    	{
+			   			console.log(this.checklist[i].starttime.substring(0,2) + "  " + this.checklist[i].starttime.substring(3,5) + "  " + this.checklist[i].endtime.substring(0,2) + "  " + this.checklist[i].endtime.substring(3,5));
+			    
+			    		if(this.check(i) == true)
+			    	 	{
+			   				return true;
+			   			}
+			   		}
+			   		
+			   		console.log("insertion at last");
+		  	    	console.log(this.checklist[i].starttime.substring(0,2) + "  " + this.checklist[i].starttime.substring(3,5) + "  " + this.checklist[i].endtime.substring(0,2) + "  " + this.checklist[i].endtime.substring(3,5));
+		    		if(this.checklist[i].endtime.substring(0,2) < this.starttime.substring(0,2))			//check for insertion at last
+		    		{
+		    			return true;
+		    		}
+		    		else if(this.checklist[i].endtime.substring(0,2) == this.starttime.substring(0,2))			
+		    		{
+			    		if(this.checklist[i].endtime.substring(3,5) <= this.starttime.substring(3,5))
 			    		{
-			    			present = true;
-			    		}
-	    			}
-	    			if(this.check(i) == true)
-	    			{
-	    				present = true;
-	    			}
-	    		}	
-	    		if(this.checklist[i].endtime.substring(0,2) <= this.starttime.substring(0,2))
-	    		{
-	    			present = true;
-	    		}
-	    		if(present)
-	    		{
-	    			this.createevent(value);
-	    		}
-	    		else{
-	    			this.error_mssg = "* The starttime and endtime is overlapping! Please enter correct time!";
-	    		}
+			   				return true;
+			   			}
+			   		}
+			   		else
+			   		{
+		    			this.error_mssg = "* The event timings are overlapping with other events! Please enter correct time!";
+		    		}
+		    	}
 	    	}
 	    }
+	    return present;
+	}
+
+	create(value:any)
+	{
+		if(this.validate())
+		{
+			this.createevent(value);
+		}
 	}
 }

@@ -6,46 +6,50 @@
 
 <ion-content padding>
 
-	<form [formGroup]="createEventForm" (ngSubmit)="create(createEventForm.value)">
+	<form [formGroup]="createEventForm" (ngSubmit)="modify(createEventForm.value)">
 
-		<ion-item>
-			<ion-label>Event Name</ion-label>
-            <ion-input formControlName="eventname" type="text" [ngModel]="eventname" [class.invalid]="!createEventForm.controls.eventname.valid && (createEventForm.controls.eventname.dirty || submitAttempt)"></ion-input>
-    </ion-item>
- 
-    <div *ngIf="!createEventForm.controls.eventname.valid  && (createEventForm.controls.eventname.dirty || submitAttempt)">
-        <p>* Please enter eventname.</p>
-   </div>
+  <ion-item>
+		<ion-label>Agenda</ion-label>
+    <ion-input [formControl]="createEventForm.controls['eventname']" [(ngModel)]="eventname" type="text" 
+      [ngClass]="{'error-border':!createEventForm.controls['eventname'].valid}"></ion-input>
+	
+    <div class="error-box" *ngIf="createEventForm.controls['eventname'].hasError('required') && createEventForm.controls['eventname'].touched">
+            * Agenda is required!
+    </div>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>Start Time</ion-label>
+    <ion-input [formControl]="createEventForm.controls['starttime']" [(ngModel)]="starttime" type="Time" 
+      [ngClass]="{'error-border':!createEventForm.controls['starttime'].valid}"></ion-input>
+  
+    <div class="error-box" *ngIf="createEventForm.controls['starttime'].hasError('required') && createEventForm.controls['starttime'].touched">
+            * Start time is required!
+    </div>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>End Time</ion-label>
+    <ion-input [formControl]="createEventForm.controls['endtime']" [(ngModel)]="endtime" type="Time" 
+      [ngClass]="{'error-border':!createEventForm.controls['endtime'].valid}"></ion-input>
+  
+    <div class="error-box" *ngIf="createEventForm.controls['endtime'].hasError('required') && createEventForm.controls['endtime'].touched">
+            * End Time is required!
+    </div>
+  </ion-item>
 
-   <ion-item>
-      <ion-label>Start Time</ion-label>
-      <ion-input formControlName="starttime" type="Time" [(ngModel)]="starttime" [class.invalid]="!createEventForm.controls.starttime.valid && (createEventForm.controls.starttime.dirty || submitAttempt)"></ion-input>
-    </ion-item>
- 
-    <div *ngIf="!createEventForm.controls.starttime.valid  && (createEventForm.controls.starttime.dirty || submitAttempt)">
-        <p>* Please enter Start time.</p>
-   </div>
+  <ion-item>
+    <ion-label>Venue</ion-label>
+    <ion-input [formControl]="createEventForm.controls['venue']" [(ngModel)]="venue" type="text" 
+      [ngClass]="{'error-border':!createEventForm.controls['venue'].valid}"></ion-input>
+  
+    <div class="error-box" *ngIf="createEventForm.controls['venue'].hasError('required') && createEventForm.controls['venue'].touched">
+            * Venue is required!
+    </div>
+  </ion-item>
+  <button ion-button class="createbutton" type="submit">MODIFY</button>
+  <button ion-button class="right" (click)="goback()">CANCEL</button>
+  </form>
 
-   <ion-item>
-      <ion-label>End Time</ion-label>
-            <ion-input formControlName="endtime" type="Time" [(ngModel)]="endtime" [class.invalid]="!createEventForm.controls.endtime.valid && (createEventForm.controls.endtime.dirty || submitAttempt)"></ion-input>
-    </ion-item>
- 
-    <div *ngIf="!createEventForm.controls.endtime.valid  && (createEventForm.controls.endtime.dirty || submitAttempt)">
-        <p>* Please enter End time.</p>
-   </div>
-
-   <ion-item>
-      <ion-label>Venue</ion-label>
-            <ion-input formControlName="venue" type="text" [ngModel]="venue" [class.invalid]="!createEventForm.controls.venue.valid && (createEventForm.controls.venue.dirty || submitAttempt)"></ion-input>
-    </ion-item>
- 
-    <div *ngIf="!createEventForm.controls.venue.valid  && (createEventForm.controls.venue.dirty || submitAttempt)">
-        <p>* Please enter Venue.</p>
-   </div>
-
-		<button ion-button type="submit" class="createbutton" color="danger">MODIFY</button>
-
-	</form>
-	<div class="error-box" *ngIf="error_mssg!=null">{{ error_mssg }}</div>
+  <div *ngIf="error_mssg!=null" class="error-box">{{ error_mssg }}</div>
 </ion-content>

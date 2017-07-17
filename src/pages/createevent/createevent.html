@@ -9,12 +9,12 @@
 	<form [formGroup]="createEventForm" (ngSubmit)="create(createEventForm.value)">
 
 		<ion-item>
-			<ion-label>Event Name</ion-label>
+			<ion-label>Agenda</ion-label>
             <ion-input formControlName="eventname" type="text" [ngModel]="eventname" [class.invalid]="!createEventForm.controls.eventname.valid && (createEventForm.controls.eventname.dirty || submitAttempt)"></ion-input>
     </ion-item>
  
     <div *ngIf="!createEventForm.controls.eventname.valid  && (createEventForm.controls.eventname.dirty || submitAttempt)">
-        <p>* Please enter eventname.</p>
+        <p>* Please enter Agenda.</p>
    </div>
 
    <ion-item>
