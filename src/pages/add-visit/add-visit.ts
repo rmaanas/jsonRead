@@ -60,8 +60,8 @@ export class AddVisitPage {
       });
 
       this.addVisitForm = formBuilder.group({
-        project: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
-        venue: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+        project: ['', Validators.compose([Validators.maxLength(100), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+        venue: ['', Validators.compose([Validators.maxLength(500), Validators.required])],
         date: ['', Validators.compose([Validators.maxLength(30), Validators.required])]
     });
   }
@@ -93,7 +93,7 @@ export class AddVisitPage {
 
   presentLoading() {
       this.loader = this.loadingCtrl.create({
-      content: "Loading All Projects...",
+      content: "Loading ...",
     });
     this.loader.present();
   }
@@ -119,13 +119,13 @@ export class AddVisitPage {
     headers.append("Content-Type", "application/json");
   	headers.append("username",this.myjsonObj.username);
 	  headers.append("accesstoken",this.myjsonObj.accesstoken);
-    
+    this.presentLoading();
     this.http.post(link, data, {headers: headers})
     .subscribe(data => {
 
       this.jsonObj = JSON.parse(data["_body"]);
       this.status = this.jsonObj.status;
-     
+      this.loader.dismiss();
     if(this.status == "inserted")
     {
         this.presentConfirm(this.jsonObj.currVisit);

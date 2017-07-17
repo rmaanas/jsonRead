@@ -44,9 +44,9 @@ export class AddEventPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public loadingCtrl: LoadingController, public http: Http, public alertCtrl: AlertController) {
       this.parentPage = this.navParams.get('parentPage');    
       this.addEventForm = formBuilder.group({
-        name:  ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
-        owner: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
-        venue: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+        name:  ['', Validators.compose([Validators.maxLength(500), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+        owner: ['', Validators.compose([Validators.maxLength(100), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+        venue: ['', Validators.compose([Validators.maxLength(500), Validators.required])],
         date1:  ['', Validators.compose([Validators.required])],
         time1: ['', Validators.compose([Validators.required])],
         time2: ['', Validators.compose([Validators.required])]
@@ -223,10 +223,10 @@ export class AddEventPage {
     headers.append("Content-Type", "application/json");
   	headers.append("username",this.myjsonObj.username);
 	  headers.append("accesstoken",this.myjsonObj.accesstoken);
-    
+    this.presentLoading();
     this.http.post(link, data, {headers: headers})
     .subscribe(data => {
-
+      this.loader.dismiss();
       this.jsonObj = JSON.parse(data["_body"]);
       this.status = this.jsonObj.status;
      

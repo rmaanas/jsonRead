@@ -26,6 +26,7 @@
         <ion-item color="light" *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
             <h2>{{collecting.NAME}} - {{collecting.VISITDATE}}</h2>
             <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
+            <br>
         </ion-item>
       </ion-item-sliding>
     </ion-list>

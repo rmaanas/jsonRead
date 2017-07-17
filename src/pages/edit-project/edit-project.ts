@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailValidator } from  '../add/emailValid';
 import { Storage } from '@ionic/storage';
 import {Http, Headers} from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import {ProjectsPage} from '../projects/projects';
 
@@ -20,13 +20,14 @@ export class EditProjectPage {
     editProjectForm: FormGroup;
     submitAttempt: boolean = false;
     currProject: any;
+    loader: any;
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams,public http: Http, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams,public http: Http, public storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
        //this.getAccessCredentials();
        //this.getProject();
        this.currProject = this.navParams.get("currProject");
        this.editProjectForm = formBuilder.group({
-        name: [this.currProject.NAME, Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        name: [this.currProject.NAME, Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         clientName: [this.currProject.CLIENTHEAD, Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         organization: [this.currProject.ORGANISATION, Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         email: [this.currProject.CLIENTEMAIL, EmailValidator.isValid]
@@ -101,12 +102,12 @@ export class EditProjectPage {
 	    headers.append("Content-Type", "application/json");
 	    headers.append("username",this.username);
 	    headers.append("accesstoken",this.accesstoken);
-
+      this.presentLoading();
       this.http.post(link, data, {headers: headers})
 	  	.subscribe(data => {
 	    	value.response = data["_body"];
 	      jsonObj = JSON.parse(data["_body"]);
-	      
+	      this.loader.dismiss();
         status = jsonObj.status;
 
 	     	if(status == "updated")
@@ -139,6 +140,13 @@ export class EditProjectPage {
 			});
 			alert.present();
 		}
+
+  presentLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Loading ...",
+    });
+    this.loader.present();
+  }
 
   	goBack(){
   		this.navCtrl.popToRoot();

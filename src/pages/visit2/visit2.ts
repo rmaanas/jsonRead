@@ -46,6 +46,7 @@ export class Visit2Page {
         this.currVisit = value;
         this.storage.get("jsonObj").then(val=>{
           this.myjsonObj = val;
+          this.loader.dismiss();
           this.getCollectings();
         });
       });  
@@ -67,6 +68,7 @@ export class Visit2Page {
         });
             
         console.log('server call');
+        this.presentLoading();
         this.http.post(link,data, {"headers": headers})
         .subscribe(data => {
 

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailValidator } from  '../add/emailValid';
 import { Storage } from '@ionic/storage';
 import {Http, Headers} from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ManagerHomePage } from '../manager-home/manager-home';
 import {ProjectsPage} from '../projects/projects';
@@ -21,11 +21,12 @@ export class AddPage {
     error_mssg: any = null;
     slideOneForm: FormGroup;
     submitAttempt: boolean = false;
+		loader: any;
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams,public http: Http, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams,public http: Http, public storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
    this.slideOneForm = formBuilder.group({
-        name: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        name: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         clientName: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         organization: ['', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
         email: ['', EmailValidator.isValid]
@@ -87,14 +88,14 @@ export class AddPage {
 	    headers.append("Content-Type", "application/json");
 	    headers.append("username",this.username);
 	    headers.append("accesstoken",this.accesstoken);
-
+			this.presentLoading();
       this.http.post(link, data, {headers: headers})
 	  	.subscribe(data => {
 	    	value.response = data["_body"];
 	      jsonObj = JSON.parse(data["_body"]);
 	      
         status = jsonObj.status;
-
+				this.loader.dismiss();
 	     	if(status == "inserted")
 	    	{
 		        this.presentConfirm(value);		
@@ -125,6 +126,13 @@ export class AddPage {
 			});
 			alert.present();
 		}
+
+		presentLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Loading ...",
+    });
+    this.loader.present();
+  }
 
   	goBack(){
   		this.navCtrl.popToRoot();

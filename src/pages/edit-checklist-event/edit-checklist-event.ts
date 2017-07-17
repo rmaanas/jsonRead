@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 import {Http, Headers} from '@angular/http';
 import { ManagerHomePage } from '../manager-home/manager-home';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ChecklistPage } from '../checklist/checklist';
 
@@ -27,8 +27,9 @@ export class EditChecklistEventPage {
   	status : boolean = false;
   	eventname : string;
   	venue : string;
+		loader: any;
 
-  constructor(public alertCtrl: AlertController,public navCtrl: NavController,public storage:Storage, public http:Http,public formBuilder: FormBuilder, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController,public navCtrl: NavController,public storage:Storage, public http:Http,public formBuilder: FormBuilder, public navParams: NavParams, public loadingCtrl: LoadingController) {
 
   	this.currevent = this.navParams.get("currevent");
 
@@ -74,12 +75,12 @@ export class EditChecklistEventPage {
 	    headers.append("Content-Type", "application/json");
 	    headers.append("username", this.myjsonObj.username);
 	    headers.append("accesstoken", this.myjsonObj.accesstoken);
-	      
+	    this.presentLoading();  
 	    this.http.post(link, data, {headers: headers})
 	  	.subscribe(data => {
 	    	this.jsonObj = JSON.parse(data["_body"]);
 	      	let status = this.jsonObj.status;
-	      	
+	      	this.loader.dismiss();
 	      	if(status == "updated")
 	      	{
 	      		this.presentConfirm();
@@ -116,5 +117,12 @@ export class EditChecklistEventPage {
 				console.log("Invalid");
 			}
 	}
+
+	presentLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Loading ...",
+    });
+    this.loader.present();
+  }
 
 }

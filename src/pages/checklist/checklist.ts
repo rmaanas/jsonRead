@@ -85,18 +85,17 @@ export class ChecklistPage {
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);
       headers.append("accesstoken", this.myjsonObj.accesstoken);
-
+      this.presentLoading();
       this.http.post(link, { "eventname" : item.name },{"headers": headers})
       .subscribe(data => {
 
         this.jsonObj = JSON.parse(data["_body"]);
         let status = this.jsonObj.status;
-        
+        this.loader.dismiss();
         if(status == "deleted")
         {
           this.navCtrl.setRoot(ChecklistPage);
         }
-        this.loader.dismiss();
       }, error => {
         this.navCtrl.setRoot(ManagerHomePage);
       });
@@ -109,7 +108,7 @@ export class ChecklistPage {
 
   presentLoading() {
       this.loader = this.loadingCtrl.create({
-      content: "Loading checklist...",
+      content: "Loading ...",
     });
     this.loader.present();
   }

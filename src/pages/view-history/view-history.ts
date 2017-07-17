@@ -50,7 +50,7 @@ onChange(CValue) {
 
 presentLoading() {
       this.loader = this.loadingCtrl.create({
-      content: "Loading Current Visits...",
+      content: "Loading ...",
     });
     this.loader.present();
   }

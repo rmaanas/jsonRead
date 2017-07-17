@@ -42,6 +42,7 @@ export class History2Page {
         this.currVisit = value;
         this.storage.get("jsonObj").then(val=>{
           this.myjsonObj = val;
+          this.loader.dismiss();
           this.getCollectings();
         });
       });  
@@ -63,7 +64,7 @@ export class History2Page {
         { 
           visitid: this.currVisit.VISITID
         });
-            
+        this.presentLoading();    
         console.log('server call');
         this.http.post(link,data, {"headers": headers})
         .subscribe(data => {
@@ -134,7 +135,7 @@ export class History2Page {
   presentLoading() 
   {
       this.loader = this.loadingCtrl.create({
-      content: "Loading Events...",
+      content: "Loading ...",
       });
       this.loader.present();
   }

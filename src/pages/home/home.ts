@@ -47,7 +47,8 @@ export class HomePage {
   }
  
   submit(value : any) {
-  	var link = 'http://localhost:9000/TestRest/testrest/login';
+  	//var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/login';
+    var link = 'http://localhost:9000/TestRest/testrest/login';
   	var data = JSON.stringify({username: value.username, password: value.password});
   	
     var headers = new Headers();

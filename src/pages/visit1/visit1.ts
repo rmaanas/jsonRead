@@ -45,7 +45,7 @@ export class Visit1Page {
 
   constructor(public nav: Nav,public angularevents: Events,public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage, public alertCtrl: AlertController) {
         this.addVisitForm = formBuilder.group({
-        venue: ['', Validators.compose([Validators.maxLength(50), Validators.required])],
+        venue: ['', Validators.compose([Validators.maxLength(500), Validators.required])],
         date: ['', Validators.compose([Validators.maxLength(30), Validators.required])]
     });
     this.presentLoading();
@@ -69,7 +69,7 @@ export class Visit1Page {
   presentLoading() 
   {
       this.loader = this.loadingCtrl.create({
-      content: "Loading Visit Details...",
+      content: "Loading ...",
       });
       this.loader.present();
   }
@@ -91,10 +91,10 @@ export class Visit1Page {
     headers.append("Content-Type", "application/json");
   	headers.append("username",this.myjsonObj.username);
 	  headers.append("accesstoken",this.myjsonObj.accesstoken);
-    
+    this.presentLoading();
     this.http.post(link, data, {headers: headers})
     .subscribe(data => {
-
+      this.loader.dismiss();
       this.jsonObj = JSON.parse(data["_body"]);
       this.status = this.jsonObj.status;
      
