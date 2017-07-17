@@ -94,7 +94,7 @@ export class ChecklistPage {
         
         if(status == "deleted")
         {
-          this.getchecklist();
+          this.navCtrl.setRoot(ChecklistPage);
         }
         this.loader.dismiss();
       }, error => {
