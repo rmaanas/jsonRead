@@ -89,6 +89,7 @@ export class MhomePage {
     //console.log(item.NAME + " is selected");
   }
 
+
   getItems(ev) {
     // Reset items back to all of the items
     //this.collectings=this.getCollectings();

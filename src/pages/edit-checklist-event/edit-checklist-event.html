@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Update Event in checklist</ion-title>
+  </ion-navbar>
+</ion-header>
+
+  <p *ngIf="errormessage" class="error-box">{{errormessage}}</p>
+
+<ion-content padding>
+
+	<form [formGroup]="createEventForm">
+
+		<ion-item>
+			<ion-label>Event Name</ion-label>
+            <ion-input formControlName="eventname" type="text" [ngModel]="eventname" [class.invalid]="!createEventForm.controls.eventname.valid && (createEventForm.controls.eventname.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+ 
+    <div *ngIf="!createEventForm.controls.eventname.valid  && (createEventForm.controls.eventname.dirty || submitAttempt)">
+        <p class="error-box">* Please enter eventname.</p>
+   </div>
+    <br><br>
+		<button ion-button full (click)="create(createEventForm.value)">Update</button>
+
+	</form>
+</ion-content>

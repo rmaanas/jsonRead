@@ -5,7 +5,8 @@ import { ManagerHomePage } from '../manager-home/manager-home';
 import { ProjectpagePage } from '../projectpage/projectpage';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
-import {LoadingController} from 'ionic-angular';
+import {LoadingController, AlertController} from 'ionic-angular';
+import { SelecteventsPage } from '../selectevents/selectevents';
 //import { Observable } from '@angular/common';
 
 @IonicPage()
@@ -36,7 +37,7 @@ export class AddVisitPage {
   minutes:any;
   errormessage:any =  null;
   
-  constructor(public navCtrl: NavController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController,public http : Http,public navParams: NavParams, public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public storage: Storage) {
     
       this.allprojects = [
      {
@@ -127,11 +128,7 @@ export class AddVisitPage {
      
     if(this.status == "inserted")
     {
-      this.navCtrl.setRoot(ManagerHomePage).then(
-      ()=>{
-        this.navCtrl.popToRoot();
-      }
-      );
+        this.presentConfirm(this.jsonObj.currVisit);
     }
     else
     {
@@ -169,6 +166,29 @@ export class AddVisitPage {
  
 }
 
+
+  presentConfirm(item : any) {
+    let alert = this.alertCtrl.create({
+      title: 'Visit created',
+      message: 'Do you want to add events from checklist?',
+      buttons: [
+        {
+          text: 'YES',
+          handler: () => {
+            this.storage.set("currVisit",item);
+            this.navCtrl.setRoot(SelecteventsPage);
+          }
+        },
+        {
+          text: 'NO',
+          handler: () => {
+              this.navCtrl.setRoot(ManagerHomePage);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   getCurrDate()
   {

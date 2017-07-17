@@ -41,6 +41,7 @@ export class EditEventPage {
   eventIndex: any = -1;
   fieldsValid: any;
   parentPage: any;
+  unInitCount: any = 0;
 
   modes:any = [
     {
@@ -130,11 +131,20 @@ export class EditEventPage {
   {
     var i;
     this.getCurrDate();
+    this.unInitCount = 0;
     for(i=0;i<this.events.length;i++)
     {
+        /*console.log("collecting status: " + this.events[i].STATUS);
+        console.log("INITIALIZE");
+        console.log( "status truth:" + (this.events[i].STATUS == "INITIALIZE"));*/
+        if(this.events[i].STATUS == "INITIALIZE")
+        {
+            this.unInitCount++;
+        }
+
         if(this.currVisit.VISITDATE == this.currDate)
         {
-          if(this.events[i].STATUS != "SUSPENDED")
+          if(this.events[i].STATUS != "SUSPENDED" && this.events[i].STATUS != "INITIALIZE")
           {
             if(this.currTime < this.events[i].STARTTIME.substring(0,5))
             {
@@ -222,6 +232,13 @@ export class EditEventPage {
   {
       this.fieldsValid = true;
 
+      //user should not be none
+      if(this.fieldsValid && value.owner == "none")
+      {
+          this.fieldsValid = false;
+          this.errormessage = "owner can't be none";
+      }
+
       //start time greater than equal to end time
       if(value.time1 >= value.time2)
       {
@@ -290,6 +307,16 @@ export class EditEventPage {
         }
       }
 
+      console.log("unInitCount:" + this.unInitCount);
+      if(this.fieldsValid && this.unInitCount > 0)
+      {
+        if(value.mode != "None")
+        {
+                this.fieldsValid = false;
+                this.errormessage = "Not allowed to use shift and shrink mode before initializing all events";
+        }
+      }
+
   }
 
 
@@ -338,6 +365,10 @@ export class EditEventPage {
       this.events[this.eventIndex].DUEDATE =  value.date1;
       this.events[this.eventIndex].STARTTIME =  value.time1;
       this.events[this.eventIndex].ENDTIME = value.time2;
+      if(this.events[this.eventIndex].STATUS = "INITIALIZE")
+      {
+        this.events[this.eventIndex].STATUS = "YET TO START";
+      }
       console.log("The event is valid and is going to be updated");
       this.editEvent(value);
     }

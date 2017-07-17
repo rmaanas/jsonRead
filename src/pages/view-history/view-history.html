@@ -48,8 +48,8 @@
 
   <ion-list>
     <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
-      <ion-item *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
-          <h2>{{collecting.PROJECTNAME}}</h2>
+      <ion-item color="light" *ngFor="let collecting of collectings" (click)="itemSelected(collecting)">
+          <h2>{{collecting.NAME}}</h2>
           <h3>{{collecting.CLIENTHEAD}} - {{ collecting.ORGANISATION }}</h3>
       </ion-item>
     </ion-item-sliding>

@@ -177,6 +177,12 @@ export class AddEventPage {
           this.eventValid = false;
         }
 
+        if(this.addEventForm.value.owner == "none")
+        {
+          this.eventValid = false;
+          this.errormessage = "owner of the event cant be null";
+        }
+
         if(this.eventValid)
         {
           this.errormessage = null;
@@ -189,7 +195,7 @@ export class AddEventPage {
         }
         else
         {
-          this.errormessage = "Invalid (or) Overlapping Timings for the event (or) Invalid Due Date";
+          this.errormessage = "Invalid (or) Overlapping Timings for the event (or) Invalid Due Date (or) event owner can't be null";
           console.log(this.errormessage);
         }
     }

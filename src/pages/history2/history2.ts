@@ -88,7 +88,7 @@ export class History2Page {
     {
         if(this.currVisit.VISITDATE == this.currDate)
         {
-          if(this.collectings[i].STATUS != "SUSPENDED")
+          if(this.collectings[i].STATUS != "SUSPENDED" && this.collectings[i].STATUS != "INITIALIZE")
           {
             if(this.currTime < this.collectings[i].STARTTIME.substring(0,5))
             {

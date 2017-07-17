@@ -8,6 +8,7 @@ import {UpdateVisitPage} from '../update-visit/update-visit';
 import {MhomePage} from '../mhome/mhome';
 import {ViewHistoryPage} from '../view-history/view-history';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { ChecklistPage } from '../checklist/checklist';
 
 @Component({
   selector: 'page-manager-home',
@@ -27,7 +28,8 @@ export class ManagerHomePage {
       { title: 'Manager Home', component: MhomePage },
       { title: 'Projects', component: ProjectsPage },
       { title: 'View History', component: ViewHistoryPage },
-      { title: 'Add User', component: AddRolePage }
+      { title: 'Add User', component: AddRolePage },
+      { title: 'Checklist', component :ChecklistPage}
     ];
 
   }

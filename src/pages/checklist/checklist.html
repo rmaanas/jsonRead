@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Checklist</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding> 
+
+  <ion-fab bottom right >
+    <button ion-fab large (click)="addevent()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+
+  <ion-list>
+      <ion-item>
+        <ion-title>Events:</ion-title>
+      </ion-item>
+
+      <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
+        
+        <ion-item *ngFor="let collecting of collectings">
+            <ion-item color="light" text-wrap>
+              <h1><b>Event:</b>{{"    " + collecting.name + "  "}} </h1> <br>
+              <ion-icon name="close" class="cancel" (click)="presentConfirm(collecting)"></ion-icon>
+              <ion-icon name="build" class="build" (click)="editevent(collecting)"></ion-icon>
+              <br>  
+            </ion-item>
+        </ion-item>
+
+      </ion-item-sliding>
+
+    <ion-item class="row" *ngIf="!collectings || collectings.length == 0">
+      <ion-card>
+          <ion-card-header text-wrap>
+              No Events added to the Checklist please add events
+          </ion-card-header>
+      </ion-card>
+    </ion-item>
+    
+  </ion-list>
+
+</ion-content>

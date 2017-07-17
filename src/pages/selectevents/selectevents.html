@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Select Events</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+   <ion-item *ngFor="let collecting of collectings">
+      <ion-label>{{collecting.name}}</ion-label>
+      <ion-checkbox checked="false" [(ngModel)]="collecting.checked"></ion-checkbox>
+   </ion-item>
+  </ion-list>
+  
+  <br>
+  <button ion-button full (click)="add()">Add</button>
+</ion-content>
