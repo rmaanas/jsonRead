@@ -34,7 +34,7 @@ export class CreateeventPage {
 
 	  	this.storage.get("checklist").then(value=>{
 	  		this.checklist = value;
-	  		console.log(this.checklist.length);
+	  		//console.log(this.checklist.length);
 	  	});
 
 	  	this.createEventForm = formBuilder.group({
