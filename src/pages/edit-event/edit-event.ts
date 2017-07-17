@@ -88,7 +88,8 @@ export class EditEventPage {
 	getCollectings()
   {
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
-      var link = 'http://localhost:9000/TestRest/testrest/getEditEventData';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getEditEventData';
+      //var link = 'http://localhost:9000/TestRest/testrest/getEditEventData';
       var data = JSON.stringify(
       { 
         visitid: this.currVisit.VISITID
@@ -499,8 +500,8 @@ export class EditEventPage {
   editEvent(value : any){
   	//console.log("ADD VISIT FUNDCTION");
     //console.log(data);
-
-    var link = 'http://localhost:9000/TestRest/testrest/editEvent';
+    var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/editEvent';
+    //var link = 'http://localhost:9000/TestRest/testrest/editEvent';
     var data = JSON.stringify(
       { 
         events: this.events

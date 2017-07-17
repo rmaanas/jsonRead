@@ -79,7 +79,8 @@ export class AddRolePage {
   		let jsonObj : any;
   		let status: String;
 
-  		let link : any = "http://localhost:9000/TestRest/testrest/addmember";
+  		let link : any = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/addmember';
+      //let link : any = "http://localhost:9000/TestRest/testrest/addmember";
 
       console.log(this.team);
 

@@ -88,7 +88,8 @@ presentLoading() {
   searchhistory() {
 
     console.log(this.cname);
-    var link = 'http://localhost:9000/TestRest/testrest/searchhistory';
+    var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/searchhistory';
+    //var link = 'http://localhost:9000/TestRest/testrest/searchhistory';
     var data = JSON.stringify({cname: this.cname, pname: this.pname, fdate: this.fdate, tdate: this.tdate});
     var headers = new Headers();
     headers.append("Content-Type", "application/json");

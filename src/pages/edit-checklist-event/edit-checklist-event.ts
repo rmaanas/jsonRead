@@ -64,8 +64,8 @@ export class EditChecklistEventPage {
   }
 
   createevent(value:any){
-		
-	  	var link = 'http://localhost:9000/TestRest/testrest/modifychecklist';
+			var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/modifychecklist';
+	  	//var link = 'http://localhost:9000/TestRest/testrest/modifychecklist';
 	  	var data = JSON.stringify({ 
 	  		"eventname" : value.eventname,
 				"prevname"	: this.currevent.name

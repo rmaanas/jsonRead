@@ -41,7 +41,8 @@ export class EmployeeEventsPage {
 
   getallevents(){
 
-  	var link = 'http://localhost:9000/TestRest/testrest/getemployeeevents';
+  	var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getemployeeevents';
+    //var link = 'http://localhost:9000/TestRest/testrest/getemployeeevents';
     var data = JSON.stringify({currdate: this.currDate, username : this.myjsonObj.username});
     var headers = new Headers();
 

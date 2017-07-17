@@ -52,7 +52,8 @@ export class History2Page {
   getCollectings()
   {
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
-      var link = 'http://localhost:9000/TestRest/testrest/getEvents';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getEvents';
+      //var link = 'http://localhost:9000/TestRest/testrest/getEvents';
       
       console.log(this.currVisit.VISITID);
 

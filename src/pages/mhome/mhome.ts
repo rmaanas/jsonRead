@@ -43,7 +43,8 @@ export class MhomePage {
 	getCollectings()
   {
       //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
-      var link = 'http://localhost:9000/TestRest/testrest/getCurrentVisits';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getCurrentVisits';
+      //var link = 'http://localhost:9000/TestRest/testrest/getCurrentVisits';
       var data = JSON.stringify({currdate: this.currDate});
       var headers = new Headers();
       headers.append("Content-Type", "application/json");

@@ -69,8 +69,8 @@ export class AddEventPage {
 
 	getCollectings()
   {
-      //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
-      var link = 'http://localhost:9000/TestRest/testrest/getAllUsers';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getAllUsers';
+      //var link = 'http://localhost:9000/TestRest/testrest/getAllUsers';
       
       var headers = new Headers();
       headers.append("Content-Type", "application/json");
@@ -205,8 +205,8 @@ export class AddEventPage {
   createEvent(value : any){
   	//console.log("ADD VISIT FUNDCTION");
     //console.log(data);
-
-    var link = 'http://localhost:9000/TestRest/testrest/addEvent';
+    var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/addEvent';
+    //var link = 'http://localhost:9000/TestRest/testrest/addEvent';
     var data = JSON.stringify(
       { 
         visitid: this.currVisit.VISITID,

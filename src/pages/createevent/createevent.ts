@@ -35,8 +35,8 @@ export class CreateeventPage {
 
 
 	createevent(value:any){
-		
-	  	var link = 'http://localhost:9000/TestRest/testrest/addeventinchecklist';
+		var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/addeventinchecklist';
+	  	//var link = 'http://localhost:9000/TestRest/testrest/addeventinchecklist';
 	  	var data = JSON.stringify({ 
 	  		"eventname" : value.eventname
 	  	});

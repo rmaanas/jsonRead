@@ -79,7 +79,8 @@ export class Visit1Page {
   	//console.log("ADD VISIT FUNDCTION");
     //console.log(data);
 
-    var link = 'http://localhost:9000/TestRest/testrest/editVisit';
+    var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/editVisit';
+    //var link = 'http://localhost:9000/TestRest/testrest/editVisit';
     var data = JSON.stringify(
       { 
         visitid: this.currVisit.VISITID, 

@@ -84,7 +84,8 @@ export class EditProjectPage {
   		let jsonObj : any;
   		let status: String;
 
-  		let link : any = "http://localhost:9000/TestRest/testrest/editProject";
+      let link : any = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/editProject';
+  		//let link : any = "http://localhost:9000/TestRest/testrest/editProject";
   		
   		var data = JSON.stringify(
   		{

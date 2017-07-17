@@ -68,8 +68,8 @@ export class AddVisitPage {
 
 	getCollectings()
     {
-      //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
-      var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getAllProjects';
+      //var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
       
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);
@@ -106,8 +106,8 @@ export class AddVisitPage {
   createvisit(value : any){
   	//console.log("ADD VISIT FUNDCTION");
     //console.log(data);
-
-    var link = 'http://localhost:9000/TestRest/testrest/addVisit';
+    var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/addVisit';
+    //var link = 'http://localhost:9000/TestRest/testrest/addVisit';
     var data = JSON.stringify(
       { 
         projectid: value.project, 

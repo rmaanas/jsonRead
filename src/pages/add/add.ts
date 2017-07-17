@@ -71,7 +71,8 @@ export class AddPage {
   		let jsonObj : any;
   		let status: String;
 
-  		let link : any = "http://localhost:9000/TestRest/testrest/addProject";
+  		let link : any = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/addProject';
+			//let link : any = "http://localhost:9000/TestRest/testrest/addProject";
   		
   		var data = JSON.stringify(
   		{

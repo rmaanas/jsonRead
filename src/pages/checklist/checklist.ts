@@ -33,7 +33,8 @@ export class ChecklistPage {
   }
 
   getchecklist(){
-  	  var link = 'http://localhost:9000/TestRest/testrest/getchecklist';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getchecklist';
+  	  //var link = 'http://localhost:9000/TestRest/testrest/getchecklist';
       
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);
@@ -80,7 +81,8 @@ export class ChecklistPage {
   }
 
   deleteitem(item){
-    var link = 'http://localhost:9000/TestRest/testrest/deletefromchecklist';
+    var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/deletefromchecklist';
+    //var link = 'http://localhost:9000/TestRest/testrest/deletefromchecklist';
       
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);

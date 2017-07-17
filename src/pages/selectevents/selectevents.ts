@@ -34,7 +34,8 @@ export class SelecteventsPage {
 
 
   getCollectings(){
-  	  var link = 'http://localhost:9000/TestRest/testrest/getchecklist';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getchecklist';
+  	  //var link = 'http://localhost:9000/TestRest/testrest/getchecklist';
       
       var headers = new Headers();
       headers.append("username", this.myjsonObj.username);
@@ -90,7 +91,8 @@ export class SelecteventsPage {
 
   addEvents()
   {
-    var link = 'http://localhost:9000/TestRest/testrest/addEvents';
+    var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/addEvents';
+    //var link = 'http://localhost:9000/TestRest/testrest/addEvents';
     var data = JSON.stringify(
       { 
         events: this.events
