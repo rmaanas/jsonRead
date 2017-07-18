@@ -35,6 +35,7 @@ import { CreateeventPage } from '../pages/createevent/createevent';
 import { ChecklistPage } from '../pages/checklist/checklist';
 import { EditChecklistEventPage } from '../pages/edit-checklist-event/edit-checklist-event';
 import { SelecteventsPage } from '../pages/selectevents/selectevents';
+import {LogoutPage} from '../pages/logout/logout';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { SelecteventsPage } from '../pages/selectevents/selectevents';
     CreateeventPage,
     ChecklistPage,
     EditChecklistEventPage,
-    SelecteventsPage
+    SelecteventsPage,
+    LogoutPage
   ],
   imports: [
     HttpModule,
@@ -106,7 +108,8 @@ import { SelecteventsPage } from '../pages/selectevents/selectevents';
     CreateeventPage,
     ChecklistPage,
     EditChecklistEventPage,
-    SelecteventsPage
+    SelecteventsPage,
+    LogoutPage
   ],
   providers: [
     StatusBar,

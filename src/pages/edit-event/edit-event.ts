@@ -173,6 +173,14 @@ export class EditEventPage {
           }
         }
         
+        if(this.currVisit.VISITDATE > this.currDate)
+        {
+          if(this.events[i].STATUS == "COMPLETED" || this.events[i].STATUS == "ONGOING")
+          {
+            this.events[i].STATUS = "YET TO START";
+          }
+        }
+
         if(this.events[i].EVENTID == this.currEvent.EVENTID)
         {
             this.currEvent = this.events[i];
@@ -610,5 +618,60 @@ export class EditEventPage {
 
     return hours+":"+minutes;
   }
+
+  deleteEvent()
+  {
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/deleteEvent';
+      //var link = 'http://localhost:9000/TestRest/testrest/deletefromchecklist';
+      
+      var headers = new Headers();
+      headers.append("username", this.myjsonObj.username);
+      headers.append("accesstoken", this.myjsonObj.accesstoken);
+      this.presentDeleteLoading();
+      this.http.post(link, { "eventid" : this.currEvent.EVENTID },{"headers": headers})
+      .subscribe(data => {
+
+        this.jsonObj = JSON.parse(data["_body"]);
+        let status = this.jsonObj.status;
+        this.loader.dismiss();
+        if(status == "deleted")
+        {
+            this.parentPage.getCollectings();
+            this.navCtrl.popToRoot();
+        }
+      }, error => {
+            this.parentPage.getCollectings();
+            this.navCtrl.popToRoot();
+      }); 
+  }
+
+  presentDeleteConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Delete Event',
+      message: 'Do you want to delete the event?',
+      buttons: [
+        {
+          text: 'NO',
+          handler: () => {
+            console.log('cancel clicked');
+          }
+        },
+        {
+          text: 'YES',
+          handler: () => {
+              this.deleteEvent();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  presentDeleteLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Deleting ...",
+    });
+    this.loader.present();
+  }  
 
 }

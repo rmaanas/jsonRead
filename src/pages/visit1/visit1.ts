@@ -188,4 +188,62 @@ export class Visit1Page {
         //console.log(" getCurr: current date is " + this.currDate + " and time is " + this.currTime);    
   }
 
+  deleteVisit()
+  {
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/deleteVisit';
+      //var link = 'http://localhost:9000/TestRest/testrest/deletefromchecklist';
+      
+      var headers = new Headers();
+      headers.append("username", this.myjsonObj.username);
+      headers.append("accesstoken", this.myjsonObj.accesstoken);
+      this.presentDeleteLoading();
+      this.http.post(link, { "visitid" : this.currVisit.VISITID },{"headers": headers})
+      .subscribe(data => {
+
+        this.jsonObj = JSON.parse(data["_body"]);
+        let status = this.jsonObj.status;
+        this.loader.dismiss();
+        if(status == "deleted")
+        {
+              this.angularevents.publish('reloadManagerHomePage');
+              this.navCtrl.parent.viewCtrl.dismiss();
+        }
+      }, error => {
+              this.angularevents.publish('reloadManagerHomePage');
+              this.navCtrl.parent.viewCtrl.dismiss();
+      }); 
+  }
+
+  presentDeleteConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Delete Visit',
+      message: 'Do you want to delete the visit? all the events in the visit will also be deleted',
+      buttons: [
+        {
+          text: 'NO',
+          handler: () => {
+            console.log('cancel clicked');
+          }
+        },
+        {
+          text: 'YES',
+          handler: () => {
+              this.storage.get("jsonObj").then(value=>{
+                  this.myjsonObj = value;
+                  this.deleteVisit();
+              });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  presentDeleteLoading() {
+      this.loader = this.loadingCtrl.create({
+      content: "Deleting ...",
+    });
+    this.loader.present();
+  }
+
 }

@@ -1,6 +1,11 @@
 <ion-header>
     <ion-navbar color="primary">
         <ion-title>Edit Event</ion-title>
+        <ion-buttons end>
+            <button ion-button large color="danger" (click)="presentDeleteConfirm()">
+                <ion-icon name="trash"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 <ion-content padding>

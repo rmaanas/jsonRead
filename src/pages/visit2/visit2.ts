@@ -152,6 +152,14 @@ export class Visit2Page {
             this.collectings[i].STATUS = "COMPLETED";
           }
         }
+
+        if(this.currVisit.VISITDATE > this.currDate)
+        {
+          if(this.collectings[i].STATUS == "COMPLETED" || this.collectings[i].STATUS == "ONGOING")
+          {
+            this.collectings[i].STATUS = "YET TO START";
+          }
+        }
     }
   } 
 

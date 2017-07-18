@@ -147,6 +147,14 @@ export class EmployeeEventsPage {
             this.collectings[i].STATUS = "COMPLETED";
           }
         }
+
+        if(this.collectings[i].VISITDATE > this.currDate)
+        {
+          if(this.collectings[i].STATUS == "COMPLETED" || this.collectings[i].STATUS == "ONGOING")
+          {
+            this.collectings[i].STATUS = "YET TO START";
+          }
+        }
     }
   } 
 
