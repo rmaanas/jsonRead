@@ -99,12 +99,7 @@ export class HomePage {
     });
     this.loader.present();
   }
-/*
-  ionViewDidLoad(){
-    setTimeout(()=>{
-      this.splash = false;
-    },3000);
-  }
+
 
 /*  
   printValue()
