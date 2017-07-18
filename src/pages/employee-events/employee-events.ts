@@ -68,6 +68,36 @@ export class EmployeeEventsPage {
   }
 
 
+  doRefresh(refresher:any){
+
+  	var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getemployeeevents';
+    //var link = 'http://localhost:9000/TestRest/testrest/getemployeeevents';
+    var data = JSON.stringify({currdate: this.currDate, username : this.myjsonObj.username});
+    var headers = new Headers();
+
+    headers.append("Content-Type", "application/json");
+    headers.append("username", this.myjsonObj.username);
+    headers.append("accesstoken", this.myjsonObj.accesstoken);
+
+    console.log("server call");
+      
+    this.http.post(link,data, {"headers": headers})
+    .subscribe(data => {
+
+        this.jsonObj = JSON.parse(data["_body"]);
+        this.collectings = this.jsonObj.events;
+        this.updateEvents();
+        refresher.complete();
+        this.storage.set('empevents',this.collectings);
+      }, error => {
+        this.jsonObj = JSON.parse(error["_body"]);
+        refresher.complete();
+        console.log("ERROR: " + this.jsonObj.error);
+      });
+
+  }
+
+
   itemSelected(value:any)
   {
     this.storage.set('currVisit',value);

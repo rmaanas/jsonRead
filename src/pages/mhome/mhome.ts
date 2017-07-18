@@ -67,6 +67,34 @@ export class MhomePage {
       });
   }
 
+  doRefresh(refresher:any)
+  {
+      //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getCurrentVisits';
+      //var link = 'http://localhost:9000/TestRest/testrest/getCurrentVisits';
+      var data = JSON.stringify({currdate: this.currDate});
+      var headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      headers.append("username", this.myjsonObj.username);
+      headers.append("accesstoken", this.myjsonObj.accesstoken);
+      
+      console.log('server call');
+      
+      this.http.post(link,data, {"headers": headers})
+      .subscribe(data => {
+
+        this.jsonObj = JSON.parse(data["_body"]);
+        this.collectings = this.jsonObj.visits;
+        refresher.complete();
+        this.storage.set("visits", this.collectings);
+      
+      }, error => {
+        this.jsonObj = JSON.parse(error["_body"]);
+        refresher.complete();
+        console.log("ERROR: " + this.jsonObj.error);
+      });
+  }
+
   presentLoading() {
       this.loader = this.loadingCtrl.create({
       content: "Loading Current Visits...",

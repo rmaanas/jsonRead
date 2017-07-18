@@ -12,13 +12,21 @@
   <ion-fab bottom right >
     <button ion-fab (click)="fab()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
-
+  <ion-refresher (ionRefresh)="doRefresh($event);">
+    <ion-refresher-content 
+      pullingText="Pull to refresh"
+      pullingIcon="arrow-dropdown"
+      refreshingSpinner="circles"
+      refreshingText="..fetching"  
+    >
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item>
       <ion-title>Events:</ion-title>
-      <button ion-button (click)="getCollectings()">
+      <!--<button ion-button (click)="getCollectings()">
         <ion-icon name="refresh"></ion-icon>
-      </button>
+      </button>-->
     </ion-item>
     <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">
 

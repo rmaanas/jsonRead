@@ -58,6 +58,35 @@ export class ProjectsPage {
       });
   }
 
+	doRefresh(refresher:any)
+    {
+      //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getAllProjects';
+      //var link = 'http://localhost:9000/TestRest/testrest/getAllProjects';
+      
+      var headers = new Headers();
+      headers.append("username", this.myjsonObj.username);
+      headers.append("accesstoken", this.myjsonObj.accesstoken);
+      
+      console.log('server call');
+      //this.presentLoading();
+      this.http.get(link, {"headers": headers})
+      .subscribe(data => {
+
+        this.jsonObj = JSON.parse(data["_body"]);
+        this.collectings = this.jsonObj.projects;
+        //this.loader.dismiss();
+        refresher.complete();
+        this.storage.set('projects', this.collectings);
+      
+      }, error => {
+        this.jsonObj = JSON.parse(error["_body"]);
+        refresher.complete();
+        console.log("ERROR: " + this.jsonObj.error);
+      });
+  }
+
+
   presentLoading() {
       this.loader = this.loadingCtrl.create({
       content: "Loading All Projects...",

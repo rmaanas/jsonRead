@@ -10,6 +10,16 @@
 </ion-header>
 
 <ion-content padding>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event);">
+        <ion-refresher-content 
+          pullingText="Pull to refresh"
+          pullingIcon="arrow-dropdown"
+          refreshingSpinner="circles"
+          refreshingText="..fetching"  
+        >
+        </ion-refresher-content>
+    </ion-refresher>
 
     <ion-label><b>Project name: </b></ion-label>   
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
@@ -17,9 +27,9 @@
 
     <br>
     <ion-title>Current Visits:</ion-title>
-    <button ion-button (click)="getCollectings()">
+    <!--<button ion-button (click)="getCollectings()">
       <ion-icon name="refresh"></ion-icon>
-    </button>
+    </button>-->
     
     <ion-list>
       <ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">

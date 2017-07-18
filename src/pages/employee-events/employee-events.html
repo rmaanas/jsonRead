@@ -9,13 +9,22 @@
 
 
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event);">
+        <ion-refresher-content 
+          pullingText="Pull to refresh"
+          pullingIcon="arrow-dropdown"
+          refreshingSpinner="circles"
+          refreshingText="..fetching"  
+        >
+        </ion-refresher-content>
+    </ion-refresher>
     <ion-label><b>Event name: </b></ion-label>   
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     
     <ion-title>Your Current Events:</ion-title>
-    <button ion-button (click)="getallevents()">
+    <!--<button ion-button (click)="getallevents()">
       <ion-icon name="refresh"></ion-icon>
-    </button>
+    </button>-->
     
     <ion-list>
       <!--<ion-item-sliding class="row" *ngIf="collectings && collectings.length > 0">

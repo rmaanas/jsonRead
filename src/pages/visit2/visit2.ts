@@ -84,6 +84,38 @@ export class Visit2Page {
         });
   }
 
+	doRefresh(refresher:any)
+  {
+      //var link = 'http://Sample-env-1.i23yadcngp.us-west-2.elasticbeanstalk.com/testrest/ftoc';
+      var link = 'http://testrest-env-cvm.us-west-2.elasticbeanstalk.com/testrest/getEvents';
+      //var link = 'http://localhost:9000/TestRest/testrest/getEvents';
+      
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("username", this.myjsonObj.username);
+        headers.append("accesstoken", this.myjsonObj.accesstoken);
+        var data = JSON.stringify(
+        { 
+          visitid: this.currVisit.VISITID
+        });
+            
+        console.log('server call');
+        //this.presentLoading();
+        this.http.post(link,data, {"headers": headers})
+        .subscribe(data => {
+
+          this.jsonObj = JSON.parse(data["_body"]);
+          this.collectings = this.jsonObj.events;
+          this.updateEvents();
+          //this.loader.dismiss();
+          refresher.complete();
+          this.storage.set('events', this.collectings);
+        }, error => {
+          this.jsonObj = JSON.parse(error["_body"]);
+          refresher.complete();
+          console.log("ERROR: " + this.jsonObj.error);
+        });
+  }
 
   updateEvents()
   {
