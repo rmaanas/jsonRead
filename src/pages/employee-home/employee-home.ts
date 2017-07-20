@@ -12,6 +12,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { EmployeeAllProjectsPage } from '../employee-all-projects/employee-all-projects';
 import { EmployeeMyProjectsPage } from '../employee-my-projects/employee-my-projects';
 import { EmployeeEventsPage } from '../employee-events/employee-events';
+import { LogoutPage } from '../logout/logout';
 
 @IonicPage()
 @Component({
@@ -28,6 +29,7 @@ export class EmployeeHomePage {
       this.pages = [
       { title: 'My Events', component: EmployeeEventsPage },
       { title: 'View History', component: ViewHistoryPage },
+      { title: 'Logout', component :LogoutPage}
     ];
 
   }
