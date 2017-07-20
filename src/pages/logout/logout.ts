@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage,Nav, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {LoadingController, AlertController } from 'ionic-angular';
+import { LoadingController, AlertController, App } from 'ionic-angular';
 import { ManagerHomePage } from '../manager-home/manager-home';
 import { HomePage } from '../home/home';
 import { EmployeeHomePage } from '../employee-home/employee-home';
@@ -16,7 +16,7 @@ export class LogoutPage {
   loader: any;
   myjsonObj: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+  constructor(public app: App,public nav: Nav,public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     this.presentLoading("loading..");
     this.storage.get("jsonObj").then(value=>{
       this.loader.dismiss();
@@ -40,7 +40,7 @@ export class LogoutPage {
             this.presentLoading("Logging out...");
             this.storage.clear().then(val=>{
               this.loader.dismiss();
-              this.navCtrl.setRoot(HomePage);
+             this.app.getRootNav().setRoot(HomePage);
             }
             );  
           }
